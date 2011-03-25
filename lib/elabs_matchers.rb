@@ -1,3 +1,3 @@
 module ElabsMatchers
-  # Your code goes here...
+  require 'elabs_matchers/matchers/capybara/common.rb'
 end
