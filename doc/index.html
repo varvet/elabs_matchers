@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documentation by YARD 0.6.5</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h1>Elabs matchers</h1>
+<p>
+A collection of useful rspec matchers
+</p>
+<h2>Installation</h2>
+<p>
+Install the gem with bundler:
+</p>
+<pre class="code">
+    <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='bundler identifier id'>bundler</span>
+</pre>
+<p>
+add gem &#8216;elabs_matchers&#8217; to your Gemfile
+</p>
+<pre class="code">
+    <span class='bundle identifier id'>bundle</span> <span class='install identifier id'>install</span>
+</pre>
+<h2>TODOS</h2>
+<pre class="code">
+ <span class='mult op'>*</span> <span class='Make constant id'>Make</span> <span class='yard identifier id'>yard</span> <span class='document identifier id'>document</span> <span class='rspec identifier id'>rspec</span> <span class='matchers identifier id'>matchers</span>
+ <span class='mult op'>*</span> <span class='Use constant id'>Use</span> <span class='matcher identifier id'>matcher</span> <span class='with identifier id'>with</span> <span class='RSpec constant id'>RSpec</span><span class='colon2 op'>::</span><span class='Matchers constant id'>Matchers</span><span class='symbol val'>:DSL</span>
+ <span class='mult op'>*</span> <span class='Remove constant id'>Remove</span> <span class='Rspec constant id'>Rspec</span> <span class='warning identifier id'>warning</span>
+ <span class='mult op'>*</span> <span class='Add constant id'>Add</span> <span class='contributors identifier id'>contributors</span>
+</pre>
+<h2>License:</h2>
+<pre class="code">
+ <span class='lparen token'>(</span><span class='The constant id'>The</span> <span class='MIT constant id'>MIT</span> <span class='License constant id'>License</span><span class='rparen token'>)</span>
+
+ <span class='Copyright constant id'>Copyright</span> <span class='lparen token'>(</span><span class='c identifier id'>c</span><span class='rparen token'>)</span> <span class='integer val'>2011</span> <span class='Elabs constant id'>Elabs</span> <span class='AB constant id'>AB</span>
+
+ <span class='Permission constant id'>Permission</span> <span class='is identifier id'>is</span> <span class='hereby identifier id'>hereby</span> <span class='granted identifier id'>granted</span><span class='comma token'>,</span> <span class='free identifier id'>free</span> <span class='of identifier id'>of</span> <span class='charge identifier id'>charge</span><span class='comma token'>,</span> <span class='to identifier id'>to</span> <span class='any identifier id'>any</span> <span class='person identifier id'>person</span> <span class='obtaining identifier id'>obtaining</span>
+ <span class='a identifier id'>a</span> <span class='copy identifier id'>copy</span> <span class='of identifier id'>of</span> <span class='this identifier id'>this</span> <span class='software identifier id'>software</span> <span class='and and kw'>and</span> <span class='associated identifier id'>associated</span> <span class='documentation identifier id'>documentation</span> <span class='files identifier id'>files</span> <span class='lparen token'>(</span><span class='the identifier id'>the</span>
+ <span class='string val'>'Software'</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='to identifier id'>to</span> <span class='deal identifier id'>deal</span> <span class='in in kw'>in</span> <span class='the identifier id'>the</span> <span class='Software constant id'>Software</span> <span class='without identifier id'>without</span> <span class='restriction identifier id'>restriction</span><span class='comma token'>,</span> <span class='including identifier id'>including</span>
+ <span class='without identifier id'>without</span> <span class='limitation identifier id'>limitation</span> <span class='the identifier id'>the</span> <span class='rights identifier id'>rights</span> <span class='to identifier id'>to</span> <span class='use identifier id'>use</span><span class='comma token'>,</span> <span class='copy identifier id'>copy</span><span class='comma token'>,</span> <span class='modify identifier id'>modify</span><span class='comma token'>,</span> <span class='merge identifier id'>merge</span><span class='comma token'>,</span> <span class='publish identifier id'>publish</span><span class='comma token'>,</span>
+ <span class='distribute identifier id'>distribute</span><span class='comma token'>,</span> <span class='sublicense identifier id'>sublicense</span><span class='comma token'>,</span> <span class='and and kw'>and</span><span class='regexp val'>/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</span></pre>
+</div></div>
+    
+    <div id="footer">
+  Generated on Fri Mar 25 16:57:40 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.6.5 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
