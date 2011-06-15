@@ -58,6 +58,31 @@ module ElabsMatchers
         end
         failure_message_for_should_not { |page| "expected there to be no table #{table_name} with row #{row.inspect}, but there was." }
       end
+
+      ##
+      #
+      # Asserts if the supplied show_for* attribute exists or not
+      #
+      # @param [String] label            The name of the attribute.
+      # @param [String] value            The value of the attribute.
+      #
+      # Example:
+      # page.should have_attribute("Status", "Pending")
+      #
+      # * https://github.com/plataformatec/show_for
+
+      RSpec::Matchers.define :have_attribute do |label, value|
+        match do |page|
+          xpath = XPath.generate { |x| x.descendant(:p)[x.attr(:class).contains('wrapper')][x.child(:strong).contains(label)][x.contains(value)] }
+          page.has_xpath?(xpath)
+        end
+
+        failure_message_for_should do |page|
+          attributes = page.all(:css, 'li.wrapper').map(&:text).join(", ")
+          "expected there to be an attribute #{label}: #{value}, but the only attributes were: #{attributes}."
+        end
+        failure_message_for_should_not { |page| "expected there to be no attribute #{label}: #{value}, but there was." }
+      end
     end
   end
 end
