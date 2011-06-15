@@ -28,8 +28,3 @@ module ElabsMatchers
     end
   end
 end
-
-RSpec.configure do |config|
-  config.include ElabsMatchers::Orm
-end
-
