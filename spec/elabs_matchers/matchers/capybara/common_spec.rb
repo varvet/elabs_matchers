@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ElabsMatchers::Matchers::Capybara do
-  describe "have_options" do
+  describe "#have_options" do
     let(:html) { Capybara.string("<select><option value='1'>A</option><option value='2'>B</option></select>") }
 
     it "returns true if the select tag have the requested option tags" do
