@@ -3,7 +3,7 @@ class Post
 
   class << self
     def find(id)
-      @@persisted_post
+      new(:title => @@persisted_post.title)
     end
 
     def create(attributes = {})
