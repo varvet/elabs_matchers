@@ -11,7 +11,9 @@ module ElabsMatchers
       # find(:xpath, XPath::HTML.select("My input label")).should have_options(options)
 
       RSpec::Matchers.define :have_options do |*options|
-        match { |select| select.all("option").map(&:text).should include(*options.flatten) }
+        match do |select|
+          options.all? { |option| select.all("option").map(&:text).include?(option) }
+        end
 
         failure_message_for_should do |select|
           actual_options = select.all("option").map(&:text).inspect
