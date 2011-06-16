@@ -83,6 +83,25 @@ module ElabsMatchers
         end
         failure_message_for_should_not { |page| "expected there to be no attribute #{label}: #{value}, but there was." }
       end
+
+      ##
+      #
+      # Asserts if the supplied image exists or not
+      #
+      # @param [String] alt              The alt attribute content of the image
+      #
+      # Example:
+      # page.should have_image("Logo")
+
+      RSpec::Matchers.define :have_image do |alt|
+        match { |page| page.has_css?("img[alt=\"#{alt}\"]") }
+
+        failure_message_for_should do |page|
+          alts = page.all('img').map { |img| "'#{img[:alt]}'" }.join(", ")
+          "expected image alt to be '#{alt}' but it had the image alts: #{alts}."
+        end
+        failure_message_for_should_not { |page| "expected image not to be '#{alt}' but it was" }
+      end
     end
   end
 end
