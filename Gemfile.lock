@@ -6,6 +6,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    activesupport (3.0.8)
     capybara (0.4.1.2)
       celerity (>= 0.7.9)
       culerity (>= 0.2.4)
@@ -22,6 +23,7 @@ GEM
     diff-lcs (1.1.2)
     ffi (1.0.7)
       rake (>= 0.8.7)
+    i18n (0.6.0)
     json_pure (1.5.1)
     mime-types (1.16)
     nokogiri (1.4.4)
@@ -51,7 +53,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   capybara
   elabs_matchers!
+  i18n
   rspec
   yard

@@ -79,7 +79,7 @@ module ElabsMatchers
           end
 
           failure_message_for_should do |page|
-            attributes = page.all(:css, 'li.wrapper').map(&:text).join(", ")
+            attributes = page.all(:css, 'li.wrapper').map(&:text).to_sentence
             "expected there to be an attribute #{label}: #{value}, but the only attributes were: #{attributes}."
           end
           failure_message_for_should_not { |page| "expected there to be no attribute #{label}: #{value}, but there was." }
@@ -98,7 +98,7 @@ module ElabsMatchers
           match { |page| page.has_css?("img[alt=\"#{alt}\"]") }
 
           failure_message_for_should do |page|
-            alts = page.all('img').map { |img| "'#{img[:alt]}'" }.join(", ")
+            alts = page.all('img').map { |img| "'#{img[:alt]}'" }.to_sentence
             "expected image alt to be '#{alt}' but it had the image alts: #{alts}."
           end
           failure_message_for_should_not { |page| "expected image not to be '#{alt}' but it was" }
@@ -117,7 +117,7 @@ module ElabsMatchers
           match { |page| page.has_css?('h1,h2', :text => text) }
 
           failure_message_for_should do |page|
-            headers = page.all('h1,h2').map { |h| "'#{h.text}'" }.join(", ")
+            headers = page.all('h1,h2').map { |h| "'#{h.text}'" }.to_sentence
             "expected header to be '#{text}' but it had the headers #{headers}"
           end
           failure_message_for_should_not { |page| "expected header not to be '#{text}' but it was" }
