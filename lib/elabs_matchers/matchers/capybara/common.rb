@@ -136,6 +136,21 @@ module ElabsMatchers
         failure_message_for_should { |page| "expected flash notice to be '#{text}' but was '#{page.find('#flash.notice').text}'" }
         failure_message_for_should_not { |page| "expected flash notice not to be '#{text}' but it was" }
       end
+
+      ##
+      #
+      # Asserts if the supplied flash alert exists or not
+      #
+      # @param [String] text              The content of the flash alert
+      #
+      # Example:
+      # page.should have_flash_alert("Error")
+
+      RSpec::Matchers.define :have_flash_alert do |text|
+        match { |page| page.has_css?('#flash.alert', :text => text) }
+        failure_message_for_should { |page| "expected flash alert to be '#{text}' but was '#{page.find('#flash.alert').text}'" }
+        failure_message_for_should_not { |page| "expected flash alert not to be '#{text}' but it was" }
+      end
     end
   end
 end
