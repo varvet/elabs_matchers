@@ -110,4 +110,20 @@ describe ElabsMatchers::Matchers::Capybara do
       html.should_not have_header("Bugs")
     end
   end
+
+  describe "#have_flash_notice" do
+    let(:html) { Capybara.string(%Q{<div id="flash" class="notice">Success</div><h1>Elabs</h1>}) }
+
+    it "returns true if given the content of the flash notice" do
+      html.should have_flash_notice("Success")
+    end
+
+    it "returns false if given content outside the flash notice" do
+      html.should_not have_flash_notice("Elabs")
+    end
+
+    it "returns false if the content doesn't exist on the page" do
+      html.should_not have_flash_notice("Failure")
+    end
+  end
 end

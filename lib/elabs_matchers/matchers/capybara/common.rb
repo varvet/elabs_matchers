@@ -121,6 +121,21 @@ module ElabsMatchers
         end
         failure_message_for_should_not { |page| "expected header not to be '#{text}' but it was" }
       end
+
+      ##
+      #
+      # Asserts if the supplied flash notice exists or not
+      #
+      # @param [String] text              The content of the flash notice
+      #
+      # Example:
+      # page.should have_flash_notice("Success")
+
+      RSpec::Matchers.define :have_flash_notice do |text|
+        match { |page| page.has_css?('#flash.notice', :text => text) }
+        failure_message_for_should { |page| "expected flash notice to be '#{text}' but was '#{page.find('#flash.notice').text}'" }
+        failure_message_for_should_not { |page| "expected flash notice not to be '#{text}' but it was" }
+      end
     end
   end
 end
