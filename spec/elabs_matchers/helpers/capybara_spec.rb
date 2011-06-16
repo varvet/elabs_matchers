@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ElabsMatchers::Capybara do
+describe ElabsMatchers::Helpers::Capybara do
   let(:page) { Capybara::Session.new(:rack_test, proc { |env| [200, {}, [html]]}) }
   let(:html) do
     %Q{
@@ -17,7 +17,7 @@ describe ElabsMatchers::Capybara do
   end
 
   before do
-    page.extend(ElabsMatchers::Capybara)
+    page.extend(ElabsMatchers::Helpers::Capybara)
     page.visit "/"
   end
 

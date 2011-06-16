@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ElabsMatchers::Matchers::Rspec do
+describe ElabsMatchers::Matchers::Rspec::Common do
   describe '#contain_hash' do
     context "with a simple hash" do
       it "returns true with the given value" do

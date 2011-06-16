@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe ElabsMatchers::Orm do
-  let(:post) { Post.create(:title => "New") }
+describe ElabsMatchers::Helpers::Orm do
+  let(:post) { ElabsMatchers::Orm::Post.create(:title => "New") }
 
   describe "#save_and_reload" do
     it "it saves the record" do

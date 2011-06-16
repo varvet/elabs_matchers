@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe ElabsMatchers::Matchers::Capybara do
+describe ElabsMatchers::Matchers::Rspec::Orm do
   describe "#persist" do
-    let(:post) { Post.create(:title => "New") }
+    let(:post) { ElabsMatchers::Orm::Post.create(:title => "New") }
 
     it "returns true if the value is the supplied" do
       post.should persist(:title, "Updated")
