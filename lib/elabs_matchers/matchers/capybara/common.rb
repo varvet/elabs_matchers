@@ -178,6 +178,21 @@ module ElabsMatchers
         end
         failure_message_for_should_not { |page| "expected error message on '#{field}' not to be '#{text}' but it was" }
       end
+
+      ##
+      #
+      # Asserts if the supplied fields exists or not
+      #
+      # @param [Hash] field name, value         A hash containing pairs of field name => value
+      #
+      # Example:
+      # page.should have_fields("Author" => "Adam", "Year" => "2011")
+
+      RSpec::Matchers.define :have_fields do |fields|
+        match { |page| fields.all? { |label, value| page.has_field?(label, :with => value.to_s) } }
+        failure_message_for_should { |page| "expected page to have the fields #{fields.inspect}, but it didn't." }
+        failure_message_for_should_not { |page| "expected page not to have the fields #{fields.inspect}, but it did." }
+      end
     end
   end
 end
