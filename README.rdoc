@@ -4,13 +4,21 @@ A collection of useful rspec matchers
 
 == Installation
 
-Install the gem with bundler:
+add elabs_matchers to your Gemfile:
 
-    gem install bundler
+  gem 'elabs_matchers', :git => 'git://github.com/elabs/elabs_matchers.git'
 
-add gem 'elabs_matchers' to your Gemfile
+if you're using spork you need to tell bundler not to require the files for you
+  gem 'elabs_matchers', :git => 'git://github.com/elabs/elabs_matchers.git', :require => false
 
-    bundle install
+then you'll require them inside your spork prefork block:
+
+  Spork.prefork do
+    ...
+    require 'elabs_matchers'
+    ...
+  end
+
 
 
 == TODOS
