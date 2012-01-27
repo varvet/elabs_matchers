@@ -36,17 +36,29 @@ module ElabsMatchers
         RSpec::Matchers.define :have_table_row do |table_name, row|
           match do |page|
             table = page.find(:xpath, XPath::HTML.table(table_name))
-            row_index = nil
 
-            row.all? do |header, value|
+            exps = row.map do |header, value|
               col_index = table.all("thead th").index { |th| th.text.include?(header) }
               col_index = if col_index then col_index + 1 else 0 end
+              XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
+            end
+            exps = exps.inject { |agg, exp| agg & exp }
+            table.has_xpath?(XPath.descendant['tr'][exps])
+          end
 
-              current_row_index = table.all("tbody tr").index { |tr| tr.text.include?(value) }
-              correct_row = row_index.nil? || current_row_index == row_index
-              row_index = current_row_index
+          match_for_should_not do |page|
+            if page.has_no_table?(table_name)
+              true
+            else
+              table = page.find(:xpath, XPath::HTML.table(table_name))
 
-              correct_row and table.has_xpath?(".//td[#{col_index}][contains(.,'#{value}')]")
+              exps = row.map do |header, value|
+                col_index = table.all("thead th").index { |th| th.text.include?(header) }
+                col_index = if col_index then col_index + 1 else 0 end
+                XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
+              end
+              exps = exps.inject { |agg, exp| agg & exp }
+              table.has_no_xpath?(XPath.descendant['tr'][exps])
             end
           end
 
@@ -73,9 +85,13 @@ module ElabsMatchers
         # * https://github.com/plataformatec/show_for
 
         RSpec::Matchers.define :have_attribute do |label, value|
+          xpath = XPath.generate { |x| x.descendant(:p)[x.attr(:class).contains('wrapper')][x.child(:strong).contains(label)][x.contains(value)] }
+
           match do |page|
-            xpath = XPath.generate { |x| x.descendant(:p)[x.attr(:class).contains('wrapper')][x.child(:strong).contains(label)][x.contains(value)] }
             page.has_xpath?(xpath)
+          end
+          match_for_should_not do |page|
+            page.has_no_xpath?(xpath)
           end
 
           failure_message_for_should do |page|
@@ -96,6 +112,7 @@ module ElabsMatchers
 
         RSpec::Matchers.define :have_image do |alt|
           match { |page| page.has_css?("img[alt=\"#{alt}\"]") }
+          match_for_should_not { |page| page.has_no_css?("img[alt=\"#{alt}\"]") }
 
           failure_message_for_should do |page|
             alts = page.all('img').map { |img| "'#{img[:alt]}'" }.to_sentence
@@ -115,6 +132,7 @@ module ElabsMatchers
 
         RSpec::Matchers.define :have_header do |text|
           match { |page| page.has_css?('h1,h2', :text => text) }
+          match_for_should_not { |page| page.has_no_css?('h1,h2', :text => text) }
 
           failure_message_for_should do |page|
             headers = page.all('h1,h2').map { |h| "'#{h.text}'" }.to_sentence
@@ -134,6 +152,7 @@ module ElabsMatchers
 
         RSpec::Matchers.define :have_flash_notice do |text|
           match { |page| page.has_css?('#flash.notice, #flash .notice', :text => text) }
+          match_for_should_not { |page| page.has_no_css?('#flash.notice, #flash .notice', :text => text) }
           failure_message_for_should { |page| "expected flash notice to be '#{text}' but was '#{page.find('#flash.notice').text}'" }
           failure_message_for_should_not { |page| "expected flash notice not to be '#{text}' but it was" }
         end
@@ -149,6 +168,7 @@ module ElabsMatchers
 
         RSpec::Matchers.define :have_flash_alert do |text|
           match { |page| page.has_css?('#flash.alert, #flash .alert', :text => text) }
+          match_for_should_not { |page| page.has_no_css?('#flash.alert, #flash .alert', :text => text) }
           failure_message_for_should { |page| "expected flash alert to be '#{text}' but was '#{page.find('#flash.alert').text}'" }
           failure_message_for_should_not { |page| "expected flash alert not to be '#{text}' but it was" }
         end
@@ -166,6 +186,7 @@ module ElabsMatchers
         RSpec::Matchers.define :have_form_errors_on do |field, message|
           xpath = %Q{..//span[contains(@class,'error')]}
           match { |page| page.has_field?(field) and page.find_field(field).has_xpath?(xpath, :text => message) }
+          match_for_should_not { |page| page.has_no_field?(field) or page.find_field(field).has_no_xpath?(xpath, :text => message) }
 
           failure_message_for_should do |page|
             error = page.find_field(field).all(:xpath, xpath).first
@@ -190,7 +211,14 @@ module ElabsMatchers
         # page.should have_fields("Author" => "Adam", "Year" => "2011")
 
         RSpec::Matchers.define :have_fields do |fields|
-          match { |page| fields.all? { |label, value| page.has_field?(label, :with => value.to_s) } }
+          match do |page|
+            exps = fields.map { |label, value| XPath::HTML.field(label, :with => value) }
+            page.has_xpath?("./*[#{exps.join(' and ')}]")
+          end
+          match_for_should_not do |page|
+            exps = fields.map { |label, value| XPath::HTML.field(label, :with => value) }
+            page.has_no_xpath?("./*[#{exps.join(' and ')}]")
+          end
           failure_message_for_should { |page| "expected page to have the fields #{fields.inspect}, but it didn't." }
           failure_message_for_should_not { |page| "expected page not to have the fields #{fields.inspect}, but it did." }
         end
