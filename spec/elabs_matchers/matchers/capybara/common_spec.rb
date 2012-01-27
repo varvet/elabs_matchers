@@ -56,10 +56,6 @@ describe ElabsMatchers::Matchers::Capybara::Common do
     it "returns false when given the value of another column" do
       html.should_not have_table_row("Posts", "Title" => "Adam")
     end
-
-    it "returns false when the table doesn't exist" do
-      html.should_not have_table_row("Schmoo", "Title" => "First", "Author" => "Adam")
-    end
   end
 
   describe "#have_attribute" do
