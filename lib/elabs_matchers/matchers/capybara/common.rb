@@ -37,25 +37,45 @@ module ElabsMatchers
           match do |page|
             table = page.find(:xpath, XPath::HTML.table(table_name))
 
-            exps = row.map do |header, value|
-              col_index = table.all("thead th").index { |th| th.text.include?(header) }
-              col_index = if col_index then col_index + 1 else 0 end
-              XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
+            if row.is_a? Hash
+              exps = row.map do |header, value|
+                col_index = table.all("thead th").index { |th| th.text.include?(header) }
+                col_index = if col_index then col_index + 1 else 0 end
+                XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
+              end
+              exps = exps.inject { |agg, exp| agg & exp }
+              table.has_xpath?(XPath.descendant['tr'][exps])
+            else
+              exps = []
+              row.each_with_index do |value, index|
+                exps << XPath.child(:td)[(index + 1).to_s.to_sym][XPath.contains(value)]
+              end
+              exps = exps.inject { |agg, exp| agg & exp }
+
+              table.has_xpath?(XPath.descendant['tr'][exps])
             end
-            exps = exps.inject { |agg, exp| agg & exp }
-            table.has_xpath?(XPath.descendant['tr'][exps])
           end
 
           match_for_should_not do |page|
             table = page.find(:xpath, XPath::HTML.table(table_name))
 
-            exps = row.map do |header, value|
-              col_index = table.all("thead th").index { |th| th.text.include?(header) }
-              col_index = if col_index then col_index + 1 else 0 end
-              XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
+            if row.is_a? Hash
+              exps = row.map do |header, value|
+                col_index = table.all("thead th").index { |th| th.text.include?(header) }
+                col_index = if col_index then col_index + 1 else 0 end
+                XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
+              end
+              exps = exps.inject { |agg, exp| agg & exp }
+              table.has_no_xpath?(XPath.descendant['tr'][exps])
+            else
+              exps = []
+              row.each_with_index do |value, index|
+                exps << XPath.child(:td)[(index + 1).to_s.to_sym][XPath.contains(value)]
+              end
+              exps = exps.inject { |agg, exp| agg & exp }
+
+              table.has_no_xpath?(XPath.descendant['tr'][exps])
             end
-            exps = exps.inject { |agg, exp| agg & exp }
-            table.has_no_xpath?(XPath.descendant['tr'][exps])
           end
 
           failure_message_for_should do |page|
