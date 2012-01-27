@@ -90,6 +90,7 @@ module ElabsMatchers
           match do |page|
             page.has_xpath?(xpath)
           end
+
           match_for_should_not do |page|
             page.has_no_xpath?(xpath)
           end
@@ -213,11 +214,11 @@ module ElabsMatchers
         RSpec::Matchers.define :have_fields do |fields|
           match do |page|
             exps = fields.map { |label, value| XPath::HTML.field(label, :with => value) }
-            page.has_xpath?("./*[#{exps.join(' and ')}]")
+            page.has_xpath?("(./html | ./self::*)[#{exps.join(' and ')}]")
           end
           match_for_should_not do |page|
             exps = fields.map { |label, value| XPath::HTML.field(label, :with => value) }
-            page.has_no_xpath?("./*[#{exps.join(' and ')}]")
+            page.has_no_xpath?("(./html | ./self::*)[#{exps.join(' and ')}]")
           end
           failure_message_for_should { |page| "expected page to have the fields #{fields.inspect}, but it didn't." }
           failure_message_for_should_not { |page| "expected page not to have the fields #{fields.inspect}, but it did." }
