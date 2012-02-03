@@ -51,7 +51,7 @@ end
 ## Development
 
 ```bash
-rake
+bundle exec rake
 ```
 
 should run all the gem's specs.
@@ -59,7 +59,6 @@ should run all the gem's specs.
 ## TODOS
  * Make yard document rspec matchers
  * Use matcher with RSpec::Matchers:DSL
- * Remove Rspec warning
  * Add contributors
 
 ## License:
