@@ -1,5 +1,7 @@
 # Elabs matchers
 
+[![Build Status](https://secure.travis-ci.org/elabs/elabs_matchers.png)](http://travis-ci.org/elabs/elabs_matchers)
+
 Elabs matchers aims to extend existing rspec matchers from e.g Rspec, Rspec-rails and Capybara with a set
 of less generic once. This could be things like asserting a table appearing in a certain way or check that
 an active record instance has been successfully persisted after an update.
