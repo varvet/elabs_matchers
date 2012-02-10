@@ -24,9 +24,21 @@ describe ElabsMatchers::Matchers::Rspec::Orm do
       end
 
       context "with several attributes" do
-        it { should allow("Elabs").as(:title, :body) }
+        it { should allow("Elabs").as([:title, :body]) }
         it { should_not allow("").as([:title, :body]) }
       end
     end
 
+    context "with several example values" do
+      context "with one attribute" do
+        it { should allow(["Elabs", "Sweden"]).as(:title) }
+        it { should_not allow(["", nil]).as(:title) }
+      end
+
+      context "with several attributes" do
+        it { should allow(["Elabs", "Sweden"]).as([:title, :body]) }
+        it { should_not allow(["", nil]).as([:title, :body]) }
+      end
+    end
+  end
 end

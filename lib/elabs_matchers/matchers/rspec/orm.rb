@@ -28,7 +28,7 @@ module ElabsMatchers
         #
         # Asserts if a sample value is valid on a given attribute
         #
-        # @param [String] sample value        A sample value to check the validation against
+        # @param [*Array] sample value(s)     Sample value(s) to check the validation against
         # @param [*Array] method name(s)      The method name(s) that has the validation(s) attached to it
         #
         # Example:
@@ -38,6 +38,11 @@ module ElabsMatchers
         # post.should allow("Elabs").as(:title, :body)
         # post.should_not allow("").as(:title, :body)
         #
+        # post.should allow("Elabs", "Sweden").as(:title)
+        # post.should_not allow("", nil).as(:title)
+        #
+        # post.should allow("Elabs", "Sweden").as(:title, :body)
+        # post.should_not allow("", nil).as(:title, :body)
 
         if defined?(ActiveModel)
           RSpec::Matchers.define :allow do |values|
@@ -52,10 +57,34 @@ module ElabsMatchers
 
             match_for_should_not do |actual|
               @actual, @values = actual, values
-              errors.all? and errors.length == attributes.length
+              errors.all? and correct_number_of_errors?
+            end
+
+            def correct_number_of_errors?
+              @num_errors = errors.length
+
+              if attributes?
+                if values?
+                  matches_number_of_errors?(attributes, values)
+                else
+                  matches_number_of_errors?(attributes)
+                end
+              else
+                if values?
+                  matches_number_of_errors?(values)
+                else
+                  matches_number_of_errors?(1)
+                end
+              end
             end
 
             def errors
+              values.map do |value|
+                errors_with(value)
+              end.flatten
+            end
+
+            def errors_with(value)
               attributes.each do |attribute|
                 actual.send(:"#{attribute}=", value)
               end
@@ -64,12 +93,18 @@ module ElabsMatchers
 
               attributes.map do |attribute|
                 actual.errors.has_key?(attribute)
-              end.compact
+              end
             end
 
-            def attributes; @attributes     ; end
-            def value     ; [*@values].first; end
-            def actual    ; @actual         ; end
+            def matches_number_of_errors?(list1, list2 = [])
+              @num_errors == ([*list1] + list2).flatten.length
+            end
+
+            def attributes?; attributes.length > 1 ; end
+            def values?    ; values.length > 1     ; end
+            def attributes ; @attributes           ; end
+            def values     ; [*@values]            ; end
+            def actual     ; @actual               ; end
 
             failure_message_for_should do |actual|
               "Expected #{values.inspect} to be valid on #{actual.class.model_name.demodulize}##{@attributes.inspect} but it wasn't."
