@@ -53,7 +53,6 @@ DEPENDENCIES
   activesupport
   capybara
   elabs_matchers!
-  i18n
   rake
   rspec
   yard
