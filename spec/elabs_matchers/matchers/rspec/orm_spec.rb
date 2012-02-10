@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ElabsMatchers::Matchers::Rspec::Orm do
-  let(:post) { ElabsMatchers::Orm::Post.create(:title => "New") }
+  let(:post) { ElabsMatchers::Orm::Post.create(:title => "New", :body => "Lorem") }
 
   describe "#persist" do
     it "returns true if the value is the supplied" do
@@ -23,6 +23,10 @@ describe ElabsMatchers::Matchers::Rspec::Orm do
         it { should_not allow("").as(:title) }
       end
 
-  end
+      context "with several attributes" do
+        it { should allow("Elabs").as(:title, :body) }
+        it { should_not allow("").as([:title, :body]) }
+      end
+    end
 
 end

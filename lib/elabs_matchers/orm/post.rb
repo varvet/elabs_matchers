@@ -6,8 +6,9 @@ module ElabsMatchers
       extend ActiveModel::Naming
       include ActiveModel::Validations
 
-      attr_accessor :title
+      attr_accessor :title, :body, :category
       validates_presence_of :title
+      validates_presence_of :body
 
       class << self
         def find(id)
@@ -20,7 +21,9 @@ module ElabsMatchers
       end
 
       def initialize(attributes = {})
-        self.title = attributes[:title]
+        attributes.each do |name, value|
+          self.send(:"#{name}=", value)
+        end
       end
 
       def save!
