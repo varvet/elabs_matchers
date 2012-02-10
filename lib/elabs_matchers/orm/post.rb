@@ -1,7 +1,13 @@
+require "active_model"
+
 module ElabsMatchers
   module Orm
     class Post
+      extend ActiveModel::Naming
+      include ActiveModel::Validations
+
       attr_accessor :title
+      validates_presence_of :title
 
       class << self
         def find(id)

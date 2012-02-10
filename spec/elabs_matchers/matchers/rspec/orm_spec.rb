@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe ElabsMatchers::Matchers::Rspec::Orm do
-  describe "#persist" do
-    let(:post) { ElabsMatchers::Orm::Post.create(:title => "New") }
+  let(:post) { ElabsMatchers::Orm::Post.create(:title => "New") }
 
+  describe "#persist" do
     it "returns true if the value is the supplied" do
       post.should persist(:title, "Updated")
     end
@@ -13,4 +13,16 @@ describe ElabsMatchers::Matchers::Rspec::Orm do
       post.should_not persist(:title, "Updated")
     end
   end
+
+  describe "#allow" do
+    subject { post }
+
+    context "with one example value" do
+      context "with one attribute" do
+        it { should allow("Elabs").as(:title) }
+        it { should_not allow("").as(:title) }
+      end
+
+  end
+
 end
