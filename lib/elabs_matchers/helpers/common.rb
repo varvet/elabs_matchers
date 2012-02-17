@@ -7,8 +7,10 @@ module ElabsMatchers
       # Normalizes a hash so that it can be described in a more
       # human friendly manner.
       #
+      # @param [Hash] options     A hash of human-friendly key and value pairs.
+      #
       # Examples:
-      # { "First name" => "Adam" } => HashWithIndifferentAccess.new({ "first_name" => "adam" })
+      # normalize_keys({ "First name" => "Adam" }) => HashWithIndifferentAccess.new({ "first_name" => "adam" })
       #
       # # Or in a Cucumber table:
       # Given the following people:
