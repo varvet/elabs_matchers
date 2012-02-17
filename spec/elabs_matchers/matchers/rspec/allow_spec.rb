@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe ElabsMatchers::Matchers::Rspec::Allow do
-  let(:post) { ElabsMatchers::Orm::Post.create(:title => "New", :body => "Lorem", :category => "fantasy", :price => 1) }
+  let(:attributes) { { :title => "New", :body => "Lorem", :category => "fantasy", :price => 1, :published_on => Date.today, :visible => true, :co_author => "John Doe", :authors => ["Peter", "Marry"] } }
+  let(:post) { ElabsMatchers::Orm::Post.create(attributes) }
   subject { post }
 
   context "with one example value" do
@@ -46,6 +47,20 @@ describe ElabsMatchers::Matchers::Rspec::Allow do
       it { expect { should allow("", "Elabs").as(:title, :signature) }.to fail_assertion }
       it { expect { should_not allow("", "Elabs").as(:title, :signature) }.to fail_assertion }
     end
+  end
+
+  context "non-string values" do
+    it { should allow(Date.today).as(:published_on) }
+    it { should allow(Time.now).as(:published_on) }
+    it { should allow(DateTime.now).as(:published_on) }
+
+    it { should allow(nil).as(:signature) }
+    it { should_not allow(nil).as(:title) }
+    it { should allow(9).as(:title) }
+    it { should allow(:bar).as(:title) }
+
+    it { should allow(["Peter", "Bob"], ["Marry", "Anna"]).as(:authors) }
+    it { should allow(:first_name => "Peter", :last_name => "Smith").as(:co_author) }
   end
 
   context "some aditional examples just for illustrating more use-cases" do

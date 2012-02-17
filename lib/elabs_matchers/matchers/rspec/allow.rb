@@ -60,7 +60,7 @@ module ElabsMatchers
             def errors
               values.map do |value|
                 errors_with(value)
-              end.flatten
+              end.flatten.compact
             end
 
             def errors_with(value)
@@ -98,7 +98,7 @@ module ElabsMatchers
             end
 
             def expected_values_explain
-              values.map(&:inspect).to_sentence
+              values.map(&:inspect).to_sentence(:two_words_connector => ' or ')
             end
 
             def attributes_values_explain

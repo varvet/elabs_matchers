@@ -6,10 +6,14 @@ module ElabsMatchers
       extend ActiveModel::Naming
       include ActiveModel::Validations
 
-      attr_accessor :title, :body, :signature, :category, :price
+      attr_accessor :title, :body, :signature, :category, :price, :published_on, :visible, :authors, :co_author
       validates_presence_of :title
       validates_presence_of :body
+      validates_presence_of :published_on
+      validates_presence_of :authors
+      validates_presence_of :co_author
       validates_inclusion_of :category, :in => %w[sci-fi fantasy thriller]
+      validates_inclusion_of :visible, :in => [true, false]
       validates_numericality_of :price
 
       class << self
