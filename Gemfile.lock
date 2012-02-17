@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    elabs_matchers (0.0.1)
+    elabs_matchers (0.0.3)
 
 GEM
   remote: http://rubygems.org/
