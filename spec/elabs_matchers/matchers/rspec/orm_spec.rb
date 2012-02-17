@@ -41,16 +41,16 @@ describe ElabsMatchers::Matchers::Rspec::Orm do
         it { should allow("Elabs", "Sweden").as(:title) }
         it { should_not allow("", nil).as(:title) }
 
-        it { expect { should allow(["Elabs", ""]).as(:title) }.to fail_assertion }
-        it { expect { should_not allow(["", "Elabs"]).as(:title) }.to fail_assertion }
+        it { expect { should allow("Elabs", "").as(:title) }.to fail_assertion }
+        it { expect { should_not allow("", "Elabs").as(:title) }.to fail_assertion }
       end
 
       context "with several attributes" do
         it { should allow("Elabs", "Sweden").as(:title, :body) }
         it { should_not allow("", nil).as(:title, :body) }
 
-        it { expect { should allow(["Elabs", ""]).as(:title, :body) }.to fail_assertion }
-        it { expect { should_not allow(["", "Elabs"]).as(:title, :body) }.to fail_assertion }
+        it { expect { should allow("Elabs", "").as(:title, :body) }.to fail_assertion }
+        it { expect { should_not allow("", "Elabs").as(:title, :body) }.to fail_assertion }
       end
     end
   end
