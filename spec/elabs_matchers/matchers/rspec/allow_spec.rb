@@ -15,8 +15,8 @@ describe ElabsMatchers::Matchers::Rspec::Allow do
     end
 
     context "with several attributes" do
-      it { should allow("Elabs").as([:title, :body]) }
-      it { should_not allow("").as([:title, :body]) }
+      it { should allow("Elabs").as(:title, :body) }
+      it { should_not allow("").as(:title, :body) }
 
       it { expect { should allow("").as(:title, :body) }.to fail_assertion }
       it { expect { should_not allow("Elabs").as(:title, :body) }.to fail_assertion }
