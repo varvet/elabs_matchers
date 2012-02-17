@@ -9,12 +9,17 @@ an active record instance has been successfully persisted after an update.
 Below follows a list of matchers that the gem bundles. To get documentation about each matcher the source code is
 your bast friend at this point.
 
-### model spec matchers:
+### Model matchers:
 * hash.contain_hash({ "baz" => "bar" })
 * array.only_include("bar", "foo")
 * record.should persist(:title, "Blog post")
+* record.should allow("Blog post").as(:title)
 
-### acceptance (Capybara) spec matchers:
+### Model helpers:
+* reload(post)
+* save\_and_reload(post)
+
+### Acceptance matchers:
 * page.should have_options(["Yes", "No"])
 * page.should have\_table_row('Posts', "Title" => "First", :year => "2012")
 * page.should have\_attribute("Status", "Pending")
@@ -25,6 +30,13 @@ your bast friend at this point.
 * page.should have\_form\_errors_on("Name", "Can't be blank")
 * page.should have\_fields("Author" => "Adam", "Year" => "2011")
 
+### Acceptance helpers:
+* select\_year\_and_month("2010", "March", :from => "Birth date")
+
+### Common helpers:
+* select\_year\_and_month("2010", "March", :from => "Birth date")
+* normalize_keys({ "First name" => "Adam" })
+* fixture_file("file.txt")
 
 ## Setup
 
