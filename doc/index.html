@@ -2,17 +2,27 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documentation by YARD 0.6.5</title>
-<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   relpath = '';
   if (relpath != '') relpath += '/';
 </script>
-<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
 
   </head>
   <body>
@@ -31,71 +41,142 @@
 </div>
 
       <div id="search">
-  <a id="class_list_link" href="#">Class List</a>
-  <a id="method_list_link" href="#">Method List</a>
-  <a id ="file_list_link" href="#">File List</a>
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
 </div>
-
       <div class="clear"></div>
     </div>
     
     <iframe id="search_frame"></iframe>
     
     <div id="content"><div id='filecontents'><h1>Elabs matchers</h1>
-<p>
-A collection of useful rspec matchers
-</p>
-<h2>Installation</h2>
-<p>
-Install the gem with bundler:
-</p>
-<pre class="code">
-    <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='bundler identifier id'>bundler</span>
-</pre>
-<p>
-add gem &#8216;elabs_matchers&#8217; to your Gemfile
-</p>
-<pre class="code">
-    <span class='bundle identifier id'>bundle</span> <span class='install identifier id'>install</span>
-</pre>
+
+<p><a href="http://travis-ci.org/elabs/elabs_matchers"><img src="https://secure.travis-ci.org/elabs/elabs_matchers.png" alt="Build Status"></a></p>
+
+<p>Elabs matchers aims to extend existing rspec matchers from e.g Rspec, Rspec-rails and Capybara with a set
+of less generic once. This could be things like asserting a table appearing in a certain way or check that
+an active record instance has been successfully persisted after an update.</p>
+
+<p>Below follows a list of matchers that the gem bundles. To get documentation about each matcher the source code is
+your bast friend at this point.</p>
+
+<h3>Model matchers:</h3>
+
+<ul>
+<li>hash.contain_hash({ &quot;baz&quot; =&gt; &quot;bar&quot; })</li>
+<li>array.only_include(&quot;bar&quot;, &quot;foo&quot;)</li>
+<li>record.should persist(:title, &quot;Blog post&quot;)</li>
+<li>record.should allow(&quot;Blog post&quot;).as(:title)</li>
+</ul>
+
+<h3>Model helpers:</h3>
+
+<ul>
+<li>reload(post)</li>
+<li>save_and_reload(post)</li>
+</ul>
+
+<h3>Acceptance matchers:</h3>
+
+<ul>
+<li>page.should have_options([&quot;Yes&quot;, &quot;No&quot;])</li>
+<li>page.should have_table_row(&#39;Posts&#39;, &quot;Title&quot; =&gt; &quot;First&quot;, :year =&gt; &quot;2012&quot;)</li>
+<li>page.should have_attribute(&quot;Status&quot;, &quot;Pending&quot;)</li>
+<li>page.should have_image(&quot;Logo&quot;)</li>
+<li>page.should have_header(&quot;Elabs&quot;)</li>
+<li>page.should have_flash_notice(&quot;Success&quot;)</li>
+<li>page.should have_flash_alert(&quot;Error&quot;)</li>
+<li>page.should have_form_errors_on(&quot;Name&quot;, &quot;Can&#39;t be blank&quot;)</li>
+<li>page.should have_fields(&quot;Author&quot; =&gt; &quot;Adam&quot;, &quot;Year&quot; =&gt; &quot;2011&quot;)</li>
+</ul>
+
+<h3>Acceptance helpers:</h3>
+
+<ul>
+<li>select_year_and_month(&quot;2010&quot;, &quot;March&quot;, :from =&gt; &quot;Birth date&quot;)</li>
+<li>sign_in_as(user)</li>
+<li>sign_out</li>
+</ul>
+
+<h3>Common helpers:</h3>
+
+<ul>
+<li>select_year_and_month(&quot;2010&quot;, &quot;March&quot;, :from =&gt; &quot;Birth date&quot;)</li>
+<li>normalize_keys({ &quot;First name&quot; =&gt; &quot;Adam&quot; })</li>
+<li>fixture_file(&quot;file.txt&quot;)</li>
+</ul>
+
+<h2>Setup</h2>
+
+<p>add elabs_matchers to your Gemfile:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>elabs_matchers</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git://github.com/elabs/elabs_matchers.git</span><span class='tstring_end'>'</span></span>
+</code></pre>
+
+<p>if you&#39;re using Spork gem you need to tell bundler not to require the files for you:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>elabs_matchers</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git://github.com/elabs/elabs_matchers.git</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:require</span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
+</code></pre>
+
+<p>then you&#39;ll require them inside your spork prefork block:</p>
+
+<pre class="code ruby"><code>Spork.prefork do
+  ...
+  require 'elabs_matchers'
+  ...
+end
+</code></pre>
+
+<h2>Development</h2>
+
+<pre class="code bash"><code>bundle exec rake
+</code></pre>
+
+<p>should run all the gem&#39;s specs.</p>
+
 <h2>TODOS</h2>
-<pre class="code">
- <span class='mult op'>*</span> <span class='Make constant id'>Make</span> <span class='yard identifier id'>yard</span> <span class='document identifier id'>document</span> <span class='rspec identifier id'>rspec</span> <span class='matchers identifier id'>matchers</span>
- <span class='mult op'>*</span> <span class='Use constant id'>Use</span> <span class='matcher identifier id'>matcher</span> <span class='with identifier id'>with</span> <span class='RSpec constant id'>RSpec</span><span class='colon2 op'>::</span><span class='Matchers constant id'>Matchers</span><span class='symbol val'>:DSL</span>
- <span class='mult op'>*</span> <span class='Remove constant id'>Remove</span> <span class='Rspec constant id'>Rspec</span> <span class='warning identifier id'>warning</span>
- <span class='mult op'>*</span> <span class='Add constant id'>Add</span> <span class='contributors identifier id'>contributors</span>
-</pre>
+
+<ul>
+<li>Make yard document rspec matchers</li>
+<li>Use matcher with RSpec::Matchers:DSL</li>
+<li>Add contributors</li>
+</ul>
+
 <h2>License:</h2>
-<pre class="code">
- <span class='lparen token'>(</span><span class='The constant id'>The</span> <span class='MIT constant id'>MIT</span> <span class='License constant id'>License</span><span class='rparen token'>)</span>
 
- <span class='Copyright constant id'>Copyright</span> <span class='lparen token'>(</span><span class='c identifier id'>c</span><span class='rparen token'>)</span> <span class='integer val'>2011</span> <span class='Elabs constant id'>Elabs</span> <span class='AB constant id'>AB</span>
+<p>(The MIT License)</p>
 
- <span class='Permission constant id'>Permission</span> <span class='is identifier id'>is</span> <span class='hereby identifier id'>hereby</span> <span class='granted identifier id'>granted</span><span class='comma token'>,</span> <span class='free identifier id'>free</span> <span class='of identifier id'>of</span> <span class='charge identifier id'>charge</span><span class='comma token'>,</span> <span class='to identifier id'>to</span> <span class='any identifier id'>any</span> <span class='person identifier id'>person</span> <span class='obtaining identifier id'>obtaining</span>
- <span class='a identifier id'>a</span> <span class='copy identifier id'>copy</span> <span class='of identifier id'>of</span> <span class='this identifier id'>this</span> <span class='software identifier id'>software</span> <span class='and and kw'>and</span> <span class='associated identifier id'>associated</span> <span class='documentation identifier id'>documentation</span> <span class='files identifier id'>files</span> <span class='lparen token'>(</span><span class='the identifier id'>the</span>
- <span class='string val'>'Software'</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='to identifier id'>to</span> <span class='deal identifier id'>deal</span> <span class='in in kw'>in</span> <span class='the identifier id'>the</span> <span class='Software constant id'>Software</span> <span class='without identifier id'>without</span> <span class='restriction identifier id'>restriction</span><span class='comma token'>,</span> <span class='including identifier id'>including</span>
- <span class='without identifier id'>without</span> <span class='limitation identifier id'>limitation</span> <span class='the identifier id'>the</span> <span class='rights identifier id'>rights</span> <span class='to identifier id'>to</span> <span class='use identifier id'>use</span><span class='comma token'>,</span> <span class='copy identifier id'>copy</span><span class='comma token'>,</span> <span class='modify identifier id'>modify</span><span class='comma token'>,</span> <span class='merge identifier id'>merge</span><span class='comma token'>,</span> <span class='publish identifier id'>publish</span><span class='comma token'>,</span>
- <span class='distribute identifier id'>distribute</span><span class='comma token'>,</span> <span class='sublicense identifier id'>sublicense</span><span class='comma token'>,</span> <span class='and and kw'>and</span><span class='regexp val'>/or sell copies of the Software, and to
+<p>Copyright (c) 2012 Elabs AB</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ &#39;Software&#39;), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
  permit persons to whom the Software is furnished to do so, subject to
- the following conditions:
+ the following conditions:</p>
 
- The above copyright notice and this permission notice shall be
- included in all copies or substantial portions of the Software.
+<p>The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.</p>
 
- THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+<p>THE SOFTWARE IS PROVIDED &#39;AS IS&#39;, WITHOUT WARRANTY OF ANY KIND,
  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-</span></pre>
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
     
     <div id="footer">
-  Generated on Wed Jun 15 10:20:45 2011 by 
+  Generated on Fri Feb 17 16:29:16 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.6.5 (ruby-1.8.7).
+  0.7.5 (ruby-1.9.3).
 </div>
 
   </body>

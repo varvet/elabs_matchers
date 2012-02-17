@@ -3,16 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Top Level Namespace</title>
-<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+<title>
+  Top Level Namespace
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   relpath = '';
   if (relpath != '') relpath += '/';
 </script>
-<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
 
   </head>
   <body>
@@ -33,11 +43,14 @@
 </div>
 
       <div id="search">
-  <a id="class_list_link" href="#">Class List</a>
-  <a id="method_list_link" href="#">Method List</a>
-  <a id ="file_list_link" href="#">File List</a>
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
 </div>
-
       <div class="clear"></div>
     </div>
     
@@ -65,7 +78,7 @@
 <p class="children">
    
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="ElabsMatchers.html" title="ElabsMatchers (module)">ElabsMatchers</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cucumber.html" title="Cucumber (module)">Cucumber</a></span>, <span class='object_link'><a href="ElabsMatchers.html" title="ElabsMatchers (module)">ElabsMatchers</a></span>
     
    
     
@@ -76,12 +89,102 @@
 
 
 
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%5E-instance_method" title="#^ (instance method)">- (Object) <strong>^</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Transforms a cucumber step so that the list it includes turns into an
+array.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="^-instance_method">
+  
+    - (<tt>Object</tt>) <strong>^</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Transforms a cucumber step so that the list it includes turns into an array</p>
+
+<p>Example: Step: Then I should see "Bart", "Lisa" and "Homer" Definition:</p>
+
+<pre class="code ruby"><code><span class='const'>Then</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^I should see (</span><span class='embexpr_beg'>#{</span><span class='const'>LIST_REGEXP</span><span class='rbrace'>}</span><span class='tstring_content'>)$</span><span class='regexp_end'>/</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_names'>names</span><span class='op'>|</span>
+  <span class='comment'># names == [&quot;Bart&quot;, &quot;Lisa&quot;, &quot;Homer&quot;]
+</span><span class='kw'>end</span></code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/elabs_matchers/cucumber/common.rb', line 52</span>
+
+<span class='const'>Transform</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^</span><span class='embexpr_beg'>#{</span><span class='const'>LIST_REGEXP</span><span class='rbrace'>}</span><span class='tstring_content'>$</span><span class='regexp_end'>/</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_list'>list</span><span class='op'>|</span>
+  <span class='const'>ElabsMatchers</span><span class='op'>::</span><span class='const'>Cucumber</span><span class='op'>::</span><span class='const'>Common</span><span class='op'>::</span><span class='id identifier rubyid_human_list_to_array'>human_list_to_array</span><span class='lparen'>(</span><span class='id identifier rubyid_list'>list</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
 </div>
     
     <div id="footer">
-  Generated on Wed Jun 15 10:20:45 2011 by 
+  Generated on Fri Feb 17 16:29:16 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.6.5 (ruby-1.8.7).
+  0.7.5 (ruby-1.9.3).
 </div>
 
   </body>
