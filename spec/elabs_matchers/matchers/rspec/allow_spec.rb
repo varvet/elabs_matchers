@@ -20,6 +20,9 @@ describe ElabsMatchers::Matchers::Rspec::Allow do
 
       it { expect { should allow("").as(:title, :body) }.to fail_assertion }
       it { expect { should_not allow("Elabs").as(:title, :body) }.to fail_assertion }
+
+      it { expect { should allow("").as(:title, :category) }.to fail_assertion }
+      it { expect { should_not allow("").as(:title, :category) }.to fail_assertion }
     end
   end
 
@@ -30,6 +33,7 @@ describe ElabsMatchers::Matchers::Rspec::Allow do
 
       it { expect { should allow("Elabs", "").as(:title) }.to fail_assertion }
       it { expect { should_not allow("", "Elabs").as(:title) }.to fail_assertion }
+      it { expect { should_not allow("", "Elabs").as(:category) }.to fail_assertion }
     end
 
     context "with several attributes" do
@@ -38,6 +42,9 @@ describe ElabsMatchers::Matchers::Rspec::Allow do
 
       it { expect { should allow("Elabs", "").as(:title, :body) }.to fail_assertion }
       it { expect { should_not allow("", "Elabs").as(:title, :body) }.to fail_assertion }
+
+      it { expect { should allow("", "Elabs").as(:title, :category) }.to fail_assertion }
+      it { expect { should_not allow("", "Elabs").as(:title, :category) }.to fail_assertion }
     end
   end
 end
