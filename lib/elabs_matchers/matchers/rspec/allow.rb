@@ -25,7 +25,7 @@ module ElabsMatchers
 
         if defined?(ActiveModel)
           RSpec::Matchers.define :allow do |*values|
-            chain :as do |attributes|
+            chain :as do |*attributes|
               @attributes = [*attributes]
             end
 
@@ -86,11 +86,23 @@ module ElabsMatchers
             def actual     ; @actual               ; end
 
             failure_message_for_should do |actual|
-              "Expected #{values.inspect} to be valid on #{actual.class.model_name.demodulize}##{@attributes.inspect} but it wasn't."
+              common_failure_message(:valid)
             end
 
             failure_message_for_should_not do |actual|
-              "Expected #{values.inspect} to be invalid on #{actual.class.model_name.demodulize}##{@attributes.inspect} but it wasn't."
+              common_failure_message(:invalid)
+            end
+
+            def common_failure_message(match_type)
+              "Expected #{expected_values_explain} to be #{match_type} on #{actual.class.model_name.demodulize}'s #{attributes_values_explain} attributes but it wasn't."
+            end
+
+            def expected_values_explain
+              values.map(&:inspect).to_sentence
+            end
+
+            def attributes_values_explain
+              attributes.map(&:to_s).map(&:inspect).to_sentence
             end
           end
         end
