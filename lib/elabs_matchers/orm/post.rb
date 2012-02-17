@@ -6,9 +6,11 @@ module ElabsMatchers
       extend ActiveModel::Naming
       include ActiveModel::Validations
 
-      attr_accessor :title, :body, :category
+      attr_accessor :title, :body, :signature, :category, :price
       validates_presence_of :title
       validates_presence_of :body
+      validates_inclusion_of :category, :in => %w[sci-fi fantasy thriller]
+      validates_numericality_of :price
 
       class << self
         def find(id)
