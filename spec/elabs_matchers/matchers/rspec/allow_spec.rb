@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe ElabsMatchers::Matchers::Rspec::Allow do
-  let(:attributes) { { :title => "New", :body => "Lorem", :category => "fantasy", :price => 1, :published_on => Date.today, :visible => true, :co_author => "John Doe", :authors => ["Peter", "Marry"] } }
-  let(:post) { ElabsMatchers::Orm::Post.create(attributes) }
+  let(:post) { ElabsMatchers::Orm::Post.create }
   subject { post }
 
   context "with one example value" do
