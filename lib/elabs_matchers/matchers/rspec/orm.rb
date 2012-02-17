@@ -45,7 +45,7 @@ module ElabsMatchers
         # post.should_not allow("", nil).as(:title, :body)
 
         if defined?(ActiveModel)
-          RSpec::Matchers.define :allow do |values|
+          RSpec::Matchers.define :allow do |*values|
             chain :as do |attributes|
               @attributes = [*attributes]
             end
