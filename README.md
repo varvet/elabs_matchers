@@ -32,6 +32,8 @@ your bast friend at this point.
 
 ### Acceptance helpers:
 * select\_year\_and_month("2010", "March", :from => "Birth date")
+* sign\_in_as(user)
+* sign_out
 
 ### Common helpers:
 * select\_year\_and_month("2010", "March", :from => "Birth date")
