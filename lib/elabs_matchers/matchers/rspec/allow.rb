@@ -71,7 +71,7 @@ module ElabsMatchers
               actual.valid?
 
               attributes.map do |attribute|
-                actual.errors.has_key?(attribute)
+                actual.errors.keys.include?(attribute)
               end
             end
 
@@ -98,7 +98,7 @@ module ElabsMatchers
             end
 
             def expected_values_explain
-              values.map(&:inspect).to_sentence(:two_words_connector => ' or ')
+              values.map(&:inspect).to_sentence
             end
 
             def attributes_values_explain

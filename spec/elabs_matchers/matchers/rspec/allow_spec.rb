@@ -33,7 +33,7 @@ describe ElabsMatchers::Matchers::Rspec::Allow do
 
       it { expect { should allow("Elabs", "").as(:title) }.to fail_assertion }
       it { expect { should_not allow("", "Elabs").as(:title) }.to fail_assertion }
-      it { expect { should_not allow("", "Elabs").as(:signature) }.to fail_assertion }
+      it { should allow("", "Elabs").as(:signature) }
     end
 
     context "with several attributes" do
