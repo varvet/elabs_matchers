@@ -201,7 +201,7 @@ module ElabsMatchers
         # page.should have_form_errors_on("Name", "Can't be blank")
 
         RSpec::Matchers.define :have_form_errors_on do |field, message|
-          xpath = %Q{..//span[contains(@class,'error')]}
+          xpath = %Q{..//span[contains(@class,'error')] | ..//..//label/following-sibling::*[1]/self::span[@class='error']}
           match { |page| page.has_field?(field) and page.find_field(field).has_xpath?(xpath, :text => message) }
           match_for_should_not { |page| page.has_no_field?(field) or page.find_field(field).has_no_xpath?(xpath, :text => message) }
 
