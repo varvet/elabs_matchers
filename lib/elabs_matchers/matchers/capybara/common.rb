@@ -34,58 +34,69 @@ module ElabsMatchers
         # table.should have_table_row('Posts', "Title" => "First", :year => "2012")
 
         RSpec::Matchers.define :have_table_row do |table_name, row|
-          match do |page|
-            table = page.find(:xpath, XPath::HTML.table(table_name))
-
+          def matcher (table, row)
             if row.is_a? Hash
               exps = row.map do |header, value|
-                col_index = table.all("thead th").index { |th| th.text.include?(header) }
+                col_index = table.all('th').index { |th| th.text.include?(header.to_s) }
                 col_index = if col_index then col_index + 1 else 0 end
-                XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
+                XPath.descendant(:td)[col_index.to_s.to_sym][XPath.contains(value.to_s)]
               end
-              exps = exps.inject { |agg, exp| agg & exp }
-              table.has_xpath?(XPath.descendant['tr'][exps])
             else
               exps = []
               row.each_with_index do |value, index|
-                exps << XPath.child(:td)[(index + 1).to_s.to_sym][XPath.contains(value)]
+                exps << XPath.descendant(:td, :th)[XPath.contains(value.to_s)]
               end
-              exps = exps.inject { |agg, exp| agg & exp }
-
-              table.has_xpath?(XPath.descendant['tr'][exps])
             end
+            exps = exps.reduce(:&)
+            XPath.descendant(:tr)[exps]
+          end
+
+          def ascii_table (table)
+            column_lengths = []
+            table.all('tr').map do |tr|
+              tr.all('td,th').each_with_index do |td, i|
+                column_lengths[i] = 0 if column_lengths[i].nil?
+                if column_lengths[i] < (size = td.text.strip.size)
+                  column_lengths[i] = size
+                end
+              end
+            end
+
+            ascii = table.all('tr').map do |tr|
+              middle = []
+              _ = tr.all('td,th').first.tag_name == 'th' ? '_' : ' '
+              l = '|'
+              tr.all('td,th').each_with_index do |td, i|
+                middle << td.text.strip.ljust(column_lengths[i], _)
+              end
+              l+_+ middle.join(_+l+_) +_+l
+            end.join("\n")
+            ascii
+          end
+
+          match do |page|
+            table = page.find(:xpath, XPath::HTML.table(table_name))
+            table.has_xpath?(matcher(table, row))
           end
 
           match_for_should_not do |page|
-            table = page.find(:xpath, XPath::HTML.table(table_name))
-
-            if row.is_a? Hash
-              exps = row.map do |header, value|
-                col_index = table.all("thead th").index { |th| th.text.include?(header) }
-                col_index = if col_index then col_index + 1 else 0 end
-                XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
-              end
-              exps = exps.inject { |agg, exp| agg & exp }
-              table.has_no_xpath?(XPath.descendant['tr'][exps])
+            begin
+              table = page.find(:xpath, XPath::HTML.table(table_name))
+            rescue Exception
+              true
             else
-              exps = []
-              row.each_with_index do |value, index|
-                exps << XPath.child(:td)[(index + 1).to_s.to_sym][XPath.contains(value)]
-              end
-              exps = exps.inject { |agg, exp| agg & exp }
-
-              table.has_no_xpath?(XPath.descendant['tr'][exps])
+              table.has_no_xpath?(matcher(table, row))
             end
           end
 
           failure_message_for_should do |page|
             table = page.find(:xpath, XPath::HTML.table(table_name))
-            ascii_table = table.all('tr').map do |tr|
-              '| ' + tr.all('td,th').map { |td| td.text.strip.ljust(21) }.join(' | ') + ' |'
-            end.join("\n")
-            "expected #{row.inspect} to be included in the table #{table_name}, but it wasn't:\n\n#{ascii_table}"
+            "expected #{row.inspect} to be included in the table #{table_name}, but it wasn't:\n\n#{ascii_table(table)}\n"
           end
-          failure_message_for_should_not { |page| "expected there to be no table #{table_name} with row #{row.inspect}, but there was." }
+          failure_message_for_should_not do |page|
+            table = page.find(:xpath, XPath::HTML.table(table_name))
+            "expected #{row.inspect} to be NOT included in the table #{table_name}, but it was:\n\n#{ascii_table(table)}\n"
+          end
         end
 
         ##
