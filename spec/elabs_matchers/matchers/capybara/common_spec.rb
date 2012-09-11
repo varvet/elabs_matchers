@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ElabsMatchers::Matchers::Capybara::Common do
+describe ElabsMatchers::Matchers::Capybara::Common, :type => :feature do
   describe "#have_options" do
     let(:html) { Capybara.string("<select><option value='1'>A</option><option value='2'>B</option></select>") }
 

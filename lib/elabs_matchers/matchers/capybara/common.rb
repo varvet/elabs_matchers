@@ -2,6 +2,8 @@ module ElabsMatchers
   module Matchers
     module Capybara
       module Common
+        extend RSpec::Matchers::DSL
+
         ##
         #
         # Asserts if the select input tag contains the given options.
@@ -11,7 +13,7 @@ module ElabsMatchers
         # Example:
         # find(:xpath, XPath::HTML.select("My input label")).should have_options(options)
 
-        RSpec::Matchers.define :have_options do |*options|
+        matcher :have_options do |*options|
           match do |select|
             options.all? { |option| select.all("option").map(&:text).include?(option) }
           end
@@ -33,7 +35,7 @@ module ElabsMatchers
         # Example:
         # table.should have_table_row('Posts', "Title" => "First", :year => "2012")
 
-        RSpec::Matchers.define :have_table_row do |table_name, row|
+        matcher :have_table_row do |table_name, row|
           match do |page|
             table = page.find(:xpath, XPath::HTML.table(table_name))
 
@@ -41,7 +43,16 @@ module ElabsMatchers
               exps = row.map do |header, value|
                 col_index = table.all("thead th").index { |th| th.text.include?(header) }
                 col_index = if col_index then col_index + 1 else 0 end
-                XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
+
+                # Test me, I'm supposed to asssert that empty cells really are empty
+                # and that if there's an input with a value of value that it matches too
+                XPath.generate do |x|
+                  if value.blank?
+                    x.child(:td, :th)[col_index.to_s.to_sym]["not(node())".to_sym]
+                  else
+                    x.child(:td, :th)[col_index.to_s.to_sym][x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
+                  end
+                end
               end
               exps = exps.inject { |agg, exp| agg & exp }
               table.has_xpath?(XPath.descendant['tr'][exps])
@@ -100,7 +111,7 @@ module ElabsMatchers
         #
         # * https://github.com/plataformatec/show_for
 
-        RSpec::Matchers.define :have_attribute do |label, value|
+        matcher :have_attribute do |label, value|
           xpath = XPath.generate { |x| x.descendant(:p)[x.attr(:class).contains('wrapper')][x.child(:strong).contains(label)][x.contains(value)] }
 
           match do |page|
@@ -127,7 +138,7 @@ module ElabsMatchers
         # Example:
         # page.should have_image("Logo")
 
-        RSpec::Matchers.define :have_image do |alt|
+        matcher :have_image do |alt|
           match { |page| page.has_css?("img[alt=\"#{alt}\"]") }
           match_for_should_not { |page| page.has_no_css?("img[alt=\"#{alt}\"]") }
 
@@ -147,7 +158,7 @@ module ElabsMatchers
         # Example:
         # page.should have_header("Elabs")
 
-        RSpec::Matchers.define :have_header do |text|
+        matcher :have_header do |text|
           match { |page| page.has_css?('h1,h2', :text => text) }
           match_for_should_not { |page| page.has_no_css?('h1,h2', :text => text) }
 
@@ -167,7 +178,7 @@ module ElabsMatchers
         # Example:
         # page.should have_flash_notice("Success")
 
-        RSpec::Matchers.define :have_flash_notice do |text|
+        matcher :have_flash_notice do |text|
           match { |page| page.has_css?('#flash.notice, #flash .notice, .flash.notice', :text => text) }
           match_for_should_not { |page| page.has_no_css?('#flash.notice, #flash .notice, .flash.notice', :text => text) }
           failure_message_for_should { |page| "expected flash notice to be '#{text}' but was '#{page.find('#flash.notice, #flash .notice, .flash.notice').text}'" }
@@ -183,7 +194,7 @@ module ElabsMatchers
         # Example:
         # page.should have_flash_alert("Error")
 
-        RSpec::Matchers.define :have_flash_alert do |text|
+        matcher :have_flash_alert do |text|
           match { |page| page.has_css?('#flash.alert, #flash .alert, .flash.alert', :text => text) }
           match_for_should_not { |page| page.has_no_css?('#flash.alert, #flash .alert, .flash.alert', :text => text) }
           failure_message_for_should { |page| "expected flash alert to be '#{text}' but was '#{page.find('#flash.alert, #flash .alert, .flash.alert').text}'" }
@@ -200,7 +211,7 @@ module ElabsMatchers
         # Example:
         # page.should have_form_errors_on("Name", "Can't be blank")
 
-        RSpec::Matchers.define :have_form_errors_on do |field, message|
+        matcher :have_form_errors_on do |field, message|
           xpath = %Q{..//span[contains(@class,'error')] | ..//..//label/following-sibling::*[1]/self::span[@class='error']}
           match { |page| page.has_field?(field) and page.find_field(field).has_xpath?(xpath, :text => message) }
           match_for_should_not { |page| page.has_no_field?(field) or page.find_field(field).has_no_xpath?(xpath, :text => message) }
@@ -227,7 +238,7 @@ module ElabsMatchers
         # Example:
         # page.should have_fields("Author" => "Adam", "Year" => "2011")
 
-        RSpec::Matchers.define :have_fields do |fields|
+        matcher :have_fields do |fields|
           match do |page|
             exps = fields.map { |label, value| XPath::HTML.field(label, :with => value) }
             page.has_xpath?("(./html | ./self::*)[#{exps.join(' and ')}]")

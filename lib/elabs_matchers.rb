@@ -1,3 +1,5 @@
+require "rspec"
+
 module ElabsMatchers
   require "active_support/core_ext/hash/indifferent_access"
   require "active_support/inflector"
@@ -7,6 +9,12 @@ module ElabsMatchers
   end
 
   RSpec.configure do |config|
+    config.include ElabsMatchers::Matchers::Capybara::Common, :type => :request
+    config.include ElabsMatchers::Matchers::Capybara::Common, :type => :feature
+    config.include ElabsMatchers::Matchers::Rspec::Allow
+    config.include ElabsMatchers::Matchers::Rspec::Common
+    config.include ElabsMatchers::Matchers::Rspec::Orm
+
     Dir[File.join(File.expand_path(File.dirname(__FILE__)), "elabs_matchers/helpers/*.rb")].each do |file|
       file = file.split("/").last.split(".").first
       file = file[0].chr.upcase + file[1..-1]

@@ -2,6 +2,8 @@ module ElabsMatchers
   module Matchers
     module Rspec
       module Orm
+        extend RSpec::Matchers::DSL
+
         ##
         #
         # Asserts if an assigned value persistes in the database.
@@ -12,7 +14,7 @@ module ElabsMatchers
         # Example:
         # post.should persist(:title, "Blog post")
 
-        RSpec::Matchers.define :persist do |attribute, value|
+        matcher :persist do |attribute, value|
           match do |actual|
             actual.send(:"#{attribute}=", value)
             actual.save!

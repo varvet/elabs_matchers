@@ -2,6 +2,8 @@ module ElabsMatchers
   module Matchers
     module Rspec
       module Common
+        extend RSpec::Matchers::DSL
+
         ##
         #
         # Asserts if the hash contains the supplied hash.
@@ -13,7 +15,7 @@ module ElabsMatchers
         # { "foo" => ['quox', { 'bar' => 'baz'}]}.should contain_hash({ "foo" => [{ "bar" => "baz" }]})
         # { "foo" => "bar", "baz" => "quox" }.should_not contain_hash({ "baz" => "bar" })
 
-        RSpec::Matchers.define :contain_hash do |expected|
+        matcher :contain_hash do |expected|
           match do |actual|
             contains?(expected, actual)
           end
@@ -48,7 +50,7 @@ module ElabsMatchers
         # ["foo", "bar"].should only_include("bar", "foo")
         # ["foo", "bar"].should_not only_include("foo")
 
-        RSpec::Matchers.define :only_include do |*collection|
+        matcher :only_include do |*collection|
           match { |actual| actual.length == collection.length and collection.all? { |element| actual.include?(element) }  }
           failure_message_for_should { |actual| "Expected #{actual.inspect} to only include #{collection.inspect}." }
           failure_message_for_should_not { |actual| "Expected #{actual.inspect} to not only include #{collection.inspect}, but it did." }
