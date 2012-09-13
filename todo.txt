@@ -1,0 +1,6 @@
+* Convert matchers to the class based syntax
+* Update matchers to better use modern Capybara matchers
+* Better error messages
+* Test actual error message texts
+* Generate configuration file and have matchers obey those configurations
+* Extend have_form_errors_on to work with more markup variants.

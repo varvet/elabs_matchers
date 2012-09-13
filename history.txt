@@ -1,0 +1,14 @@
+# Version 0.0.4
+
+### Changed
+* Elabs matchers is now using Module.rspec internaly to include modules.
+* Major restructure of files, folders and module names.
+
+### Removed
+* All cucucmber helpers and matchers
+* Session helpers (sign_in, login and current_user)
+* have_options in favor of Capybara's built in have_select "Letters", :options => ["A", "B"]
+
+### Added
+* Module.rspec to help you include your helpers into your rspec test suite.
+* Tests for failing assertions.
