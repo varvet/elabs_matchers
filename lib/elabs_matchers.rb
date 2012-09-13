@@ -9,8 +9,6 @@ module ElabsMatchers
   end
 
   RSpec.configure do |config|
-    config.include ElabsMatchers::Matchers::Capybara::Common, :type => :request
-    config.include ElabsMatchers::Matchers::Capybara::Common, :type => :feature
     config.include ElabsMatchers::Matchers::Rspec::Allow
     config.include ElabsMatchers::Matchers::Rspec::Common
     config.include ElabsMatchers::Matchers::Rspec::Orm
