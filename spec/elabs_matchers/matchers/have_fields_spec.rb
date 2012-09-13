@@ -36,7 +36,9 @@ describe ElabsMatchers::Matchers::HaveFields, :type => :feature do
     end
 
     it "returns false if the one of the pairs is incorrect" do
-      should_not have_fields("Author" => "Adam", "Year" => "2012")
+      should_not have_fields("Author" => "Goliath", "Year" => "2012")
+
+      expect { should_not have_fields("Author" => "Adam", "Year" => "2012") }.to fail_assertion
       expect { should_not have_fields("Author" => "Adam", "Year" => "2011") }.to fail_assertion
     end
   end

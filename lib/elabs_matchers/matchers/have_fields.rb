@@ -18,7 +18,7 @@ module ElabsMatchers
           fields.all? { |label, value| page.has_field?(label, :with => value) }
         end
         match_for_should_not do |page|
-          fields.any? { |label, value| page.has_no_field?(label, :with => value) }
+          fields.all? { |label, value| page.has_no_field?(label, :with => value) }
         end
         failure_message_for_should do |page|
           "expected page to have the fields #{fields.inspect}, but it didn't."
