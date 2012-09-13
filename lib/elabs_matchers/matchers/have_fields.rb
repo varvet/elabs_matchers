@@ -15,15 +15,17 @@ module ElabsMatchers
 
       matcher :have_fields do |fields|
         match do |page|
-          exps = fields.map { |label, value| XPath::HTML.field(label, :with => value) }
-          page.has_xpath?("(./html | ./self::*)[#{exps.join(" and ")}]")
+          fields.all? { |label, value| page.has_field?(label, :with => value) }
         end
         match_for_should_not do |page|
-          exps = fields.map { |label, value| XPath::HTML.field(label, :with => value) }
-          page.has_no_xpath?("(./html | ./self::*)[#{exps.join(" and ")}]")
+          fields.any? { |label, value| page.has_no_field?(label, :with => value) }
         end
-        failure_message_for_should { |page| "expected page to have the fields #{fields.inspect}, but it didn't." }
-        failure_message_for_should_not { |page| "expected page not to have the fields #{fields.inspect}, but it did." }
+        failure_message_for_should do |page|
+          "expected page to have the fields #{fields.inspect}, but it didn't."
+        end
+        failure_message_for_should_not do |page|
+          "expected page not to have the fields #{fields.inspect}, but it did."
+        end
       end
     end
   end
