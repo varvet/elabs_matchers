@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe ElabsMatchers::Helpers::NormalizeKeys do
   describe "normalize_keys" do

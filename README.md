@@ -21,7 +21,7 @@ your bast friend at this point.
 
 ### Acceptance matchers:
 * page.should have_options(["Yes", "No"])
-* page.should have\_table_row('Posts', "Title" => "First", :year => "2012")
+* page.should have\_table_row("Posts", "Title" => "First", :year => "2012")
 * page.should have\_attribute("Status", "Pending")
 * page.should have\_image("Logo")
 * page.should have\_header("Elabs")
@@ -45,13 +45,13 @@ your bast friend at this point.
 add elabs_matchers to your Gemfile:
 
 ```ruby
-gem 'elabs_matchers', :git => 'git://github.com/elabs/elabs_matchers.git'
+gem "elabs_matchers", :git => "git://github.com/elabs/elabs_matchers.git"
 ```
 
-if you're using Spork gem you need to tell bundler not to require the files for you:
+if you"re using Spork gem you need to tell bundler not to require the files for you:
 
 ```ruby
-gem 'elabs_matchers', :git => 'git://github.com/elabs/elabs_matchers.git', :require => false
+gem "elabs_matchers", :git => "git://github.com/elabs/elabs_matchers.git", :require => false
 ```
 
 then you'll require them inside your spork prefork block:
@@ -59,7 +59,7 @@ then you'll require them inside your spork prefork block:
 ```ruby
 Spork.prefork do
   ...
-  require 'elabs_matchers'
+  require "elabs_matchers"
   ...
 end
 ```
@@ -85,7 +85,7 @@ should run all the gem's specs.
 
  Permission is hereby granted, free of charge, to any person obtaining
  a copy of this software and associated documentation files (the
- 'Software'), to deal in the Software without restriction, including
+ "Software"), to deal in the Software without restriction, including
  without limitation the rights to use, copy, modify, merge, publish,
  distribute, sublicense, and/or sell copies of the Software, and to
  permit persons to whom the Software is furnished to do so, subject to
@@ -94,7 +94,7 @@ should run all the gem's specs.
  The above copyright notice and this permission notice shall be
  included in all copies or substantial portions of the Software.
 
- THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY

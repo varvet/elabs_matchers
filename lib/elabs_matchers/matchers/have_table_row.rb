@@ -12,7 +12,7 @@ module ElabsMatchers
       # @param [Hash] column value            A hash representing the column name and value in key-value form.
       #
       # Example:
-      # table.should have_table_row('Posts', "Title" => "First", :year => "2012")
+      # table.should have_table_row("Posts", "Title" => "First", :year => "2012")
 
       matcher :have_table_row do |table_name, row|
         match do |page|
@@ -34,7 +34,7 @@ module ElabsMatchers
               end
             end
             exps = exps.inject { |agg, exp| agg & exp }
-            table.has_xpath?(XPath.descendant['tr'][exps])
+            table.has_xpath?(XPath.descendant["tr"][exps])
           else
             exps = []
             row.each_with_index do |value, index|
@@ -42,7 +42,7 @@ module ElabsMatchers
             end
             exps = exps.inject { |agg, exp| agg & exp }
 
-            table.has_xpath?(XPath.descendant['tr'][exps])
+            table.has_xpath?(XPath.descendant["tr"][exps])
           end
         end
 
@@ -56,7 +56,7 @@ module ElabsMatchers
               XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
             end
             exps = exps.inject { |agg, exp| agg & exp }
-            table.has_no_xpath?(XPath.descendant['tr'][exps])
+            table.has_no_xpath?(XPath.descendant["tr"][exps])
           else
             exps = []
             row.each_with_index do |value, index|
@@ -64,14 +64,14 @@ module ElabsMatchers
             end
             exps = exps.inject { |agg, exp| agg & exp }
 
-            table.has_no_xpath?(XPath.descendant['tr'][exps])
+            table.has_no_xpath?(XPath.descendant["tr"][exps])
           end
         end
 
         failure_message_for_should do |page|
           table = page.find(:xpath, XPath::HTML.table(table_name))
-          ascii_table = table.all('tr').map do |tr|
-            '| ' + tr.all('td,th').map { |td| td.text.strip.ljust(21) }.join(' | ') + ' |'
+          ascii_table = table.all("tr").map do |tr|
+            "| " + tr.all("td,th").map { |td| td.text.strip.ljust(21) }.join(" | ") + " |"
           end.join("\n")
           "expected #{row.inspect} to be included in the table #{table_name}, but it wasn't:\n\n#{ascii_table}"
         end

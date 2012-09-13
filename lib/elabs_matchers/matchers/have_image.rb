@@ -18,7 +18,7 @@ module ElabsMatchers
         match_for_should_not { |page| page.has_no_css?("img[alt=\"#{alt}\"]") }
 
         failure_message_for_should do |page|
-          alts = page.all('img').map { |img| "'#{img[:alt]}'" }.join(", ")
+          alts = page.all("img").map { |img| "'#{img[:alt]}'" }.join(", ")
           "expected image alt to be '#{alt}' but it had the image alts: #{alts}."
         end
         failure_message_for_should_not { |page| "expected image not to be '#{alt}' but it was" }
