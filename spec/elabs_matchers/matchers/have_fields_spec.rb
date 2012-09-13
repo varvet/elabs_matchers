@@ -12,25 +12,32 @@ describe ElabsMatchers::Matchers::HaveFields, :type => :feature do
         </form>
       })
     end
+    subject { html }
 
     it "returns true with several fields if both labels and values are correct" do
-      html.should have_fields("Author" => "Adam", "Year" => "2011")
+      should have_fields("Author" => "Adam", "Year" => "2011")
+
+      expect { should have_fields("Author" => "Adam", "Year" => "2012") }.to fail_assertion
+      expect { should have_fields("Author" => "Adam", "Week" => "2011") }.to fail_assertion
     end
 
     it "returns true with one field if both labels and values are correct" do
-      html.should have_fields("Year" => "2011")
+      should have_fields("Year" => "2011")
+      expect { should have_fields("Week" => "2011") }.to fail_assertion
     end
 
     it "returns false if the label is correct but the value is not" do
-      html.should_not have_fields("Author" => "David")
+      should_not have_fields("Author" => "David")
+      expect { should_not have_fields("Author" => "Adam") }.to fail_assertion
     end
 
     it "returns false if the label is correct but the value is not" do
-      html.should_not have_fields("Wrong" => "Adam")
+      should_not have_fields("Wrong" => "Adam")
     end
 
     it "returns false if the one of the pairs is incorrect" do
-      html.should_not have_fields("Author" => "Adam", "Year" => "2012")
+      should_not have_fields("Author" => "Adam", "Year" => "2012")
+      expect { should_not have_fields("Author" => "Adam", "Year" => "2011") }.to fail_assertion
     end
   end
 end

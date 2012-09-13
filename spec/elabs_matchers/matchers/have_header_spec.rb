@@ -3,21 +3,26 @@ require "spec_helper"
 describe ElabsMatchers::Matchers::HaveHeader, :type => :feature do
   describe "#have_header" do
     let(:html) { Capybara.string(%Q{<div><h1>Elabs</h1><h2>Bespoke</h2><h3>Development</h3></div>}) }
+    subject { html }
 
     it "returns true if given the content of a h1 tag" do
-      html.should have_header("Elabs")
+      should have_header("Elabs")
+      expect { should have_header("Development") }.to fail_assertion
     end
 
     it "returns true if given the content of a h2 tag" do
-      html.should have_header("Bespoke")
+      should have_header("Bespoke")
     end
 
     it "returns false if given the content of a h3 tag" do
-      html.should_not have_header("Development")
+      should_not have_header("Development")
+
+      expect { should_not have_header("Elabs") }.to fail_assertion
+      expect { should_not have_header("Bespoke") }.to fail_assertion
     end
 
     it "returns false if the content doesn't exist on the page" do
-      html.should_not have_header("Bugs")
+      should_not have_header("Bugs")
     end
   end
 end

@@ -16,29 +16,36 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
         </table>
       })
     end
+    subject { html }
 
     it "returns true when the one of the pairs in the row exists" do
-      html.should have_table_row("Posts", "Title" => "First")
+      should have_table_row("Posts", "Title" => "First")
+      expect { should have_table_row("Posts", "Foo" => "First") }.to fail_assertion
     end
 
     it "returns true when the all of the pairs in the row exists" do
-      html.should have_table_row("Posts", "Title" => "First", "Author" => "Adam")
+      should have_table_row("Posts", "Title" => "First", "Author" => "Adam")
+      expect { should have_table_row("Posts", "Title" => "First", "Author" => "Second") }.to fail_assertion
     end
 
     it "returns false when the header is wrong and the value is correct" do
-      html.should_not have_table_row("Posts", "Label" => "First")
+      should_not have_table_row("Posts", "Label" => "First")
+      expect { should_not have_table_row("Posts", "Title" => "First") }.to fail_assertion
     end
 
     it "returns false when the header is correct and the value is wrong" do
-      html.should_not have_table_row("Posts", "Title" => "Third")
+      should_not have_table_row("Posts", "Title" => "Third")
+      expect { should have_table_row("Posts", "Author" => "First") }.to fail_assertion
     end
 
     it "returns false when on of the pairs is wrong" do
-      html.should_not have_table_row("Posts", "Title" => "First", "Author" => "David")
+      should_not have_table_row("Posts", "Title" => "First", "Author" => "David")
+      expect { should have_table_row("Posts", "Title" => "First", "Author" => "David") }.to fail_assertion
     end
 
     it "returns false when given the value of another column" do
-      html.should_not have_table_row("Posts", "Title" => "Adam")
+      should_not have_table_row("Posts", "Title" => "Adam")
+      expect { should have_table_row("Posts", "Title" => "Adam") }.to fail_assertion
     end
   end
 end

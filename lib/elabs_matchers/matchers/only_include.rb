@@ -16,7 +16,11 @@ module ElabsMatchers
       # ["foo", "bar"].should_not only_include("foo")
 
       matcher :only_include do |*collection|
-        match { |actual| actual.length == collection.length and collection.all? { |element| actual.include?(element) }  }
+        match do |actual|
+          collection.uniq.length == collection.length and
+          actual.length == collection.length and
+          collection.all? { |element| actual.include?(element) }
+        end
         failure_message_for_should { |actual| "Expected #{actual.inspect} to only include #{collection.inspect}." }
         failure_message_for_should_not { |actual| "Expected #{actual.inspect} to not only include #{collection.inspect}, but it did." }
       end

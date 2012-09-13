@@ -28,7 +28,7 @@ module ElabsMatchers
         end
 
         failure_message_for_should do |page|
-          attributes = page.all(:css, 'li.wrapper').map(&:text).to_sentence
+          attributes = page.all(:css, 'li.wrapper').map(&:text).join(",")
           "expected there to be an attribute #{label}: #{value}, but the only attributes were: #{attributes}."
         end
         failure_message_for_should_not { |page| "expected there to be no attribute #{label}: #{value}, but there was." }

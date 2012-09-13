@@ -1,12 +1,14 @@
 require "spec_helper"
 
 describe ElabsMatchers::Matchers::HaveFormErrorsOn, :type => :feature do
+  subject { html }
+
   describe "#have_form_errors_on" do
     context "with error as sibling to input" do
       let(:html) do
         Capybara.string(%Q{
           <form>
-            <span class="error">Can't be blank</span>
+            <span class="error">can't be blank</span>
             <label for="name">Name</label>
             <input type="text" name="name" id="name" value="" />
           </form>
@@ -14,15 +16,19 @@ describe ElabsMatchers::Matchers::HaveFormErrorsOn, :type => :feature do
       end
 
       it "returns true if the label and the error message is correct" do
-        html.should have_form_errors_on("Name", "Can't be blank")
+        should have_form_errors_on("Name", "can't be blank")
+
+        expect { should have_form_errors_on("Name", "must be royal") }.to fail_assertion
+        expect { should have_form_errors_on("Message", "can't be blank") }.to fail_assertion
       end
 
       it "returns false if the label is correct by the error message is wrong" do
-        html.should_not have_form_errors_on("Name", "Not good enough")
+        should_not have_form_errors_on("Name", "Not good enough")
+        expect { should_not have_form_errors_on("Name", "can't be blank") }.to fail_assertion
       end
 
       it "returns false if the label is wrong by the error message is correct" do
-        html.should_not have_form_errors_on("Author", "Can't be blank")
+        should_not have_form_errors_on("Author", "can't be blank")
       end
     end
 
@@ -34,21 +40,23 @@ describe ElabsMatchers::Matchers::HaveFormErrorsOn, :type => :feature do
               <input type="text" name="name" id="name" value="" />
               Name
             </label>
-            <span class="error">Can't be blank</span>
+            <span class="error">can't be blank</span>
           </form>
         })
       end
 
       it "returns true if the label and the error message is correct" do
-        html.should have_form_errors_on("Name", "Can't be blank")
+        should have_form_errors_on("Name", "can't be blank")
+        expect { should have_form_errors_on("Name", "must be royal") }.to fail_assertion
       end
 
       it "returns false if the label is correct by the error message is wrong" do
-        html.should_not have_form_errors_on("Name", "Not good enough")
+        should_not have_form_errors_on("Name", "Not good enough")
+        expect { should_not have_form_errors_on("Name", "can't be blank") }.to fail_assertion
       end
 
       it "returns false if the label is wrong by the error message is correct" do
-        html.should_not have_form_errors_on("Author", "Can't be blank")
+        should_not have_form_errors_on("Author", "can't be blank")
       end
     end
   end

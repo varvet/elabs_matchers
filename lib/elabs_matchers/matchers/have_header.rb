@@ -18,7 +18,7 @@ module ElabsMatchers
         match_for_should_not { |page| page.has_no_css?('h1,h2', :text => text) }
 
         failure_message_for_should do |page|
-          headers = page.all('h1,h2').map { |h| "'#{h.text}'" }.to_sentence
+          headers = page.all('h1,h2').map { |h| "'#{h.text}'" }.join(", ")
           "expected header to be '#{text}' but it had the headers #{headers}"
         end
         failure_message_for_should_not { |page| "expected header not to be '#{text}' but it was" }
