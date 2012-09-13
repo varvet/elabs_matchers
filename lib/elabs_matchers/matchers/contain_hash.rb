@@ -12,7 +12,7 @@ module ElabsMatchers
       # @param [Hash] options      Key => value pairs seperated by comma
       #
       # Example:
-      # { "foo" => ['quox', { 'bar' => 'baz'}]}.should contain_hash({ "foo" => [{ "bar" => "baz" }]})
+      # { "foo" => ["quox", { "bar" => "baz"}]}.should contain_hash({ "foo" => [{ "bar" => "baz" }]})
       # { "foo" => "bar", "baz" => "quox" }.should_not contain_hash({ "baz" => "bar" })
 
       matcher :contain_hash do |expected|
