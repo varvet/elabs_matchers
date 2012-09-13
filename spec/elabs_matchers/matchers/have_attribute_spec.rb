@@ -8,17 +8,23 @@ describe ElabsMatchers::Matchers::HaveAttribute, :type => :feature do
         <p class="wrapper post_status"><strong class="label">Author</strong><br />Adam</p>
       </div>})
     end
+    subject { html }
 
     it "returns true when the label exists with the supplied value" do
-      html.should have_attribute("Title", "First")
+      should have_attribute("Title", "First")
+      should have_attribute("Title", "First")
+
+      expect { should have_attribute("Title", "Last") }.to fail_assertion
+      expect { should have_attribute("Name", "First") }.to fail_assertion
     end
 
     it "returns false when the label exists with but the value is wrong" do
-      html.should_not have_attribute("Title", "Wrong")
+      should_not have_attribute("Title", "Wrong")
+      expect { should_not have_attribute("Title", "First") }.to fail_assertion
     end
 
     it "returns false when the label does not exist even if the value does" do
-      html.should_not have_attribute("Wrong", "First")
+      should_not have_attribute("Wrong", "First")
     end
   end
 end
