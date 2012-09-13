@@ -5,9 +5,13 @@ module ElabsMatchers
   require "active_support/inflector"
   require "rspec"
 
-  Dir[File.join(File.expand_path(File.dirname(__FILE__)), "elabs_matchers/**/*.rb")].each do |file|
-    require file unless file.split("/").last == "version.rb"
+  relative_file_path = lambda do |files|
+    base_dir = File.expand_path(File.dirname(__FILE__))
+    File.join(base_dir, "elabs_matchers", files)
   end
+
+  require relative_file_path["extensions/module"]
+  Dir[relative_file_path["{helpers,matchers}/*.rb"]].each { |f| require f }
 
   RSpec.configure do |config|
   end
