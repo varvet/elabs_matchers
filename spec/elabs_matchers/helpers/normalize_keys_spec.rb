@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ElabsMatchers::Helpers::Common do
+describe ElabsMatchers::Helpers::NormalizeKeys do
   describe "normalize_keys" do
     it "turns the keys into symbols" do
       normalize_keys("First name" => "Adam").keys.first.should == "first_name"

@@ -1,6 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
+require "fixtures/post"
 
-describe ElabsMatchers::Matchers::Rspec::Allow do
+describe ElabsMatchers::Matchers::Allow do
   let(:post) { ElabsMatchers::Orm::Post.create }
   subject { post }
 

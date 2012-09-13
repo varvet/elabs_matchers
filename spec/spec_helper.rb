@@ -1,14 +1,21 @@
 ENV["RAILS_ENV"] = "test"
 
-require 'rubygems'
-require 'bundler/setup'
-require 'capybara'
-require 'active_model'
-require 'elabs_matchers'
+require "rubygems"
+require "bundler/setup"
+require "capybara"
+require "active_model"
+require "elabs_matchers"
 
 RSpec.configure do |config|
   config.mock_with :rspec
   config.include Capybara
+
+  %w[helpers matchers].each do |dir|
+    Dir[File.join(File.expand_path(File.dirname(__FILE__)), "../lib/elabs_matchers/#{dir}/*.rb")].each do |file|
+      file = file.split("/").last.split(".").first
+      config.include("ElabsMatchers::#{dir.camelize}::#{file.camelize}".constantize)
+    end
+  end
 end
 
 module RSpec

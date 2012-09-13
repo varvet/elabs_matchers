@@ -1,6 +1,7 @@
 module ElabsMatchers
   module Helpers
     module Fixtures
+      rspec
 
       ##
       #

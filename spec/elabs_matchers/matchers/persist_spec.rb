@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ElabsMatchers::Matchers::Rspec::Orm do
+describe ElabsMatchers::Matchers::Persist do
   let(:post) { ElabsMatchers::Orm::Post.create(:title => "New", :body => "Lorem") }
 
   describe "#persist" do

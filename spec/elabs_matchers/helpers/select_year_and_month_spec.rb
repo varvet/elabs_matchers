@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ElabsMatchers::Helpers::Capybara do
+describe ElabsMatchers::Helpers::SelectYearAndMonth do
   let(:page) { Capybara::Session.new(:rack_test, proc { |env| [200, {}, [html]]}) }
   let(:html) do
     %Q{
@@ -17,7 +17,7 @@ describe ElabsMatchers::Helpers::Capybara do
   end
 
   before do
-    page.extend(ElabsMatchers::Helpers::Capybara)
+    page.extend(ElabsMatchers::Helpers::SelectYearAndMonth)
     page.visit "/"
   end
 

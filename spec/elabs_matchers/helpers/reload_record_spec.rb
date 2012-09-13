@@ -1,6 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
+require "fixtures/post.rb"
 
-describe ElabsMatchers::Helpers::Orm do
+describe ElabsMatchers::Helpers::ReloadRecord do
   let(:post) { ElabsMatchers::Orm::Post.create(:title => "New") }
 
   describe "#save_and_reload" do

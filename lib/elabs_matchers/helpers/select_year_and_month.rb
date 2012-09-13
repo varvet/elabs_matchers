@@ -1,6 +1,8 @@
 module ElabsMatchers
   module Helpers
-    module Capybara
+    module SelectYearAndMonth
+      rspec :type => :request
+
       ##
       #
       # Selects a year and a month on a rails date select input field.

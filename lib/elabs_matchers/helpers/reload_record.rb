@@ -1,6 +1,8 @@
 module ElabsMatchers
   module Helpers
-    module Orm
+    module ReloadRecord
+      rspec :type => :model
+
       ##
       #
       # Finds the record from the database and return a new instance for that record.
@@ -30,3 +32,4 @@ module ElabsMatchers
     end
   end
 end
+

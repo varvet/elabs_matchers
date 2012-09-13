@@ -1,6 +1,7 @@
 module ElabsMatchers
   module Helpers
-    module Common
+    module NormalizeKeys
+      rspec
 
       ##
       #
@@ -10,7 +11,6 @@ module ElabsMatchers
       # @param [Hash] options     A hash of human-friendly key and value pairs.
       #
       # Examples:
-      # normalize_keys({ "First name" => "Adam" }) => HashWithIndifferentAccess.new({ "first_name" => "adam" })
       #
       # # Or in a Cucumber table:
       # Given the following people:
