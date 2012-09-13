@@ -2,7 +2,7 @@ module ElabsMatchers
   module Matchers
     module Allow
       extend RSpec::Matchers::DSL
-      rspec :request => :model
+      rspec :type => :model
 
       ##
       #
