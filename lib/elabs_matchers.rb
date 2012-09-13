@@ -6,14 +6,21 @@ module ElabsMatchers
   require "active_support/inflector"
   require "rspec"
 
-  relative_file_path = lambda do |files|
-    base_dir = File.expand_path(File.dirname(__FILE__))
-    File.join(base_dir, "elabs_matchers", files)
-  end
+  require "elabs_matchers/extensions/module"
+  require "elabs_matchers/helpers/fixtures"
+  require "elabs_matchers/helpers/normalize_keys"
+  require "elabs_matchers/helpers/reload_record"
+  require "elabs_matchers/helpers/select_year_and_month"
 
-  require relative_file_path["extensions/module"]
-  Dir[relative_file_path["{helpers,matchers}/*.rb"]].each { |f| require f }
-
-  RSpec.configure do |config|
-  end
+  require "elabs_matchers/matchers/allow"
+  require "elabs_matchers/matchers/contain_hash"
+  require "elabs_matchers/matchers/have_attribute"
+  require "elabs_matchers/matchers/have_fields"
+  require "elabs_matchers/matchers/have_flash"
+  require "elabs_matchers/matchers/have_form_errors_on"
+  require "elabs_matchers/matchers/have_header"
+  require "elabs_matchers/matchers/have_image"
+  require "elabs_matchers/matchers/have_table_row"
+  require "elabs_matchers/matchers/only_include"
+  require "elabs_matchers/matchers/persist"
 end
