@@ -1,4 +1,9 @@
-* Extend have_form_errors_on to work with more markup variants.
-* Better error messages
-* Test actual error message texts
-* Generate configuration file and have matchers obey those configurations
+0.0.4:
+  * Generate configuration file and have matchers obey those configurations
+
+1.0.0:
+  * Better error messages
+  * Test actual error message texts
+
+Things to add:
+  * Email matchers
