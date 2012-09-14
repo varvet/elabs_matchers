@@ -8,12 +8,12 @@ module ElabsMatchers
 
         def matches?(page)
           @page = page
-          table.has_xpath?(row_xpath(row))
+          table and table.has_xpath?(row_xpath(row))
         end
 
         def does_not_match?(page)
           @page = page
-          table.has_no_xpath?(row_xpath(row))
+          !table or table.has_no_xpath?(row_xpath(row))
         end
 
         def failure_message_for_should
@@ -44,7 +44,11 @@ module ElabsMatchers
         end
 
         def table
-          page.find(:xpath, XPath::HTML.table(table_name))
+          table_xpath = XPath::HTML.table(table_name)
+
+          if page.has_xpath?(table_xpath)
+            page.find(:xpath, table_xpath)
+          end
         end
 
         def ascii_table

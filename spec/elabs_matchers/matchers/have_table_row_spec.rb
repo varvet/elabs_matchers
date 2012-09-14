@@ -59,5 +59,9 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
       expect { should have_table_row("Posts", "Title" => "") }.to fail_assertion
     end
 
+    it "returns false if there is no matching table" do
+      should_not have_table_row("Other", "Title" => "First")
+      expect { should_not have_table_row("Posts", "Title" => "First") }.to fail_assertion
+    end
   end
 end
