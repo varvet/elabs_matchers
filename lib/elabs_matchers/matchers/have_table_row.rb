@@ -3,13 +3,8 @@ module ElabsMatchers
     module HaveTableRow
       rspec :type => :request
 
-      class HaveTableRowMatcher
-        attr_reader :table_name, :row, :page
-
-        def initialize(table_name, row)
-          @table_name = table_name
-          @row = row
-        end
+      class HaveTableRowMatcher < Struct.new(:table_name, :row)
+        attr_reader :page
 
         def matches?(page)
           @page = page

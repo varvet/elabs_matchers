@@ -3,12 +3,8 @@ module ElabsMatchers
     module HaveHeader
       rspec :type => :request
 
-      class HaveHeaderMatcher
-        attr_reader :text, :page
-
-        def initialize(text)
-          @text = text
-        end
+      class HaveHeaderMatcher < Struct.new(:text)
+        attr_reader :page
 
         def matches?(page)
           @page = page

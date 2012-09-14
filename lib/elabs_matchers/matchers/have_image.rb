@@ -3,12 +3,8 @@ module ElabsMatchers
     module HaveImage
       rspec :type => :request
 
-      class HaveImageMatcher
-        attr_reader :page, :alt
-
-        def initialize(alt)
-          @alt = alt
-        end
+      class HaveImageMatcher < Struct.new(:alt)
+        attr_reader :page
 
         def matches?(page)
           @page = page

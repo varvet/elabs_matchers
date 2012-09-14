@@ -3,13 +3,8 @@ module ElabsMatchers
     module Persist
       rspec :type => :model
 
-      class PersistMatcher
-        attr_reader :attribute, :value, :record
-
-        def initialize(attribute, value)
-          @attribute = attribute
-          @value = value
-        end
+      class PersistMatcher < Struct.new(:attribute, :value)
+        attr_reader :record
 
         def matches?(record)
           record.send(:"#{attribute}=", value)

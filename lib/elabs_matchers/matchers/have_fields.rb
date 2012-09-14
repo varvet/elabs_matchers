@@ -3,12 +3,8 @@ module ElabsMatchers
     module HaveFields
       rspec :type => :request
 
-      class HaveFieldsMatcher
-        attr_reader :fields, :page
-
-        def initialize(fields)
-          @fields = fields
-        end
+      class HaveFieldsMatcher < Struct.new(:fields)
+        attr_reader :page
 
         def matches?(page)
           @page = page

@@ -3,13 +3,8 @@ module ElabsMatchers
     module HaveAttribute
       rspec :type => :request
 
-      class HaveAttributeMatcher
-        attr_reader :label, :value
-
-        def initialize(label, value)
-          @label = label
-          @value = value
-        end
+      class HaveAttributeMatcher < Struct.new(:label, :value)
+        attr_reader :page
 
         def matches?(page)
           @page = page
@@ -22,7 +17,7 @@ module ElabsMatchers
         end
 
         def failure_message_for_should
-          attributes = @page.all(:css, "li.wrapper").map(&:text).to_sentence
+          attributes = page.all(:css, "li.wrapper").map(&:text).to_sentence
           "expected there to be an attribute #{label}: #{value}, but the only attributes were: #{attributes}."
         end
 

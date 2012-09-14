@@ -3,13 +3,8 @@ module ElabsMatchers
     module HaveFormErrorsOn
       rspec :type => :request
 
-      class HaveFormErrorsOnMatcher
-        attr_reader :field, :message, :page
-
-        def initialize(field, message)
-          @field = field
-          @message = message
-        end
+      class HaveFormErrorsOnMatcher < Struct.new(:field, :message)
+        attr_reader :page
 
         def matches?(page)
           @page = page

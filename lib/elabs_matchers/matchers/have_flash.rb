@@ -3,13 +3,8 @@ module ElabsMatchers
     module HaveFlash
       rspec :type => :request
 
-      class HaveFlashMatcher
-        attr_reader :type, :message, :page
-
-        def initialize(type, message)
-          @type = type
-          @message = message
-        end
+      class HaveFlashMatcher < Struct.new(:type, :message)
+        attr_reader :page
 
         def matches?(page)
           @page = page

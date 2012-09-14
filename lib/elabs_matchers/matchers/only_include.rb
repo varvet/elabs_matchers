@@ -3,12 +3,8 @@ module ElabsMatchers
     module OnlyInclude
       rspec :type => :request
 
-      class OnlyIncludeMatcher
-        attr_reader :elements, :actual
-
-        def initialize(elements)
-          @elements = elements
-        end
+      class OnlyIncludeMatcher < Struct.new(:elements)
+        attr_reader :actual
 
         def matches?(actual)
           @actual = actual

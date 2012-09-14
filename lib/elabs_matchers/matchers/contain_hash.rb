@@ -3,13 +3,7 @@ module ElabsMatchers
     module ContainHash
       rspec
 
-      class ContainHashMatcher
-        attr_reader :expected, :actual
-
-        def initialize(expected)
-          @expected = expected
-        end
-
+      class ContainHashMatcher < Struct.new(:expected, :actual)
         def matches?(actual)
           @actual = actual
           contains?(expected, actual)
