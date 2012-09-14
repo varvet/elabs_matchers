@@ -1,8 +1,40 @@
 module ElabsMatchers
   module Matchers
     module HaveHeader
-      extend RSpec::Matchers::DSL
       rspec :type => :request
+
+      class HaveHeaderMatcher
+        attr_reader :text, :page
+
+        def initialize(text)
+          @text = text
+        end
+
+        def matches?(page)
+          @page = page
+          page.has_css?(selector, :text => text)
+        end
+
+        def does_not_match?(page)
+          @page = page
+          page.has_no_css?(selector, :text => text)
+        end
+
+        def failure_message_for_should
+          headers = page.all(selector).map { |h| "'#{h.text}'" }.to_sentence
+          "Expected header to be '#{text}' but it had the headers #{headers}."
+        end
+
+        def failure_message_for_should_not
+          "Expected header not to be '#{text}' but it was."
+        end
+
+        private
+
+        def selector
+          "h1,h2"
+        end
+      end
 
       ##
       #
@@ -13,15 +45,8 @@ module ElabsMatchers
       # Example:
       # page.should have_header("Elabs")
 
-      matcher :have_header do |text|
-        match { |page| page.has_css?("h1,h2", :text => text) }
-        match_for_should_not { |page| page.has_no_css?("h1,h2", :text => text) }
-
-        failure_message_for_should do |page|
-          headers = page.all('h1,h2').map { |h| "'#{h.text}'" }.join(", ")
-          "expected header to be '#{text}' but it had the headers #{headers}"
-        end
-        failure_message_for_should_not { |page| "expected header not to be '#{text}' but it was" }
+      def have_header(text)
+        HaveHeaderMatcher.new(text)
       end
     end
   end

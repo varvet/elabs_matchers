@@ -73,22 +73,27 @@
   
   
     
-      <dt class="r1">Extended by:</dt>
-      <dd class="r1">RSpec::Matchers::DSL</dd>
-      
-    
   
     
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/elabs_matchers/matchers/allow.rb</dd>
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/elabs_matchers/matchers/allow.rb</dd>
   
 </dl>
 <div class="clear"></div>
 
-
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Allow/AllowMatcher.html" title="ElabsMatchers::Matchers::Allow::AllowMatcher (class)">AllowMatcher</a></span>
+    
+  
+</p>
 
 
 
@@ -97,11 +102,125 @@
 
 
   
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#allow-instance_method" title="#allow (instance method)">- (Object) <strong>allow</strong>(*values) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Asserts if a sample value is valid on a given attribute.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="allow-instance_method">
+  
+    - (<tt>Object</tt>) <strong>allow</strong>(*values) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Asserts if a sample value is valid on a given attribute</p>
+
+<p>Example: post.should allow("Elabs").as(:title) post.should_not
+allow("").as(:title)</p>
+
+<p>post.should allow("Elabs").as(:title, :body) post.should_not
+allow("").as(:title, :body)</p>
+
+<p>post.should allow("Elabs", "Sweden").as(:title) post.should_not allow("",
+nil).as(:title)</p>
+
+<p>post.should allow("Elabs", "Sweden").as(:title, :body) post.should_not
+allow("", nil).as(:title, :body)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>values</span>
+      
+      
+        <span class='type'>(<tt>*Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Sample value(s) to check the validation against</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+124
+125
+126</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/elabs_matchers/matchers/allow.rb', line 124</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_allow'>allow</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='const'>AllowMatcher</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
     <div id="footer">
-  Generated on Fri Sep 14 09:27:32 2012 by
+  Generated on Fri Sep 14 11:23:01 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.3).
 </div>

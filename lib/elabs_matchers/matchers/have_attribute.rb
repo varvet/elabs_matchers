@@ -1,8 +1,43 @@
 module ElabsMatchers
   module Matchers
     module HaveAttribute
-      extend RSpec::Matchers::DSL
       rspec :type => :request
+
+      class HaveAttributeMatcher
+        attr_reader :label, :value
+
+        def initialize(label, value)
+          @label = label
+          @value = value
+        end
+
+        def matches?(page)
+          @page = page
+          page.has_xpath?(xpath)
+        end
+
+        def does_not_match?(page)
+          @page = page
+          page.has_no_xpath?(xpath)
+        end
+
+        def failure_message_for_should
+          attributes = @page.all(:css, "li.wrapper").map(&:text).to_sentence
+          "expected there to be an attribute #{label}: #{value}, but the only attributes were: #{attributes}."
+        end
+
+        def failure_message_for_should_not
+          "expected there to be no attribute #{label}: #{value}, but there was."
+        end
+
+        private
+
+        def xpath
+          XPath.generate do |x|
+            x.descendant(:p)[x.attr(:class).contains("wrapper")][x.child(:strong).contains(label)][x.contains(value)]
+          end
+        end
+      end
 
       ##
       #
@@ -16,22 +51,8 @@ module ElabsMatchers
       #
       # * https://github.com/plataformatec/show_for
 
-      matcher :have_attribute do |label, value|
-        xpath = XPath.generate { |x| x.descendant(:p)[x.attr(:class).contains("wrapper")][x.child(:strong).contains(label)][x.contains(value)] }
-
-        match do |page|
-          page.has_xpath?(xpath)
-        end
-
-        match_for_should_not do |page|
-          page.has_no_xpath?(xpath)
-        end
-
-        failure_message_for_should do |page|
-          attributes = page.all(:css, "li.wrapper").map(&:text).join(",")
-          "expected there to be an attribute #{label}: #{value}, but the only attributes were: #{attributes}."
-        end
-        failure_message_for_should_not { |page| "expected there to be no attribute #{label}: #{value}, but there was." }
+      def have_attribute(label, value)
+        HaveAttributeMatcher.new(label, value)
       end
     end
   end

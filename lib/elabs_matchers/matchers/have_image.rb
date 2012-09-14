@@ -1,8 +1,40 @@
 module ElabsMatchers
   module Matchers
     module HaveImage
-      extend RSpec::Matchers::DSL
       rspec :type => :request
+
+      class HaveImageMatcher
+        attr_reader :page, :alt
+
+        def initialize(alt)
+          @alt = alt
+        end
+
+        def matches?(page)
+          @page = page
+          page.has_css?(selector)
+        end
+
+        def does_not_match?(page)
+          @page = page
+          page.has_no_css?(selector)
+        end
+
+        def failure_message_for_should
+          alts = page.all("img").map { |img| "'#{img[:alt]}'" }.to_sentence
+          "expected image alt to be '#{alt}' but it had the image alts: #{alts}."
+        end
+
+        def failure_message_for_should_not
+          "expected image not to be '#{alt}' but it was"
+        end
+
+        private
+
+        def selector
+          "img[alt=\"#{alt}\"]"
+        end
+      end
 
       ##
       #
@@ -13,15 +45,8 @@ module ElabsMatchers
       # Example:
       # page.should have_image("Logo")
 
-      matcher :have_image do |alt|
-        match { |page| page.has_css?("img[alt=\"#{alt}\"]") }
-        match_for_should_not { |page| page.has_no_css?("img[alt=\"#{alt}\"]") }
-
-        failure_message_for_should do |page|
-          alts = page.all("img").map { |img| "'#{img[:alt]}'" }.join(", ")
-          "expected image alt to be '#{alt}' but it had the image alts: #{alts}."
-        end
-        failure_message_for_should_not { |page| "expected image not to be '#{alt}' but it was" }
+      def have_image(alt)
+        HaveImageMatcher.new(alt)
       end
     end
   end

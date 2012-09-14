@@ -1,24 +1,29 @@
 module ElabsMatchers
   module Matchers
     module ContainHash
-      extend RSpec::Matchers::DSL
       rspec
 
-      ##
-      #
-      # Asserts if the hash contains the supplied hash.
-      # Works with nested hashes and array of hashes.
-      #
-      # @param [Hash] options      Key => value pairs seperated by comma
-      #
-      # Example:
-      # { "foo" => ["quox", { "bar" => "baz"}]}.should contain_hash({ "foo" => [{ "bar" => "baz" }]})
-      # { "foo" => "bar", "baz" => "quox" }.should_not contain_hash({ "baz" => "bar" })
+      class ContainHashMatcher
+        attr_reader :expected, :actual
 
-      matcher :contain_hash do |expected|
-        match do |actual|
+        def initialize(expected)
+          @expected = expected
+        end
+
+        def matches?(actual)
+          @actual = actual
           contains?(expected, actual)
         end
+
+        def failure_message_for_should
+          "Expected #{expected.inspect} to exist in #{actual.inspect} but it did not."
+        end
+
+        def failure_message_for_should_not
+          "Expected #{expected.inspect} to not exist in #{actual.inspect} but it did."
+        end
+
+        private
 
         def contains?(expected, actual)
           return false unless actual.is_a?(expected.class)
@@ -37,6 +42,22 @@ module ElabsMatchers
             actual == expected
           end
         end
+
+      end
+
+      ##
+      #
+      # Asserts if the hash contains the supplied hash.
+      # Works with nested hashes and array of hashes.
+      #
+      # @param [Hash] hash      Key => value pairs seperated by comma
+      #
+      # Example:
+      # { "foo" => ["quox", { "bar" => "baz"}]}.should contain_hash({ "foo" => [{ "bar" => "baz" }]})
+      # { "foo" => "bar", "baz" => "quox" }.should_not contain_hash({ "baz" => "bar" })
+
+      def contain_hash(hash)
+        ContainHashMatcher.new(hash)
       end
     end
   end

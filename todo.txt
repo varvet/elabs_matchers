@@ -1,4 +1,3 @@
-* Convert matchers to the class based syntax
 * Update matchers to better use modern Capybara matchers
 * Better error messages
 * Test actual error message texts

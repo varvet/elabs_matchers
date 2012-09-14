@@ -16,7 +16,6 @@ module ElabsMatchers
       # Given the following people:
       #  | First name | Last name |
       #  | Douglas    | Adams     |
-      #
 
       def normalize_keys(hash)
         hash.inject(HashWithIndifferentAccess.new) do |new_hash, (key, value)|

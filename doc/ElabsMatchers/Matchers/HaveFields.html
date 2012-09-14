@@ -73,21 +73,27 @@
   
   
     
-      <dt class="r1">Extended by:</dt>
-      <dd class="r1">RSpec::Matchers::DSL</dd>
-      
-    
   
     
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/elabs_matchers/matchers/have_fields.rb</dd>
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/elabs_matchers/matchers/have_fields.rb</dd>
   
 </dl>
 <div class="clear"></div>
 
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="HaveFields/HaveFieldsMatcher.html" title="ElabsMatchers::Matchers::HaveFields::HaveFieldsMatcher (class)">HaveFieldsMatcher</a></span>
+    
+  
+</p>
 
 
 
@@ -106,7 +112,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#have_fields-instance_method" title="#have_fields (instance method)">- (Object) <strong>have_fields</strong> </a>
+      <a href="#have_fields-instance_method" title="#have_fields (instance method)">- (Object) <strong>have_fields</strong>(fields) </a>
     
 
     
@@ -131,7 +137,6 @@
   
 
 
-  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -140,7 +145,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="have_fields-instance_method">
   
-    - (<tt>Object</tt>) <strong>have_fields</strong> 
+    - (<tt>Object</tt>) <strong>have_fields</strong>(fields) 
   
 
   
@@ -163,7 +168,7 @@
   
     <li>
       
-        <span class='name'>field</span>
+        <span class='name'>fields</span>
       
       
         <span class='type'>(<tt>Hash</tt>)</span>
@@ -172,7 +177,7 @@
       
         &mdash;
         <div class='inline'>
-<p>name, value         A hash containing pairs of field name =&gt; value</p>
+<p>A hash containing pairs of field name =&gt; value</p>
 </div>
       
     </li>
@@ -186,37 +191,15 @@
       <pre class="lines">
 
 
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/elabs_matchers/matchers/have_fields.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/elabs_matchers/matchers/have_fields.rb', line 44</span>
 
-<span class='id identifier rubyid_matcher'>matcher</span> <span class='symbol'>:have_fields</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_fields'>fields</span><span class='op'>|</span>
-  <span class='id identifier rubyid_match'>match</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='op'>|</span>
-    <span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_has_field?'>has_field?</span><span class='lparen'>(</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='symbol'>:with</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_match_for_should_not'>match_for_should_not</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='op'>|</span>
-    <span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_has_no_field?'>has_no_field?</span><span class='lparen'>(</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='symbol'>:with</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_failure_message_for_should'>failure_message_for_should</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='op'>|</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>expected page to have the fields </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>, but it didn't.</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_failure_message_for_should_not'>failure_message_for_should_not</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='op'>|</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>expected page not to have the fields </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>, but it did.</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_have_fields'>have_fields</span><span class='lparen'>(</span><span class='id identifier rubyid_fields'>fields</span><span class='rparen'>)</span>
+  <span class='const'>HaveFieldsMatcher</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_fields'>fields</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -228,7 +211,7 @@
 </div>
 
     <div id="footer">
-  Generated on Fri Sep 14 09:27:33 2012 by
+  Generated on Fri Sep 14 11:23:01 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.3).
 </div>

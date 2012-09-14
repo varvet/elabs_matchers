@@ -1,39 +1,65 @@
 module ElabsMatchers
   module Matchers
     module HaveFlash
-      extend RSpec::Matchers::DSL
       rspec :type => :request
+
+      class HaveFlashMatcher
+        attr_reader :type, :message, :page
+
+        def initialize(type, message)
+          @type = type
+          @message = message
+        end
+
+        def matches?(page)
+          @page = page
+          page.has_css?(selector, :text => message)
+        end
+
+        def does_not_match?(page)
+          @page = page
+          page.has_no_css?(selector, :text => message)
+        end
+
+        def failure_message_for_should
+          "Expected flash #{type} to be '#{message}' but was '#{page.find(selector).text}'."
+        end
+
+        def failure_message_for_should_not
+          "Expected flash #{type} to not be '#{message}' but it was."
+        end
+
+        private
+
+        def selector
+          "#flash.#{type}, #flash .#{type}, .flash.#{type}"
+        end
+      end
 
       ##
       #
       # Asserts if the supplied flash notice exists or not
       #
-      # @param [String] text              The content of the flash notice
+      # @param [String] message              The content of the flash notice
       #
       # Example:
       # page.should have_flash_notice("Success")
 
-      matcher :have_flash_notice do |text|
-        match { |page| page.has_css?("#flash.notice, #flash .notice, .flash.notice", :text => text) }
-        match_for_should_not { |page| page.has_no_css?("#flash.notice, #flash .notice, .flash.notice", :text => text) }
-        failure_message_for_should { |page| "expected flash notice to be '#{text}' but was '#{page.find('#flash.notice, #flash .notice, .flash.notice').text}'" }
-        failure_message_for_should_not { |page| "expected flash notice not to be '#{text}' but it was" }
+      def have_flash_notice(message)
+        HaveFlashMatcher.new(:notice, message)
       end
 
       ##
       #
       # Asserts if the supplied flash alert exists or not
       #
-      # @param [String] text              The content of the flash alert
+      # @param [String] message              The content of the flash alert
       #
       # Example:
       # page.should have_flash_alert("Error")
 
-      matcher :have_flash_alert do |text|
-        match { |page| page.has_css?("#flash.alert, #flash .alert, .flash.alert", :text => text) }
-        match_for_should_not { |page| page.has_no_css?("#flash.alert, #flash .alert, .flash.alert", :text => text) }
-        failure_message_for_should { |page| "expected flash alert to be '#{text}' but was '#{page.find("#flash.alert, #flash .alert, .flash.alert").text}'" }
-        failure_message_for_should_not { |page| "expected flash alert not to be '#{text}' but it was" }
+      def have_flash_alert(message)
+        HaveFlashMatcher.new(:alert, message)
       end
     end
   end

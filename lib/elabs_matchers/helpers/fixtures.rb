@@ -11,7 +11,6 @@ module ElabsMatchers
       #
       # Example:
       # fixture_file("file.txt")
-      #
 
       def fixture_file(path)
         root = if defined?(Rails) then Rails.root else "../../../spec/" end

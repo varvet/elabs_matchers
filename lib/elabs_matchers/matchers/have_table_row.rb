@@ -1,22 +1,18 @@
 module ElabsMatchers
   module Matchers
     module HaveTableRow
-      extend RSpec::Matchers::DSL
       rspec :type => :request
 
-      ##
-      #
-      # Asserts if the supplied table row exists in the table
-      #
-      # @param [String] table name            The tables's caption text.
-      # @param [Hash] column value            A hash representing the column name and value in key-value form.
-      #
-      # Example:
-      # table.should have_table_row("Posts", "Title" => "First", :year => "2012")
+      class HaveTableRowMatcher
+        attr_reader :table_name, :row, :page
 
-      matcher :have_table_row do |table_name, row|
-        match do |page|
-          table = page.find(:xpath, XPath::HTML.table(table_name))
+        def initialize(table_name, row)
+          @table_name = table_name
+          @row = row
+        end
+
+        def matches?(page)
+          @page = page
 
           if row.is_a? Hash
             exps = row.map do |header, value|
@@ -46,8 +42,8 @@ module ElabsMatchers
           end
         end
 
-        match_for_should_not do |page|
-          table = page.find(:xpath, XPath::HTML.table(table_name))
+        def does_not_match?(page)
+          @page = page
 
           if row.is_a? Hash
             exps = row.map do |header, value|
@@ -68,14 +64,39 @@ module ElabsMatchers
           end
         end
 
-        failure_message_for_should do |page|
-          table = page.find(:xpath, XPath::HTML.table(table_name))
-          ascii_table = table.all("tr").map do |tr|
+        def failure_message_for_should
+          "Expected #{row.inspect} to be included in the table #{table_name}, but it wasn't:\n\n#{ascii_table}"
+        end
+
+        def failure_message_for_should_not
+          "Expected there to be no table #{table_name} with row #{row.inspect}, but there was."
+        end
+
+        private
+
+        def table
+          page.find(:xpath, XPath::HTML.table(table_name))
+        end
+
+        def ascii_table
+          table.all("tr").map do |tr|
             "| " + tr.all("td,th").map { |td| td.text.strip.ljust(21) }.join(" | ") + " |"
           end.join("\n")
-          "expected #{row.inspect} to be included in the table #{table_name}, but it wasn't:\n\n#{ascii_table}"
         end
-        failure_message_for_should_not { |page| "expected there to be no table #{table_name} with row #{row.inspect}, but there was." }
+      end
+
+      ##
+      #
+      # Asserts if the supplied table row exists in the table
+      #
+      # @param [String] table_name            The tables's caption text.
+      # @param [Hash] row                     A hash representing the column name and value in key-value form.
+      #
+      # Example:
+      # table.should have_table_row("Posts", "Title" => "First", :year => "2012")
+
+      def have_table_row(table_name, row)
+        HaveTableRowMatcher.new(table_name, row)
       end
     end
   end
