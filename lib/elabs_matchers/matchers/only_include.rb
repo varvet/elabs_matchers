@@ -1,7 +1,7 @@
 module ElabsMatchers
   module Matchers
     module OnlyInclude
-      rspec :type => :request
+      rspec
 
       class OnlyIncludeMatcher < Struct.new(:elements)
         attr_reader :actual
