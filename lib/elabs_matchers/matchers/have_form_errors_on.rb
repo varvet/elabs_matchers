@@ -15,8 +15,7 @@ module ElabsMatchers
           @page = page
 
           if page.has_field?(field)
-            field_element = page.find_field(field)
-            field_element.has_xpath?(xpath, :text => message)
+            page.find_field(field).has_xpath?(xpath, :text => message)
           end
         end
 
@@ -45,7 +44,17 @@ module ElabsMatchers
         private
 
         def xpath
-          %Q{..//span[contains(@class,'error')] | ..//..//label/following-sibling::*[1]/self::span[@class='error']}
+          outside_input_container_xpath = %Q{ancestor::*[contains(@class, 'field_with_errors') and contains(@class, 'error')]}
+          error_as_sibling_xpath = %Q{..//span[contains(@class,'error')]}
+          input_nested_in_label_xpath = %Q{..//..//label/following-sibling::*[1]/self::span[@class='error']}
+          twitter_bootstrap_xpath = %Q{ancestor::*[contains(concat(' ', @class, ' '), ' control-group ') and contains(concat(' ', @class, ' '), ' error ')]}
+
+          [
+            outside_input_container_xpath,
+            error_as_sibling_xpath,
+            input_nested_in_label_xpath,
+            twitter_bootstrap_xpath
+          ].join(" | ")
         end
       end
 
