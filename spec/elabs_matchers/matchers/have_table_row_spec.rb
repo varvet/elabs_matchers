@@ -12,6 +12,7 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
           <tbody>
             <tr><td>First</td><td>Adam</td></tr>
             <tr><td>Second</td><td>David</td></tr>
+            <tr><td>Third</td><td></td></tr>
           </tbody>
         </table>
       })
@@ -34,7 +35,7 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
     end
 
     it "returns false when the header is correct and the value is wrong" do
-      should_not have_table_row("Posts", "Title" => "Third")
+      should_not have_table_row("Posts", "Title" => "Forth")
       expect { should have_table_row("Posts", "Author" => "First") }.to fail_assertion
     end
 
@@ -47,5 +48,16 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
       should_not have_table_row("Posts", "Title" => "Adam")
       expect { should have_table_row("Posts", "Title" => "Adam") }.to fail_assertion
     end
+
+    it "returns true when asking for existing blank value" do
+      should have_table_row("Posts", "Author" => "")
+      expect { should have_table_row("Posts", "Third" => "not empty") }.to fail_assertion
+    end
+
+    it "returns false when asking for non-existing blank value" do
+      should_not have_table_row("Posts", "Title" => "")
+      expect { should have_table_row("Posts", "Title" => "") }.to fail_assertion
+    end
+
   end
 end

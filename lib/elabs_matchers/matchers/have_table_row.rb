@@ -8,55 +8,12 @@ module ElabsMatchers
 
         def matches?(page)
           @page = page
-
-          if row.is_a? Hash
-            exps = row.map do |header, value|
-              col_index = table.all("thead th").index { |th| th.text.include?(header) }
-              col_index = if col_index then col_index + 1 else 0 end
-
-              # Test me, I'm supposed to asssert that empty cells really are empty
-              # and that if there's an input with a value of value that it matches too
-              XPath.generate do |x|
-                if value.blank?
-                  x.child(:td, :th)[col_index.to_s.to_sym]["not(node())".to_sym]
-                else
-                  x.child(:td, :th)[col_index.to_s.to_sym][x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
-                end
-              end
-            end
-            exps = exps.inject { |agg, exp| agg & exp }
-            table.has_xpath?(XPath.descendant["tr"][exps])
-          else
-            exps = []
-            row.each_with_index do |value, index|
-              exps << XPath.child(:td)[(index + 1).to_s.to_sym][XPath.contains(value)]
-            end
-            exps = exps.inject { |agg, exp| agg & exp }
-
-            table.has_xpath?(XPath.descendant["tr"][exps])
-          end
+          table.has_xpath?(row_xpath(row))
         end
 
         def does_not_match?(page)
           @page = page
-
-          if row.is_a? Hash
-            exps = row.map do |header, value|
-              col_index = table.all("thead th").index { |th| th.text.include?(header) }
-              col_index = if col_index then col_index + 1 else 0 end
-              XPath.child(:td, :th)[col_index.to_s.to_sym][XPath.contains(value)]
-            end
-            exps = exps.inject { |agg, exp| agg & exp }
-            table.has_no_xpath?(XPath.descendant["tr"][exps])
-          else
-            exps = []
-            row.each_with_index do |value, index|
-              exps << XPath.child(:td)[(index + 1).to_s.to_sym][XPath.contains(value)]
-            end
-            exps = exps.inject { |agg, exp| agg & exp }
-
-            table.has_no_xpath?(XPath.descendant["tr"][exps])
-          end
+          table.has_no_xpath?(row_xpath(row))
         end
 
         def failure_message_for_should
@@ -64,37 +21,56 @@ module ElabsMatchers
         end
 
         def failure_message_for_should_not
-          "Expected there to be no table #{table_name} with row #{row.inspect}, but there was."
+          "Expected there to be no table #{table_name} with row #{row.inspect}, but there was. Table looks like the following: \n\n#{ascii_table}"
         end
 
         private
+
+        def row_xpath(row)
+          exps = row.map do |header, value|
+            col_index = table.all("th").index { |th| th.text.include?(header.to_s) }
+            col_index = if col_index then col_index + 1 else 0 end
+
+            XPath.generate do |x|
+              if value.blank?
+                x.child(:td, :th)[col_index.to_s.to_sym]["not(node())".to_sym]
+              else
+                x.child(:td, :th)[col_index.to_s.to_sym][x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
+              end
+            end
+          end
+
+          XPath.descendant["tr"][exps.reduce(:&)]
+        end
 
         def table
           page.find(:xpath, XPath::HTML.table(table_name))
         end
 
         def ascii_table
-          column_lengths = []
-          table.all("tr").map do |tr|
-            tr.all("td,th").each_with_index do |td, i|
-              size = td.text.strip.size
-              if (column_lengths[i] || 0) < size
-                column_lengths[i] = size
+          if table
+            column_lengths = []
+            table.all("tr").map do |tr|
+              tr.all("td,th").each_with_index do |td, i|
+                size = td.text.strip.size
+                if (column_lengths[i] || 0) < size
+                  column_lengths[i] = size
+                end
               end
             end
+
+            table.all("tr").map do |tr|
+              middle = []
+              space = if tr.all("td,th").first.tag_name == "th" then "_" else " " end
+              wall = "|"
+
+              tr.all("td,th").each_with_index do |td, i|
+                middle << td.text.strip.ljust(column_lengths[i], space)
+              end
+
+              [wall, space, middle.join(space + wall + space), space, wall].join
+            end.join("\n")
           end
-
-          table.all("tr").map do |tr|
-            middle = []
-            space = if tr.all("td,th").first.tag_name == "th" then "_" else " " end
-            wall = "|"
-
-            tr.all("td,th").each_with_index do |td, i|
-              middle << td.text.strip.ljust(column_lengths[i], space)
-            end
-
-            [wall, space, middle.join(space + wall + space), space, wall].join
-          end.join("\n")
         end
       end
 
