@@ -74,8 +74,26 @@ module ElabsMatchers
         end
 
         def ascii_table
+          column_lengths = []
           table.all("tr").map do |tr|
-            "| " + tr.all("td,th").map { |td| td.text.strip.ljust(21) }.join(" | ") + " |"
+            tr.all("td,th").each_with_index do |td, i|
+              size = td.text.strip.size
+              if (column_lengths[i] || 0) < size
+                column_lengths[i] = size
+              end
+            end
+          end
+
+          table.all("tr").map do |tr|
+            middle = []
+            space = if tr.all("td,th").first.tag_name == "th" then "_" else " " end
+            wall = "|"
+
+            tr.all("td,th").each_with_index do |td, i|
+              middle << td.text.strip.ljust(column_lengths[i], space)
+            end
+
+            [wall, space, middle.join(space + wall + space), space, wall].join
           end.join("\n")
         end
       end
