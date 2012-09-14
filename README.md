@@ -63,16 +63,11 @@ end
 
 ## Development
 
-```bash
-bundle exec rake
-```
+See devlopment.rb
 
-should run all the gem's specs.
+## Contributors
 
-## TODOS
- * Make yard document rspec matchers
- * Use matcher with RSpec::Matchers:DSL
- * Add contributors
+So far the code base is a joined effort by everyone at Elabs.
 
 ## License:
 

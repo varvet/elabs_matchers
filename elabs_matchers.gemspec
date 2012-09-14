@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.name        = "elabs_matchers"
   s.version     = ElabsMatchers::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Nicklas Ramhöj"]
-  s.email       = ["dev+ramhoj@elabs.se"]
+  s.authors     = ["Everyone at Elabs"]
+  s.email       = ["dev@elabs.se"]
   s.homepage    = "http://github.com/elabs/elabs_matchers"
   s.summary     = %q{Provides a set of usefull rspec matchers}
   s.description = %q{Provides a set of usefull rspec matchers to be used with RSpec and/or Capybara}
