@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  if (relpath != '') relpath += '/';
+  framesUrl = "frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
@@ -26,34 +28,39 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <a href="_index.html">Index</a> &raquo; 
     <span class="title">File: README</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><div id='filecontents'><h1>Elabs matchers</h1>
 
 <p><a href="http://travis-ci.org/elabs/elabs_matchers"><img src="https://secure.travis-ci.org/elabs/elabs_matchers.png" alt="Build Status"></a></p>
@@ -68,10 +75,10 @@ your bast friend at this point.</p>
 <h3>Model matchers:</h3>
 
 <ul>
+<li>record.should allow(&quot;Blog post&quot;).as(:title)</li>
 <li>hash.contain_hash({ &quot;baz&quot; =&gt; &quot;bar&quot; })</li>
 <li>array.only_include(&quot;bar&quot;, &quot;foo&quot;)</li>
 <li>record.should persist(:title, &quot;Blog post&quot;)</li>
-<li>record.should allow(&quot;Blog post&quot;).as(:title)</li>
 </ul>
 
 <h3>Model helpers:</h3>
@@ -84,23 +91,20 @@ your bast friend at this point.</p>
 <h3>Acceptance matchers:</h3>
 
 <ul>
-<li>page.should have_options([&quot;Yes&quot;, &quot;No&quot;])</li>
-<li>page.should have_table_row(&#39;Posts&#39;, &quot;Title&quot; =&gt; &quot;First&quot;, :year =&gt; &quot;2012&quot;)</li>
-<li>page.should have_attribute(&quot;Status&quot;, &quot;Pending&quot;)</li>
-<li>page.should have_image(&quot;Logo&quot;)</li>
-<li>page.should have_header(&quot;Elabs&quot;)</li>
 <li>page.should have_flash_notice(&quot;Success&quot;)</li>
 <li>page.should have_flash_alert(&quot;Error&quot;)</li>
 <li>page.should have_form_errors_on(&quot;Name&quot;, &quot;Can&#39;t be blank&quot;)</li>
+<li>page.should have_header(&quot;Elabs&quot;)</li>
+<li>page.should have_image(&quot;Logo&quot;)</li>
 <li>page.should have_fields(&quot;Author&quot; =&gt; &quot;Adam&quot;, &quot;Year&quot; =&gt; &quot;2011&quot;)</li>
+<li>page.should have_table_row(&quot;Posts&quot;, &quot;Title&quot; =&gt; &quot;First&quot;, :year =&gt; &quot;2012&quot;)</li>
+<li>page.should have_attribute(&quot;Status&quot;, &quot;Pending&quot;)</li>
 </ul>
 
 <h3>Acceptance helpers:</h3>
 
 <ul>
 <li>select_year_and_month(&quot;2010&quot;, &quot;March&quot;, :from =&gt; &quot;Birth date&quot;)</li>
-<li>sign_in_as(user)</li>
-<li>sign_out</li>
 </ul>
 
 <h3>Common helpers:</h3>
@@ -115,19 +119,19 @@ your bast friend at this point.</p>
 
 <p>add elabs_matchers to your Gemfile:</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>elabs_matchers</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git://github.com/elabs/elabs_matchers.git</span><span class='tstring_end'>'</span></span>
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>elabs_matchers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>git://github.com/elabs/elabs_matchers.git</span><span class='tstring_end'>&quot;</span></span>
 </code></pre>
 
-<p>if you&#39;re using Spork gem you need to tell bundler not to require the files for you:</p>
+<p>if you&quot;re using Spork gem you need to tell bundler not to require the files for you:</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>elabs_matchers</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>git://github.com/elabs/elabs_matchers.git</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:require</span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>elabs_matchers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>git://github.com/elabs/elabs_matchers.git</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:require</span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
 </code></pre>
 
 <p>then you&#39;ll require them inside your spork prefork block:</p>
 
 <pre class="code ruby"><code>Spork.prefork do
   ...
-  require 'elabs_matchers'
+  require &quot;elabs_matchers&quot;
   ...
 end
 </code></pre>
@@ -155,7 +159,7 @@ end
 
 <p>Permission is hereby granted, free of charge, to any person obtaining
  a copy of this software and associated documentation files (the
- &#39;Software&#39;), to deal in the Software without restriction, including
+ &quot;Software&quot;), to deal in the Software without restriction, including
  without limitation the rights to use, copy, modify, merge, publish,
  distribute, sublicense, and/or sell copies of the Software, and to
  permit persons to whom the Software is furnished to do so, subject to
@@ -164,7 +168,7 @@ end
 <p>The above copyright notice and this permission notice shall be
  included in all copies or substantial portions of the Software.</p>
 
-<p>THE SOFTWARE IS PROVIDED &#39;AS IS&#39;, WITHOUT WARRANTY OF ANY KIND,
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
@@ -172,11 +176,11 @@ end
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
-    
+
     <div id="footer">
-  Generated on Fri Feb 17 16:29:16 2012 by 
+  Generated on Fri Sep 14 09:27:32 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>

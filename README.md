@@ -10,30 +10,27 @@ Below follows a list of matchers that the gem bundles. To get documentation abou
 your bast friend at this point.
 
 ### Model matchers:
+* record.should allow("Blog post").as(:title)
 * hash.contain_hash({ "baz" => "bar" })
 * array.only_include("bar", "foo")
 * record.should persist(:title, "Blog post")
-* record.should allow("Blog post").as(:title)
 
 ### Model helpers:
 * reload(post)
 * save\_and_reload(post)
 
 ### Acceptance matchers:
-* page.should have_options(["Yes", "No"])
-* page.should have\_table_row("Posts", "Title" => "First", :year => "2012")
-* page.should have\_attribute("Status", "Pending")
-* page.should have\_image("Logo")
-* page.should have\_header("Elabs")
 * page.should have\_flash_notice("Success")
 * page.should have\_flash_alert("Error")
 * page.should have\_form\_errors_on("Name", "Can't be blank")
+* page.should have\_header("Elabs")
+* page.should have\_image("Logo")
 * page.should have\_fields("Author" => "Adam", "Year" => "2011")
+* page.should have\_table_row("Posts", "Title" => "First", :year => "2012")
+* page.should have\_attribute("Status", "Pending")
 
 ### Acceptance helpers:
 * select\_year\_and_month("2010", "March", :from => "Birth date")
-* sign\_in_as(user)
-* sign_out
 
 ### Common helpers:
 * select\_year\_and_month("2010", "March", :from => "Birth date")

@@ -12,8 +12,8 @@ module ElabsMatchers
       # Example:
       # reload(post)
 
-      def reload(model)
-        model.class.find(model.id)
+      def reload(record)
+        record.class.find(record.id)
       end
 
       ##
@@ -25,9 +25,9 @@ module ElabsMatchers
       # Example:
       # save_and_reload(post)
 
-      def save_and_reload(model)
-        model.save!
-        reload(model)
+      def save_and_reload(record)
+        record.save!
+        reload(record)
       end
     end
   end

@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: ElabsMatchers::Matchers::HaveHeader
+  
+    &mdash; Documentation by YARD 0.8.2.1
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (H)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../ElabsMatchers.html" title="ElabsMatchers (module)">ElabsMatchers</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Matchers.html" title="ElabsMatchers::Matchers (module)">Matchers</a></span></span>
+     &raquo; 
+    <span class="title">HaveHeader</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: ElabsMatchers::Matchers::HaveHeader
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+      <dt class="r1">Extended by:</dt>
+      <dd class="r1">RSpec::Matchers::DSL</dd>
+      
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/elabs_matchers/matchers/have_header.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#have_header-instance_method" title="#have_header (instance method)">- (Object) <strong>have_header</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Asserts if the supplied header exists or not.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="have_header-instance_method">
+  
+    - (<tt>Object</tt>) <strong>have_header</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Asserts if the supplied header exists or not</p>
+
+<p>Example: page.should have_header("Elabs")</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>text</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The content of the header</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/elabs_matchers/matchers/have_header.rb', line 16</span>
+
+<span class='id identifier rubyid_matcher'>matcher</span> <span class='symbol'>:have_header</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_text'>text</span><span class='op'>|</span>
+  <span class='id identifier rubyid_match'>match</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='op'>|</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_has_css?'>has_css?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>h1,h2</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:text</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_match_for_should_not'>match_for_should_not</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='op'>|</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_has_no_css?'>has_no_css?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>h1,h2</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:text</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_failure_message_for_should'>failure_message_for_should</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='op'>|</span>
+    <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>h1,h2</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>'</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_h'>h</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>expected header to be '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_text'>text</span><span class='rbrace'>}</span><span class='tstring_content'>' but it had the headers </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_headers'>headers</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_failure_message_for_should_not'>failure_message_for_should_not</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>expected header not to be '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_text'>text</span><span class='rbrace'>}</span><span class='tstring_content'>' but it was</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Fri Sep 14 09:27:33 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.2.1 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

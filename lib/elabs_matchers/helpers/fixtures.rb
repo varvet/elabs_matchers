@@ -7,7 +7,7 @@ module ElabsMatchers
       #
       # Opens a file from the fixtures directory.
       #
-      # @param [String] file name      A file name, relative to the fixtures folder.
+      # @param [String] path      A file name, relative to the fixtures folder.
       #
       # Example:
       # fixture_file("file.txt")

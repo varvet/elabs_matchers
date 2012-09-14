@@ -8,7 +8,7 @@ module ElabsMatchers
       # Normalizes a hash so that it can be described in a more
       # human friendly manner.
       #
-      # @param [Hash] options     A hash of human-friendly key and value pairs.
+      # @param [Hash] hash     A hash of human-friendly key and value pairs.
       #
       # Examples:
       #
