@@ -32,10 +32,12 @@ module ElabsMatchers
             col_index = if col_index then col_index + 1 else 0 end
 
             XPath.generate do |x|
+              cell = x.child(:td, :th)[col_index.to_s.to_sym]
+
               if value.blank?
-                x.child(:td, :th)[col_index.to_s.to_sym]["not(node())".to_sym]
+                cell["not(node())".to_sym].or(cell.descendant(:input)["string-length(normalize-space(@value))=0".to_sym])
               else
-                x.child(:td, :th)[col_index.to_s.to_sym][x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
+                cell[x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
               end
             end
           end
@@ -56,7 +58,7 @@ module ElabsMatchers
             column_lengths = []
             table.all("tr").map do |tr|
               tr.all("td,th").each_with_index do |td, i|
-                size = td.text.strip.size
+                size = td_content(td).strip.size
                 if (column_lengths[i] || 0) < size
                   column_lengths[i] = size
                 end
@@ -69,14 +71,21 @@ module ElabsMatchers
               wall = "|"
 
               tr.all("td,th").each_with_index do |td, i|
-                middle << td.text.strip.ljust(column_lengths[i], space)
+                middle << td_content(td).strip.ljust(column_lengths[i], space)
               end
 
               [wall, space, middle.join(space + wall + space), space, wall].join
             end.join("\n")
           end
         end
+
+        def td_content(td)
+          text = td.text.presence
+          text ||= td.find("input, textarea")[:value] if td.has_css?("input")
+          text || ""
+        end
       end
+
 
       ##
       #
