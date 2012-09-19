@@ -8,16 +8,16 @@ module ElabsMatchers
 
         def matches?(page)
           @page = page
-          page.has_css?(selector, :text => message)
+          page.has_selector?(selector_type, selector, :text => message)
         end
 
         def does_not_match?(page)
           @page = page
-          page.has_no_css?(selector, :text => message)
+          page.has_no_selector?(selector_type, selector, :text => message)
         end
 
         def failure_message_for_should
-          "Expected flash #{type} to be '#{message}' but was '#{page.find(selector).text}'."
+          "Expected flash #{type} to be '#{message}' but was '#{page.find(selector_type, selector).text}'."
         end
 
         def failure_message_for_should_not
@@ -26,8 +26,12 @@ module ElabsMatchers
 
         private
 
+        def selector_type
+          ElabsMatchers.send(:"flash_#{type}_selector_type")
+        end
+
         def selector
-          "#flash.#{type}, #flash .#{type}, .flash.#{type}"
+          ElabsMatchers.send(:"flash_#{type}_selector")
         end
       end
 
