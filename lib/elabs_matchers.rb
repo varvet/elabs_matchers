@@ -29,6 +29,7 @@ module ElabsMatchers
     attr_accessor :header_selector, :header_selector_type
     attr_accessor :attribute_selector, :attribute_selector_type
     attr_accessor :flash_notice_selector, :flash_notice_selector_type, :flash_alert_selector, :flash_alert_selector_type
+    attr_accessor :form_errors_on_selector
 
     ##
     #
@@ -41,16 +42,18 @@ module ElabsMatchers
     #
     # === Configurable options
     #
-    # [header_selctor = String]              The selector to use when finding header tags (Default: "h1,h2")
-    # [header_selector_type = Symbol]        The type of selector to use, :css or :xpath (Default: :css)
+    # [header_selctor = String]               The selector to use when finding header tags (Default: "h1,h2")
+    # [header_selector_type = Symbol]         The type of selector to use, :css or :xpath (Default: :css)
     #
-    # [attribute_selector = lambda]          A lambda that takes label and value as arguments and return a selector (Default: see matcher)
-    # [attribute_selector_type = Symbol]     The type of selector to use, :css or :xpath (Default: :xpath)
+    # [attribute_selector = lambda]           A lambda that takes label and value as arguments and return a selector (Default: see matcher)
+    # [attribute_selector_type = Symbol]      The type of selector to use, :css or :xpath (Default: :xpath)
     #
-    # [flash_notice_selector_type = String]  The selector to use when finding the flash notice (Default: "#flash.notice, #flash .notice, .flash.notice")
-    # [flash_notice_selector = Symbol]       The type of selector to use, :css or :xpath (Default: :css)
-    # [flash_alert_selector_type = String]   The selector to use when finding the flash alert (Default: "#flash.alert, #flash .alert, .flash.alert")
-    # [flash_alert_selector = Symbol]        The type of selector to use, :css or :xpath (Default: :css)
+    # [flash_notice_selector = String]        The selector to use when finding the flash notice (Default: "#flash.notice, #flash .notice, .flash.notice")
+    # [flash_notice_selector_type = Symbol]   The type of selector to use, :css or :xpath (Default: :css)
+    # [flash_alert_selector = String]         The selector to use when finding the flash alert (Default: "#flash.alert, #flash .alert, .flash.alert")
+    # [flash_alert_selector_type = Symbol]    The type of selector to use, :css or :xpath (Default: :css)
+    #
+    # [form_errors_on_selector = String]      A xpath expression to be used when finding associated error notices (Default: see matcher)
 
     def configure
       yield self
@@ -59,7 +62,6 @@ module ElabsMatchers
     ##
     #
     # Reset Elabs matchers to use the default configuration.
-    #
 
     def use_default_configuration!
       configure do |config|
@@ -73,6 +75,8 @@ module ElabsMatchers
         config.flash_notice_selector_type = :css
         config.flash_alert_selector = "#flash.alert, #flash .alert, .flash.alert"
         config.flash_alert_selector_type = :css
+
+        config.form_errors_on_selector = nil
       end
     end
   end

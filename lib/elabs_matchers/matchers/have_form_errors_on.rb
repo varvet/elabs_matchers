@@ -10,18 +10,18 @@ module ElabsMatchers
           @page = page
 
           if page.has_field?(field)
-            page.find_field(field).has_xpath?(xpath, :text => message)
+            page.find_field(field).has_selector?(selector_type, selector, :text => message)
           end
         end
 
         def does_not_match?(page)
           @page = page
-          page.has_no_field?(field) || page.find_field(field).has_no_xpath?(xpath, :text => message)
+          page.has_no_field?(field) || page.find_field(field).has_no_selector?(selector_type, selector, :text => message)
         end
 
         def failure_message_for_should
           if page.has_field?(field)
-            error = page.find_field(field).all(:xpath, xpath).first
+            error = page.find_field(field).all(selector_type, selector).first
             if not error
               "Expected field '#{field}' to have an error, but it didn't."
             elsif error.text != message
@@ -38,18 +38,26 @@ module ElabsMatchers
 
         private
 
-        def xpath
-          outside_input_container_xpath = %Q{ancestor::*[contains(@class, 'field_with_errors') and contains(@class, 'error')]}
-          error_as_sibling_xpath = %Q{..//span[contains(@class,'error')]}
-          input_nested_in_label_xpath = %Q{..//..//label/following-sibling::*[1]/self::span[@class='error']}
-          twitter_bootstrap_xpath = %Q{ancestor::*[contains(concat(' ', @class, ' '), ' control-group ') and contains(concat(' ', @class, ' '), ' error ')]}
+        def selector_type
+          :xpath
+        end
 
-          [
-            outside_input_container_xpath,
-            error_as_sibling_xpath,
-            input_nested_in_label_xpath,
-            twitter_bootstrap_xpath
-          ].join(" | ")
+        def selector
+          if ElabsMatchers.form_errors_on_selector
+            ElabsMatchers.form_errors_on_selector
+          else
+            outside_input_container_xpath = %Q{ancestor::*[contains(@class, 'field_with_errors') and contains(@class, 'error')]}
+            error_as_sibling_xpath = %Q{..//span[contains(@class,'error')]}
+            input_nested_in_label_xpath = %Q{..//..//label/following-sibling::*[1]/self::span[@class='error']}
+            twitter_bootstrap_xpath = %Q{ancestor::*[contains(concat(' ', @class, ' '), ' control-group ') and contains(concat(' ', @class, ' '), ' error ')]}
+
+            [
+              outside_input_container_xpath,
+              error_as_sibling_xpath,
+              input_nested_in_label_xpath,
+              twitter_bootstrap_xpath
+            ].join(" | ")
+          end
         end
       end
 

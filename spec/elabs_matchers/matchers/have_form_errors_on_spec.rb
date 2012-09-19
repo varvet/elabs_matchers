@@ -74,4 +74,20 @@ describe ElabsMatchers::Matchers::HaveFormErrorsOn, :type => :feature do
       }
     end
   end
+
+  context "with custom configured xpath selector" do
+    before do
+      ElabsMatchers.form_errors_on_selector = %Q{..//..//li[contains(@class,'error')]}
+    end
+
+    it_behaves_like "a form error matcher" do
+      let(:html) { %Q{
+        <ul>
+          <li><label for="name">Name</label></li>
+          <li><input type="text" name="name" id="name" value="" /></li>
+          <li class="error">can't be blank</li>
+        </ul>}
+      }
+    end
+  end
 end
