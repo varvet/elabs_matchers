@@ -26,7 +26,7 @@ module ElabsMatchers
   require "elabs_matchers/matchers/persist"
 
   class << self
-    attr_accessor :header_selector
+    attr_accessor :header_selector, :header_selector_type
 
     ##
     #
@@ -39,7 +39,8 @@ module ElabsMatchers
     #
     # === Configurable options
     #
-    # [header_selctor = String]           The css selector to use when finding header tags (Default: "h1,h2")
+    # [header_selctor = String]           The selector to use when finding header tags (Default: "h1,h2")
+    # [header_selector_type = Symbol]     The type of selector to use, :css or :xpath (Default: :css)
     #
 
     def configure
@@ -54,6 +55,7 @@ module ElabsMatchers
     def use_default_configuration!
       configure do |config|
         config.header_selector = "h1,h2"
+        config.header_selector_type = :css
       end
     end
   end

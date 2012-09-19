@@ -25,18 +25,30 @@ describe ElabsMatchers::Matchers::HaveHeader, :type => :feature do
       should_not have_header("Bugs")
     end
 
-    context "configured to include h3, but not h2" do
-      before { ElabsMatchers.header_selector = "h1,h3" }
-
+    shared_examples "a configured have header matcher" do
       it "returns true if given the content of a h3" do
         should have_header("Development")
         expect { should_not have_header("Development") }.to fail_assertion
       end
 
-      it "returns true if given the content of a h2" do
+      it "returns false if given the content of a h2" do
         should_not have_header("Bespoke")
         expect { should have_header("Bespoke") }.to fail_assertion
       end
+    end
+
+    context "configured with a css selector" do
+      before { ElabsMatchers.header_selector = "h1,h3" }
+      it_behaves_like "a configured have header matcher"
+    end
+
+    context "configured with xpath selector" do
+      before do
+        ElabsMatchers.header_selector_type = :xpath
+        ElabsMatchers.header_selector = XPath.descendant(:h1, :h3).to_s
+      end
+
+      it_behaves_like "a configured have header matcher"
     end
   end
 end
