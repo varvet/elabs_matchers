@@ -6,64 +6,65 @@ Elabs matchers aims to extend existing rspec matchers from e.g Rspec, Rspec-rail
 of less generic once. This could be things like asserting a table appearing in a certain way or check that
 an active record instance has been successfully persisted after an update.
 
+It is important to know that this gem aims to extend rspec / capybara with more matchers. If functionality in either of theses
+makes any of elabs matchers' matchers obsolete they will be deprecated and removed from elabs matchers.
+
 Below follows a list of matchers that the gem bundles. To get documentation about each matcher the source code is
 your bast friend at this point.
-
-### Model matchers:
-* record.should allow("Blog post").as(:title)
-* hash.contain_hash({ "baz" => "bar" })
-* array.only_include("bar", "foo")
-* record.should persist(:title, "Blog post")
-
-### Model helpers:
-* reload(post)
-* save\_and_reload(post)
-
-### Acceptance matchers:
-* page.should have\_flash_notice("Success")
-* page.should have\_flash_alert("Error")
-* page.should have\_form\_errors_on("Name", "Can't be blank")
-* page.should have\_header("Elabs")
-* page.should have\_image("Logo")
-* page.should have\_fields("Author" => "Adam", "Year" => "2011")
-* page.should have\_table_row("Posts", "Title" => "First", :year => "2012")
-* page.should have\_attribute("Status", "Pending")
-
-### Acceptance helpers:
-* select\_year\_and_month("2010", "March", :from => "Birth date")
-
-### Common helpers:
-* select\_year\_and_month("2010", "March", :from => "Birth date")
-* normalize_keys({ "First name" => "Adam" })
-* fixture_file("file.txt")
 
 ## Setup
 
 add elabs_matchers to your Gemfile:
 
 ```ruby
-gem "elabs_matchers", :git => "git://github.com/elabs/elabs_matchers.git"
+gem "elabs_matchers"
 ```
 
-if you"re using Spork gem you need to tell bundler not to require the files for you:
-
+### Model matchers:
 ```ruby
-gem "elabs_matchers", :git => "git://github.com/elabs/elabs_matchers.git", :require => false
+record.should allow("Blog post").as(:title)
+hash.contain_hash({ "baz" => "bar" })
+array.only_include("bar", "foo")
+record.should persist(:title, "Blog post")
 ```
 
-then you'll require them inside your spork prefork block:
-
+### Model helpers:
 ```ruby
-Spork.prefork do
-  ...
-  require "elabs_matchers"
-  ...
-end
+reload(post)
+save_and_reload(post)
 ```
+
+### Acceptance matchers:
+```ruby
+page.should have_flash_notice("Success")
+page.should have_flash_alert("Error")
+page.should have_form_errors_on("Name", "Can't be blank")
+page.should have_header("Elabs")
+page.should have_image("Logo")
+page.should have_fields("Author" => "Adam", "Year" => "2011")
+page.should have_table_row("Posts", "Title" => "First", :year => "2012")
+page.should have_attribute("Status", "Pending")
+```
+
+### Acceptance helpers:
+```ruby
+select_year_and_month("2010", "March", :from => "Birth date")
+```
+
+### Common helpers:
+```ruby
+normalize_keys({ "First name" => "Adam" })
+fixture_file("file.txt")
+```
+
+## More
+The gem includes YARD documentation which can be read with any browser.
+The gem's test suite should also serve as detailed documentation for each matcher and helper.
+
 
 ## Development
 
-See devlopment.rb
+See [devlopment.txt](https://github.com/elabs/elabs_matchers/blob/master/development.rb)
 
 ## Contributors
 
