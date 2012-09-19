@@ -24,5 +24,19 @@ describe ElabsMatchers::Matchers::HaveHeader, :type => :feature do
     it "returns false if the content doesn't exist on the page" do
       should_not have_header("Bugs")
     end
+
+    context "configured to include h3, but not h2" do
+      before { ElabsMatchers.header_selector = "h1,h3" }
+
+      it "returns true if given the content of a h3" do
+        should have_header("Development")
+        expect { should_not have_header("Development") }.to fail_assertion
+      end
+
+      it "returns true if given the content of a h2" do
+        should_not have_header("Bespoke")
+        expect { should have_header("Bespoke") }.to fail_assertion
+      end
+    end
   end
 end

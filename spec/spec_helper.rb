@@ -16,6 +16,10 @@ RSpec.configure do |config|
       config.include("ElabsMatchers::#{dir.camelize}::#{file.camelize}".constantize)
     end
   end
+
+  config.after do
+    ElabsMatchers.use_default_configuration!
+  end
 end
 
 module RSpec

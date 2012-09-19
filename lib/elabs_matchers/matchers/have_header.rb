@@ -28,7 +28,7 @@ module ElabsMatchers
         private
 
         def selector
-          "h1,h2"
+          ElabsMatchers.header_selector
         end
       end
 
