@@ -84,5 +84,36 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
         }
       end
     end
+
+    context "configured with xpath selecto" do
+      before do
+        ElabsMatchers.table_row_selector = lambda do |row, table|
+          exps = row.map do |header, value|
+            col_index = table.all("th").index { |th| th.text.include?(header.to_s) }
+            col_index = if col_index then col_index + 1 else 0 end
+
+            XPath.generate do |x|
+              cell = x.child(:td, :th)[col_index.to_s.to_sym]
+
+              if value.blank?
+                cell.child(:span)["not(node())".to_sym]
+              else
+                cell.child(:span)[x.contains(value)]
+              end
+            end
+          end
+
+          XPath.descendant["tr"][exps.reduce(:&)]
+        end
+      end
+
+      it_behaves_like "a table row matcher" do
+        let(:html) { %Q{
+          <tr><td><span>First<span></td><td><span>Adam<span></td></tr>
+          <tr><td><span>Second<span></td><td><span>David<span></td></tr>
+          <tr><td><span>Third<span></td><td><span></span></td></tr>}
+        }
+      end
+    end
   end
 end

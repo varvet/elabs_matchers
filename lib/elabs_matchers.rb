@@ -31,6 +31,7 @@ module ElabsMatchers
     attr_accessor :flash_notice_selector, :flash_notice_selector_type, :flash_alert_selector, :flash_alert_selector_type
     attr_accessor :form_errors_on_selector
     attr_accessor :image_selector, :image_selector_type
+    attr_accessor :table_row_selector
 
     ##
     #
@@ -60,6 +61,8 @@ module ElabsMatchers
     # [flash_alert_selector_type = Symbol]    The type of selector to use, :css or :xpath (Default: :css)
     #
     # [form_errors_on_selector = String]      A xpath expression to be used when finding associated error notices (Default: see matcher)
+    #
+    # [table_row_selector = lambda]           A lambda that takes table row return a selector (Default: see matcher)
 
     def configure
       yield self
@@ -86,6 +89,8 @@ module ElabsMatchers
         config.flash_alert_selector_type = :css
 
         config.form_errors_on_selector = nil
+
+        config.table_row_selector = nil
       end
     end
   end

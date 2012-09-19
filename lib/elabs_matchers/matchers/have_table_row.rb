@@ -8,12 +8,12 @@ module ElabsMatchers
 
         def matches?(page)
           @page = page
-          table and table.has_xpath?(row_xpath(row))
+          table and table.has_selector?(selector_type, selector)
         end
 
         def does_not_match?(page)
           @page = page
-          !table or table.has_no_xpath?(row_xpath(row))
+          !table or table.has_no_selector?(selector_type, selector)
         end
 
         def failure_message_for_should
@@ -21,28 +21,36 @@ module ElabsMatchers
         end
 
         def failure_message_for_should_not
-          "Expected there to be no table #{table_name} with row #{row.inspect}, but there was. Table looks like the following: \n\n#{ascii_table}"
+          "Expected there to be no table #{table_name} with row #{row.inspect}, but there was.\n\n#{ascii_table}"
         end
 
         private
 
-        def row_xpath(row)
-          exps = row.map do |header, value|
-            col_index = table.all("th").index { |th| th.text.include?(header.to_s) }
-            col_index = if col_index then col_index + 1 else 0 end
+        def selector_type
+          :xpath
+        end
 
-            XPath.generate do |x|
-              cell = x.child(:td, :th)[col_index.to_s.to_sym]
+        def selector
+          if ElabsMatchers.table_row_selector
+            ElabsMatchers.table_row_selector[row, table]
+          else
+            exps = row.map do |header, value|
+              col_index = table.all("th").index { |th| th.text.include?(header.to_s) }
+              col_index = if col_index then col_index + 1 else 0 end
 
-              if value.blank?
-                cell["not(node())".to_sym].or(cell.descendant(:input)["string-length(normalize-space(@value))=0".to_sym])
-              else
-                cell[x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
+              XPath.generate do |x|
+                cell = x.child(:td, :th)[col_index.to_s.to_sym]
+
+                if value.blank?
+                  cell["not(node())".to_sym].or(cell.descendant(:input)["string-length(normalize-space(@value))=0".to_sym])
+                else
+                  cell[x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
+                end
               end
             end
-          end
 
-          XPath.descendant["tr"][exps.reduce(:&)]
+            XPath.descendant["tr"][exps.reduce(:&)]
+          end
         end
 
         def table
