@@ -12,3 +12,4 @@
 ### Added
 * Module.rspec to help you include your helpers into your rspec test suite.
 * Tests for failing assertions.
+* Most matcher's selectors can be configured to match your markup.

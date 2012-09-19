@@ -56,7 +56,7 @@ module ElabsMatchers
       #
       # Asserts if the supplied image exists or not
       #
-      # @param [String] alt              The alt attribute content of the image
+      # @param [String] value              The alt attribute content of the image
       #
       # Example:
       # page.should have_image("Logo")

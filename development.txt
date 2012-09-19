@@ -19,6 +19,8 @@ Pull requests are appreciated. Before submitting please consider the following:
 * When writing matches? methods, consider writing does_not_match? as well.
   This is important when writing Capybara matchers since failing to do so will cause problems with
   specs that are rune with asynchronous communication going on (AJAX).
+* Try to follow the pattern of a selector and a selector_type method in each matcher
+* If possible, allow the user to override the selector and selector type using the configure syntax.
 * Test your methods using the same pattern as existing specs.
 
 Thank you for helping out!

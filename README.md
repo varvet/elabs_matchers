@@ -12,6 +12,8 @@ makes any of elabs matchers' matchers obsolete they will be deprecated and remov
 Below follows a list of matchers that the gem bundles. To get documentation about each matcher the source code is
 your bast friend at this point.
 
+The gem's api should be consider subject to change on any level until version 1.0
+
 ## Setup
 
 add elabs_matchers to your Gemfile:
@@ -56,6 +58,21 @@ select_year_and_month("2010", "March", :from => "Birth date")
 normalize_keys({ "First name" => "Adam" })
 fixture_file("file.txt")
 ```
+
+## Configuration
+
+Matchers can be configured in e.g your spec_helper.rb-file:
+
+```ruby
+ElabsMatchers.configure do |config|
+  config.header_selector = "//h1"
+  config.header_selector_type = :xpath
+  config.image_selector = lambda { |src| "img[src='#{src}']" }
+end
+```
+
+See [elabs_matchers.rb](https://github.com/elabs/elabs_matchers/blob/master/lib/elabs_matchers.rb)
+
 
 ## More
 The gem includes YARD documentation which can be read with any browser.

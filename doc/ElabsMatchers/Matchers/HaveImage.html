@@ -112,7 +112,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#have_image-instance_method" title="#have_image (instance method)">- (Object) <strong>have_image</strong>(alt) </a>
+      <a href="#have_image-instance_method" title="#have_image (instance method)">- (Object) <strong>have_image</strong>(value) </a>
     
 
     
@@ -145,7 +145,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="have_image-instance_method">
   
-    - (<tt>Object</tt>) <strong>have_image</strong>(alt) 
+    - (<tt>Object</tt>) <strong>have_image</strong>(value) 
   
 
   
@@ -167,7 +167,7 @@
   
     <li>
       
-        <span class='name'>alt</span>
+        <span class='name'>value</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -190,15 +190,15 @@
       <pre class="lines">
 
 
-44
-45
-46</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/elabs_matchers/matchers/have_image.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/elabs_matchers/matchers/have_image.rb', line 64</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_have_image'>have_image</span><span class='lparen'>(</span><span class='id identifier rubyid_alt'>alt</span><span class='rparen'>)</span>
-  <span class='const'>HaveImageMatcher</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_alt'>alt</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_have_image'>have_image</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='const'>HaveImageMatcher</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -210,7 +210,7 @@
 </div>
 
     <div id="footer">
-  Generated on Fri Sep 14 18:23:26 2012 by
+  Generated on Wed Sep 19 15:04:26 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.3).
 </div>

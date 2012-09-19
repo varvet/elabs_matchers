@@ -519,7 +519,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_does_not_match?'>does_not_match?</span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='rparen'>)</span>
   <span class='ivar'>@page</span> <span class='op'>=</span> <span class='id identifier rubyid_page'>page</span>
-  <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_has_no_xpath?'>has_no_xpath?</span><span class='lparen'>(</span><span class='id identifier rubyid_xpath'>xpath</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_has_no_selector?'>has_no_selector?</span><span class='lparen'>(</span><span class='id identifier rubyid_selector_type'>selector_type</span><span class='comma'>,</span> <span class='id identifier rubyid_selector'>selector</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -635,7 +635,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_matches?'>matches?</span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='rparen'>)</span>
   <span class='ivar'>@page</span> <span class='op'>=</span> <span class='id identifier rubyid_page'>page</span>
-  <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_has_xpath?'>has_xpath?</span><span class='lparen'>(</span><span class='id identifier rubyid_xpath'>xpath</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_has_selector?'>has_selector?</span><span class='lparen'>(</span><span class='id identifier rubyid_selector_type'>selector_type</span><span class='comma'>,</span> <span class='id identifier rubyid_selector'>selector</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -647,7 +647,7 @@
 </div>
 
     <div id="footer">
-  Generated on Fri Sep 14 18:23:27 2012 by
+  Generated on Wed Sep 19 15:04:28 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.2.1 (ruby-1.9.3).
 </div>
