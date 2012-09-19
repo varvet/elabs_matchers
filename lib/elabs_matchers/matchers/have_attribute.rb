@@ -8,12 +8,12 @@ module ElabsMatchers
 
         def matches?(page)
           @page = page
-          page.has_xpath?(xpath)
+          page.has_selector?(selector_type, selector)
         end
 
         def does_not_match?(page)
           @page = page
-          page.has_no_xpath?(xpath)
+          page.has_no_selector?(selector_type, selector)
         end
 
         def failure_message_for_should
@@ -27,9 +27,17 @@ module ElabsMatchers
 
         private
 
-        def xpath
-          XPath.generate do |x|
-            x.descendant(:p)[x.attr(:class).contains("wrapper")][x.child(:strong).contains(label)][x.contains(value)]
+        def selector_type
+          ElabsMatchers.attribute_selector_type
+        end
+
+        def selector
+          if ElabsMatchers.attribute_selector
+            ElabsMatchers.attribute_selector[label, value]
+          else
+            XPath.generate do |x|
+              x.descendant(:p)[x.attr(:class).contains("wrapper")][x.child(:strong).contains(label)][x.contains(value)]
+            end
           end
         end
       end

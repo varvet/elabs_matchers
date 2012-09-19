@@ -27,6 +27,7 @@ module ElabsMatchers
 
   class << self
     attr_accessor :header_selector, :header_selector_type
+    attr_accessor :attribute_selector, :attribute_selector_type
 
     ##
     #
@@ -41,6 +42,8 @@ module ElabsMatchers
     #
     # [header_selctor = String]           The selector to use when finding header tags (Default: "h1,h2")
     # [header_selector_type = Symbol]     The type of selector to use, :css or :xpath (Default: :css)
+    # [attribute_selector = lambda]       A lambda that takes label and value as arguments and return a selector (Default: see matcher)
+    # [attribute_selector_type = Symbol]  The type of selector to use, :css or :xpath (Default: :xpath)
     #
 
     def configure
@@ -56,6 +59,9 @@ module ElabsMatchers
       configure do |config|
         config.header_selector = "h1,h2"
         config.header_selector_type = :css
+
+        config.attribute_selector = nil
+        config.attribute_selector_type = :xpath
       end
     end
   end
