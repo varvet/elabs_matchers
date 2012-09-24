@@ -1,6 +1,8 @@
 1.0.0:
   * Better error messages
   * Test actual error message texts
+  * Add specs to check that matchers work on any capybara node
+  * Run test suite with other capybara drivers
 
-Things to add:
+New features:
   * Email matchers
