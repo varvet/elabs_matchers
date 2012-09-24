@@ -1,7 +1,7 @@
 module ElabsMatchers
   module Helpers
     module ReloadRecord
-      rspec :type => :model
+      rspec
 
       ##
       #
