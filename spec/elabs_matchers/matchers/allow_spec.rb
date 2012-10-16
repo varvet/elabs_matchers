@@ -8,7 +8,7 @@ describe ElabsMatchers::Matchers::Allow do
   context "with one example value" do
     context "with one attribute" do
       it { should allow("Elabs").as(:title) }
-      it { should_not allow("").as(:title) }
+      it { should_not allow("", []).as(:title) }
 
       it { expect { should allow("").as(:title) }.to fail_assertion }
       it { expect { should_not allow("Elabs").as(:title) }.to fail_assertion }

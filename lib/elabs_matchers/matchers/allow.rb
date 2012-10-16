@@ -82,7 +82,7 @@ module ElabsMatchers
           end
 
           def matches_number_of_errors?(list1, list2 = [])
-            @num_errors == ([*list1] + list2).flatten.length
+            @num_errors == [*list1].concat(list2).length
           end
 
           def attributes?; attributes.length > 1 ; end
