@@ -2,6 +2,7 @@ module ElabsMatchers
   module Helpers
     module SelectYearAndMonth
       rspec :type => :request
+      rspec :type => :feature
 
       ##
       #

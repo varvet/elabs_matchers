@@ -2,6 +2,7 @@ module ElabsMatchers
   module Matchers
     module HaveTableRow
       rspec :type => :request
+      rspec :type => :feature
 
       class HaveTableRowMatcher < Struct.new(:table_name, :row)
         attr_reader :page

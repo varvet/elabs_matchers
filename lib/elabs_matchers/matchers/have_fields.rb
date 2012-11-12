@@ -2,6 +2,7 @@ module ElabsMatchers
   module Matchers
     module HaveFields
       rspec :type => :request
+      rspec :type => :feature
 
       class HaveFieldsMatcher < Struct.new(:fields)
         attr_reader :page

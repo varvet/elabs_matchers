@@ -2,6 +2,7 @@ module ElabsMatchers
   module Matchers
     module HaveFormErrorsOn
       rspec :type => :request
+      rspec :type => :feature
 
       class HaveFormErrorsOnMatcher < Struct.new(:field, :message)
         attr_reader :page

@@ -2,6 +2,7 @@ module ElabsMatchers
   module Matchers
     module HaveImage
       rspec :type => :request
+      rspec :type => :feature
 
       class HaveImageMatcher < Struct.new(:value)
         attr_reader :page

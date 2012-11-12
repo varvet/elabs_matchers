@@ -2,6 +2,7 @@ module ElabsMatchers
   module Matchers
     module HaveFlash
       rspec :type => :request
+      rspec :type => :feature
 
       class HaveFlashMatcher < Struct.new(:type, :message)
         attr_reader :page
