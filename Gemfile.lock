@@ -1,7 +1,9 @@
 PATH
   remote: .
   specs:
-    elabs_matchers (0.0.4)
+    elabs_matchers (0.0.5)
+      rspec-core
+      rspec-expectations
 
 GEM
   remote: http://rubygems.org/

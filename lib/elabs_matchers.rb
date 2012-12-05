@@ -1,11 +1,11 @@
-require "rspec"
+require "rspec/core"
+require "rspec/expectations"
 
 module ElabsMatchers
   require "active_support/core_ext/hash/indifferent_access"
   require "active_support/core_ext/object/blank"
   require "active_support/core_ext/array/conversions"
   require "active_support/inflector"
-  require "rspec"
 
   require "elabs_matchers/extensions/module"
   require "elabs_matchers/helpers/fixtures"
