@@ -89,7 +89,7 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
       before do
         ElabsMatchers.table_row_selector = lambda do |row, table|
           exps = row.map do |header, value|
-            col_index = table.all("th").index { |th| th.text.include?(header.to_s) }
+            col_index = table.all("th").to_a.index { |th| th.text.include?(header.to_s) }
             col_index = if col_index then col_index + 1 else 0 end
 
             XPath.generate do |x|

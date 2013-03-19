@@ -8,7 +8,7 @@ require "elabs_matchers"
 
 RSpec.configure do |config|
   config.mock_with :rspec
-  config.include Capybara
+  config.include Capybara::DSL
 
   %w[helpers matchers].each do |dir|
     Dir[File.join(File.expand_path(File.dirname(__FILE__)), "../lib/elabs_matchers/#{dir}/*.rb")].each do |file|
