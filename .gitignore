@@ -3,3 +3,4 @@ pkg/*
 .bundle
 .yardoc
 bundler_stubs
+Gemfile.lock
