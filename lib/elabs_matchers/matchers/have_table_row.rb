@@ -63,28 +63,30 @@ module ElabsMatchers
         end
 
         def ascii_table
-          if table
-            column_lengths = []
-            table.all("tr").map do |tr|
-              tr.all("td,th").each_with_index do |td, i|
-                size = td_content(td).strip.size
-                if (column_lengths[i] || 0) < size
-                  column_lengths[i] = size
+          synchronize do
+            if table
+              column_lengths = []
+              table.all("tr").map do |tr|
+                tr.all("td,th").each_with_index do |td, i|
+                  size = td_content(td).strip.size
+                  if (column_lengths[i] || 0) < size
+                    column_lengths[i] = size
+                  end
                 end
               end
+
+              table.all("tr").map do |tr|
+                middle = []
+                space = if tr.all("td,th").first.tag_name == "th" then "_" else " " end
+                wall = "|"
+
+                tr.all("td,th").each_with_index do |td, i|
+                  middle << td_content(td).strip.ljust(column_lengths[i], space)
+                end
+
+                [wall, space, middle.join(space + wall + space), space, wall].join
+              end.join("\n")
             end
-
-            table.all("tr").map do |tr|
-              middle = []
-              space = if tr.all("td,th").first.tag_name == "th" then "_" else " " end
-              wall = "|"
-
-              tr.all("td,th").each_with_index do |td, i|
-                middle << td_content(td).strip.ljust(column_lengths[i], space)
-              end
-
-              [wall, space, middle.join(space + wall + space), space, wall].join
-            end.join("\n")
           end
         end
 
@@ -92,6 +94,14 @@ module ElabsMatchers
           text = td.text.presence
           text ||= td.find("input, textarea")[:value] if td.has_css?("input")
           text || ""
+        end
+
+        def synchronize
+          if page.respond_to?(:document)
+            page.document.synchronize { yield }
+          else
+            yield
+          end
         end
       end
 
