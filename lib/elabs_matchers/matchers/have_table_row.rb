@@ -50,7 +50,7 @@ module ElabsMatchers
               end
             end
 
-            XPath.descendant["tr"][exps.reduce(:&)]
+            XPath.descendant(:tr)[exps.reduce(:&)]
           end
         end
 
