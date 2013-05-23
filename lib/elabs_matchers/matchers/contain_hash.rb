@@ -5,7 +5,7 @@ module ElabsMatchers
 
       class ContainHashMatcher < Struct.new(:expected, :actual)
         def matches?(actual)
-          @actual = actual
+          self.actual = actual
           contains?(expected, actual)
         end
 
