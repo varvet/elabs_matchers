@@ -1,10 +1,10 @@
 module ElabsMatchers
   module Matchers
-    module Allow
+    module BeValidWith
       if defined?(ActiveModel)
         rspec :type => :model
 
-        class AllowMatcher
+        class BeValidWithMatcher
           attr_reader :record, :attributes
 
           def initialize(values)
@@ -28,7 +28,7 @@ module ElabsMatchers
           # @param [*Array] attributes     The method name(s) that has the validation(s) attached to it
           #
           # Example:
-          # post.should allow("Elabs").as(:title)
+          # post.should be_valid_with("Elabs").as(:title)
 
           def as(*attributes)
             @attributes = [*attributes]
@@ -41,6 +41,10 @@ module ElabsMatchers
 
           def failure_message_for_should_not
             common_failure_message(:invalid)
+          end
+
+          def description
+            "be valid with #{@values.inspect} as #{@attributes.inspect}"
           end
 
           private
@@ -90,7 +94,7 @@ module ElabsMatchers
           def values     ; [*@values]            ; end
 
           def common_failure_message(match_type)
-            "Expected #{expected_values_explain} to be #{match_type} on #{record.class.model_name.demodulize}'s #{attributes_values_explain} attributes but it wasn't."
+            "Expected #{expected_values_explain} to be #{match_type} on #{record.class.model_name}'s #{attributes_values_explain} attributes but it wasn't."
           end
 
           def expected_values_explain
@@ -109,21 +113,28 @@ module ElabsMatchers
         # @param [*Array] values              Sample value(s) to check the validation against
         #
         # Example:
-        # post.should allow("Elabs").as(:title)
-        # post.should_not allow("").as(:title)
+        # post.should be_valid_with("Elabs").as(:title)
+        # post.should_not be_valid_with("").as(:title)
         #
-        # post.should allow("Elabs").as(:title, :body)
-        # post.should_not allow("").as(:title, :body)
+        # post.should be_valid_with("Elabs").as(:title, :body)
+        # post.should_not be_valid_with("").as(:title, :body)
         #
-        # post.should allow("Elabs", "Sweden").as(:title)
-        # post.should_not allow("", nil).as(:title)
+        # post.should be_valid_with("Elabs", "Sweden").as(:title)
+        # post.should_not be_valid_with("", nil).as(:title)
         #
-        # post.should allow("Elabs", "Sweden").as(:title, :body)
-        # post.should_not allow("", nil).as(:title, :body)
+        # post.should be_valid_with("Elabs", "Sweden").as(:title, :body)
+        # post.should_not be_valid_with("", nil).as(:title, :body)
 
-        def allow(*values)
-          AllowMatcher.new(values)
+        def be_valid_with(*values)
+          BeValidWithMatcher.new(values)
         end
+
+        ##
+        #
+        # This is a DEPRECATED alias for `be_valid_with`. This no longer works
+        # with newer versions of RSpec
+        #
+        alias_method :allow, :be_valid_with
       end
     end
   end

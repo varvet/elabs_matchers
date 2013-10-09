@@ -13,7 +13,7 @@ module ElabsMatchers
   require "elabs_matchers/helpers/reload_record"
   require "elabs_matchers/helpers/select_year_and_month"
 
-  require "elabs_matchers/matchers/allow"
+  require "elabs_matchers/matchers/be_valid_with"
   require "elabs_matchers/matchers/contain_hash"
   require "elabs_matchers/matchers/have_attribute"
   require "elabs_matchers/matchers/have_fields"
