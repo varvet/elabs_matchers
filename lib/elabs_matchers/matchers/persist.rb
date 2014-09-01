@@ -15,13 +15,15 @@ module ElabsMatchers
           @final_value == value
         end
 
-        def failure_message_for_should
+        def failure_message
           "Expected #{attribute} to be persisted and retain its value of #{value.inspect} but the value was #{@final_value.inspect}."
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected #{attribute} not to be persisted and retain its value of #{value.inspect} but it did."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
       end
 
       ##

@@ -9,13 +9,15 @@ module ElabsMatchers
           contains?(expected, actual)
         end
 
-        def failure_message_for_should
+        def failure_message
           "Expected #{expected.inspect} to exist in #{actual.inspect} but it did not."
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected #{expected.inspect} to not exist in #{actual.inspect} but it did."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
 
         private
 

@@ -17,13 +17,15 @@ module ElabsMatchers
           page.has_no_selector?(selector_type, selector, :text => message)
         end
 
-        def failure_message_for_should
+        def failure_message
           "Expected flash #{type} to be '#{message}' but was '#{page.find(selector_type, selector).text}'."
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected flash #{type} to not be '#{message}' but it was."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
 
         private
 

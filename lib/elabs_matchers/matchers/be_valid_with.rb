@@ -35,13 +35,15 @@ module ElabsMatchers
             self
           end
 
-          def failure_message_for_should
+          def failure_message
             common_failure_message(:valid)
           end
+          alias_method :failure_message_for_should, :failure_message
 
-          def failure_message_for_should_not
+          def failure_message_when_negated
             common_failure_message(:invalid)
           end
+          alias_method :failure_message_for_should_not, :failure_message_when_negated
 
           def description
             "be valid with #{@values.inspect} as #{@attributes.inspect}"

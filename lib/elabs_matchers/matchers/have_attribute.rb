@@ -17,14 +17,16 @@ module ElabsMatchers
           page.has_no_selector?(selector_type, selector)
         end
 
-        def failure_message_for_should
+        def failure_message
           attributes = page.all(:css, "li.wrapper").map(&:text).to_sentence
           "expected there to be an attribute #{label}: #{value}, but the only attributes were: #{attributes}."
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "expected there to be no attribute #{label}: #{value}, but there was."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
 
         private
 

@@ -17,7 +17,7 @@ module ElabsMatchers
           page.has_no_selector?(selector_type, selector)
         end
 
-        def failure_message_for_should
+        def failure_message
           images = page.all("img").map do |image|
             hash = {}
             hash[:alt]   = image[:alt]   if image[:alt].present?
@@ -33,10 +33,12 @@ module ElabsMatchers
             "expected to find image '#{value}' but only had the images: #{images}."
           end
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "expected image not to be '#{value}' but it was."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
 
         private
 

@@ -13,13 +13,15 @@ module ElabsMatchers
           elements.all? { |element| actual.include?(element) }
         end
 
-        def failure_message_for_should
+        def failure_message
           "Expected #{actual.inspect} to only include #{elements.inspect}."
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected #{actual.inspect} to not only include #{elements.inspect}, but it did."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
       end
 
       ##

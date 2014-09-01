@@ -17,13 +17,15 @@ module ElabsMatchers
           !table or table.has_no_selector?(selector_type, selector)
         end
 
-        def failure_message_for_should
+        def failure_message
           "Expected #{row.inspect} to be included in the table #{table_name}, but it wasn't:\n\n#{ascii_table}"
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected there to be no table #{table_name} with row #{row.inspect}, but there was.\n\n#{ascii_table}"
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
 
         private
 

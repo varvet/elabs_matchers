@@ -20,7 +20,7 @@ module ElabsMatchers
           page.has_no_field?(field) || page.find_field(field).has_no_selector?(selector_type, selector, :text => message)
         end
 
-        def failure_message_for_should
+        def failure_message
           if page.has_field?(field)
             error = page.find_field(field).all(selector_type, selector).first
             if not error
@@ -32,10 +32,12 @@ module ElabsMatchers
             "No such field #{field}."
           end
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected error message on '#{field}' not to be '#{message}' but it was."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
 
         private
 

@@ -17,16 +17,18 @@ module ElabsMatchers
           fields.all? { |label, value| page.has_no_field?(label, :with => value) }
         end
 
-        def failure_message_for_should
+        def failure_message
           field_values = page.all("input, textarea").map { |input| input[:value] }
 
           "expected page to have the fields #{fields.inspect}, but it didn't.
            The fields on the page had the following values: #{field_values.to_sentence}."
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "expected page not to have the fields #{fields.inspect}, but it did."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
       end
 
       ##

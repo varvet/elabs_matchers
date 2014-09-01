@@ -17,14 +17,16 @@ module ElabsMatchers
           page.has_no_selector?(selector_type, selector, :text => text)
         end
 
-        def failure_message_for_should
+        def failure_message
           headers = page.all(selector_type, selector).map { |h| "'#{h.text}'" }.to_sentence
           "Expected header to be '#{text}' but it had the headers #{headers}."
         end
+        alias_method :failure_message_for_should, :failure_message
 
-        def failure_message_for_should_not
+        def failure_message_when_negated
           "Expected header not to be '#{text}' but it was."
         end
+        alias_method :failure_message_for_should_not, :failure_message_when_negated
 
         private
 
