@@ -130,13 +130,6 @@ module ElabsMatchers
         def be_valid_with(*values)
           BeValidWithMatcher.new(values)
         end
-
-        ##
-        #
-        # This is a DEPRECATED alias for `be_valid_with`. This no longer works
-        # with newer versions of RSpec
-        #
-        alias_method :allow, :be_valid_with
       end
     end
   end
