@@ -6,8 +6,6 @@ require "capybara"
 require "active_model"
 require "elabs_matchers"
 
-I18n.enforce_available_locales = true
-
 RSpec.configure do |config|
   config.mock_with :rspec
   config.include Capybara::DSL
@@ -16,9 +14,7 @@ RSpec.configure do |config|
     c.syntax = [:should, :expect]
   end
 
-  config.mock_with :rspec do |c|
-    c.syntax = [:should, :expect]
-  end
+  config.mock_with :rspec
 
   %w[helpers matchers].each do |dir|
     Dir[File.join(File.expand_path(File.dirname(__FILE__)), "../lib/elabs_matchers/#{dir}/*.rb")].each do |file|

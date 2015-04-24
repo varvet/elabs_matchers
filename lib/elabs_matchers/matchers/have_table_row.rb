@@ -57,10 +57,14 @@ module ElabsMatchers
         end
 
         def table
-          table_xpath = XPath::HTML.table(table_name)
+          if table_name.respond_to?(:tag_name) and table_name.tag_name == "table"
+            table_name
+          else
+            table_xpath = XPath::HTML.table(table_name)
 
-          if page.has_xpath?(table_xpath)
-            page.find(:xpath, table_xpath)
+            if page.has_xpath?(table_xpath)
+              page.find(:xpath, table_xpath)
+            end
           end
         end
 

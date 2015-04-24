@@ -7,7 +7,7 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
       <thead>
         <tr><th>Title</th><th>Author</th></tr>
       </thead>} }
-    subject { Capybara.string("<table>" + header + "<tbody>" + html + "</tbody></table>") }
+    subject(:dom) { Capybara.string("<table>" + header + "<tbody>" + html + "</tbody></table>") }
 
     shared_examples "a table row matcher" do
       it "returns true when the one of the pairs in the row exists" do
@@ -54,6 +54,16 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
         should_not have_table_row("Other", "Title" => "First")
         expect { should_not have_table_row("Posts", "Title" => "First") }.to fail_assertion
       end
+
+      it "returns true if given table element matches given rows" do
+        should have_table_row(dom.find("table"), "Title" => "First", "Author" => "Adam")
+        expect { should_not have_table_row(dom.find("table"), "Title" => "First", "Author" => "Adam") }.to fail_assertion
+      end
+
+      it "returns false if given table element doesn't match given rows" do
+        should_not have_table_row(dom.find("table"), "Title" => "First", "Author" => "Per")
+        expect { should have_table_row(dom.find("table"), "Title" => "First", "Author" => "Per") }.to fail_assertion
+      end
     end
 
     context "with text node values" do
@@ -85,7 +95,7 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
       end
     end
 
-    context "configured with xpath selecto" do
+    context "configured with xpath selector" do
       before do
         ElabsMatchers.table_row_selector = lambda do |row, table|
           exps = row.map do |header, value|
