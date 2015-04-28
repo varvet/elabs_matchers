@@ -115,7 +115,9 @@ module ElabsMatchers
 
         def td_content(td)
           text = td.text.presence
-          text ||= td.find("input, textarea")[:value] if td.has_css?("input")
+          text ||= if form_element = td.first("input, textarea")
+            form_element[:value].presence
+          end
           text || ""
         end
 
@@ -140,7 +142,11 @@ module ElabsMatchers
         end
 
         def has_selector?
-          table and table.has_selector?(selector_type, selector)
+          if @has_selector == nil
+            @has_selector = (table and table.has_selector?(selector_type, selector))
+          else
+            @has_selector
+          end
         end
 
         def strict_match_row_message
