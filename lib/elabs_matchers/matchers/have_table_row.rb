@@ -51,64 +51,70 @@ module ElabsMatchers
         end
 
         def selector
-          if ElabsMatchers.table_row_selector
-            ElabsMatchers.table_row_selector[row, table]
-          else
-            exps = row.map do |header, value|
-              col_index = table.all("th").to_a.index { |th| th.text.include?(header.to_s) }
-              col_index = if col_index then col_index + 1 else 0 end
+          @selector ||= begin
+            if ElabsMatchers.table_row_selector
+              ElabsMatchers.table_row_selector[row, table]
+            else
+              exps = row.map do |header, value|
+                col_index = table.all("th").to_a.index { |th| th.text.include?(header.to_s) }
+                col_index = if col_index then col_index + 1 else 0 end
 
-              XPath.generate do |x|
-                cell = x.child(:td, :th)[col_index.to_s.to_sym]
+                XPath.generate do |x|
+                  cell = x.child(:td, :th)[col_index.to_s.to_sym]
 
-                if value.blank?
-                  cell["not(node())".to_sym].or(cell.descendant(:input)["string-length(normalize-space(@value))=0".to_sym])
-                else
-                  cell[x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
+                  if value.blank?
+                    cell["not(node())".to_sym].or(cell.descendant(:input)["string-length(normalize-space(@value))=0".to_sym])
+                  else
+                    cell[x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
+                  end
                 end
               end
-            end
 
-            XPath.descendant(:tr)[exps.reduce(:&)]
+              XPath.descendant(:tr)[exps.reduce(:&)]
+            end
           end
         end
 
         def table
-          if table_name.respond_to?(:tag_name) and table_name.tag_name == "table"
-            table_name
-          else
-            table_xpath = XPath::HTML.table(table_name)
+          @table ||= begin
+            if table_name.respond_to?(:tag_name) and table_name.tag_name == "table"
+              table_name
+            else
+              table_xpath = XPath::HTML.table(table_name)
 
-            if page.has_xpath?(table_xpath)
-              page.find(:xpath, table_xpath)
+              if page.has_xpath?(table_xpath)
+                page.find(:xpath, table_xpath)
+              end
             end
           end
         end
 
         def ascii_table
-          synchronize do
-            if table
-              column_lengths = []
-              table.all("tr").map do |tr|
-                tr.all("td,th").each_with_index do |td, i|
-                  size = td_content(td).strip.size
-                  if (column_lengths[i] || 0) < size
-                    column_lengths[i] = size
+          @ascii_table ||= begin
+            synchronize do
+              if table
+                column_lengths = []
+                table.all("tr").map do |tr|
+                  tr.all("td,th").each_with_index do |td, i|
+                    size = td_content(td).strip.size
+                    if (column_lengths[i] || 0) < size
+                      column_lengths[i] = size
+                    end
                   end
                 end
+
+                table.all("tr").map do |tr|
+                  middle = []
+                  space = if tr.all("td,th").first.tag_name == "th" then "_" else " " end
+                  wall = "|"
+
+                  tr.all("td,th").each_with_index do |td, i|
+                    middle << td_content(td).strip.ljust(column_lengths[i], space)
+                  end
+
+                  [wall, space, middle.join(space + wall + space), space, wall].join
+                end.join("\n")
               end
-
-              table.all("tr").map do |tr|
-                middle = []
-                space = if tr.all("td,th").first.tag_name == "th" then "_" else " " end
-                wall = "|"
-
-                tr.all("td,th").each_with_index do |td, i|
-                  middle << td_content(td).strip.ljust(column_lengths[i], space)
-                end
-
-                [wall, space, middle.join(space + wall + space), space, wall].join
-              end.join("\n")
             end
           end
         end
@@ -122,18 +128,22 @@ module ElabsMatchers
         end
 
         def table_headers
-          table.all("th").map(&:text)
+          @table_headers ||= table.all("th").map(&:text)
         end
 
         def row_values
-          table.find(selector_type, selector).all("td").map do |td|
-            td_content(td)
+          @row_values ||= begin
+            table.find(selector_type, selector).all("td").map do |td|
+              td_content(td)
+            end
           end
         end
 
         def to_hash
-          if table and table.has_selector?(selector_type, selector)
-            table_headers.zip(row_values).to_h
+          @to_hash ||= begin
+            if table and table.has_selector?(selector_type, selector)
+              table_headers.zip(row_values).to_h
+            end
           end
         end
 
