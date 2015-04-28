@@ -133,7 +133,7 @@ module ElabsMatchers
 
         def row_values
           @row_values ||= begin
-            table.find(selector_type, selector).all("td").map do |td|
+            real.all("td").map do |td|
               td_content(td)
             end
           end
@@ -150,10 +150,12 @@ module ElabsMatchers
         end
 
         def has_selector?
-          if @has_selector == nil
-            @has_selector = (table and table.has_selector?(selector_type, selector))
-          else
-            @has_selector
+          !!real
+        end
+
+        def real
+          @real ||= begin
+            table.first(selector_type, selector) if table
           end
         end
 
