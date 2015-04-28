@@ -141,9 +141,7 @@ module ElabsMatchers
 
         def to_hash
           @to_hash ||= begin
-            if table and table.has_selector?(selector_type, selector)
-              table_headers.zip(row_values).to_h
-            end
+            table_headers.zip(row_values).to_h if has_selector?
           end
         end
 
