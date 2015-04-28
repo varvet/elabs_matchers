@@ -55,14 +55,33 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
         expect { should_not have_table_row("Posts", "Title" => "First") }.to fail_assertion
       end
 
-      it "returns true if given table element matches given rows" do
-        should have_table_row(dom.find("table"), "Title" => "First", "Author" => "Adam")
-        expect { should_not have_table_row(dom.find("table"), "Title" => "First", "Author" => "Adam") }.to fail_assertion
+      context "given table element" do
+        it "returns true when the all of the pairs in the row exists" do
+          should have_table_row(dom.find("table"), "Title" => "First", "Author" => "Adam")
+          expect { should_not have_table_row(dom.find("table"), "Title" => "First", "Author" => "Adam") }.to fail_assertion
+        end
+
+        it "returns false when on of the pairs is wrong" do
+          should_not have_table_row(dom.find("table"), "Title" => "First", "Author" => "Per")
+          expect { should have_table_row(dom.find("table"), "Title" => "First", "Author" => "Per") }.to fail_assertion
+        end
       end
 
-      it "returns false if given table element doesn't match given rows" do
-        should_not have_table_row(dom.find("table"), "Title" => "First", "Author" => "Per")
-        expect { should have_table_row(dom.find("table"), "Title" => "First", "Author" => "Per") }.to fail_assertion
+      context "with strict option" do
+        it "returns true when matching all columns" do
+          should have_table_row(dom.find("table"), { "Title" => "First", "Author" => "Adam" }, strict: true)
+          expect { should_not have_table_row(dom.find("table"), { "Title" => "First", "Author" => "Adam" }, strict: true) }.to fail_assertion
+        end
+
+        it "returns false when not matching all columns" do
+          should_not have_table_row(dom.find("table"), { "Title" => "First" }, strict: true)
+          expect { should have_table_row(dom.find("table"), { "Title" => "First" }, strict: true) }.to fail_assertion
+        end
+
+        it "returns false when matching all columns but content is partial" do
+          should_not have_table_row(dom.find("table"), { "Title" => "First", "Author" => "Ada" }, strict: true)
+          expect { should have_table_row(dom.find("table"), { "Title" => "First", "Author" => "Ada" }, strict: true) }.to fail_assertion
+        end
       end
     end
 
