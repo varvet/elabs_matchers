@@ -12,7 +12,7 @@ describe ElabsMatchers::Matchers::Persist do
     end
 
     it "returns false if the value isn't the supplied" do
-      post.stub(:title).and_return("New")
+      allow(post).to receive(:title).and_return("New")
 
       should_not persist(:title, "Updated")
       expect { should persist(:title, "Updated") }.to fail_assertion
