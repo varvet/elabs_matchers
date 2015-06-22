@@ -38,14 +38,13 @@ module ElabsMatchers
             ElabsMatchers.table_row_selector[row, table]
           else
             exps = row.map do |header, value|
-              col_index = table.all("th").to_a.index { |th| th.text.include?(header.to_s) }
-              col_index = if col_index then col_index + 1 else 0 end
-
               XPath.generate do |x|
-                cell = x.child(:td, :th)[col_index.to_s.to_sym]
+                header = x.axis(:ancestor, :table).descendant(:th)[x.string.n.is(header.to_s)]
+
+                cell = x.child(:td, :th)[header][:"position() = (count(#{header.axis(:"preceding-sibling")}) + 1)"]
 
                 if value.blank?
-                  cell["not(node())".to_sym].or(cell.descendant(:input)["string-length(normalize-space(@value))=0".to_sym])
+                  cell["not(node())".to_sym].or(cell.descendant(:input)[:"string-length(normalize-space(@value))=0"])
                 else
                   cell[x.contains(value).or(x.descendant(:input)[x.attr(:value).contains(value)])]
                 end

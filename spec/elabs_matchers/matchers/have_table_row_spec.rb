@@ -11,7 +11,7 @@ describe ElabsMatchers::Matchers::HaveTableRow, :type => :feature do
 
     shared_examples "a table row matcher" do
       it "returns true when the one of the pairs in the row exists" do
-        should have_table_row("Posts", "Title" => "First")
+        should have_table_row("Posts", "Author" => "Adam")
         expect { should have_table_row("Posts", "Foo" => "First") }.to fail_assertion
       end
 
