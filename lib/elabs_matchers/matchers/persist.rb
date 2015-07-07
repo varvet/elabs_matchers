@@ -24,6 +24,10 @@ module ElabsMatchers
           "Expected #{attribute} not to be persisted and retain its value of #{value.inspect} but it did."
         end
         alias_method :failure_message_for_should_not, :failure_message_when_negated
+
+        def description
+          "persist #{attribute}"
+        end
       end
 
       ##
