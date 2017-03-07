@@ -10,7 +10,7 @@ It is important to know that this gem aims to extend rspec / capybara with more 
 makes any of elabs matchers' matchers obsolete they will be deprecated and removed from elabs matchers.
 
 Below follows a list of matchers that the gem bundles. To get documentation about each matcher the source code is
-your bast friend at this point.
+your best friend at this point.
 
 The gem's api should be consider subject to change on any level until version 1.0
 
