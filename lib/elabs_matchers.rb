@@ -21,7 +21,6 @@ module ElabsMatchers
   require "elabs_matchers/matchers/have_form_errors_on"
   require "elabs_matchers/matchers/have_header"
   require "elabs_matchers/matchers/have_image"
-  require "elabs_matchers/matchers/have_table_row"
   require "elabs_matchers/matchers/only_include"
   require "elabs_matchers/matchers/persist"
 

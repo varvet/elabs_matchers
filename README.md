@@ -44,7 +44,7 @@ page.should have_form_errors_on("Name", "Can't be blank")
 page.should have_header("Elabs")
 page.should have_image("Logo")
 page.should have_fields("Author" => "Adam", "Year" => "2011")
-page.should have_table_row("Posts", "Title" => "First", :year => "2012")
+page.should have_table_row("Posts", "Title" => "First", :year => "2012") # Moved to https://github.com/jnicklas/capybara_table
 page.should have_attribute("Status", "Pending")
 ```
 
