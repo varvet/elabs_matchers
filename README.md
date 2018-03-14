@@ -12,8 +12,6 @@ makes any of elabs matchers' matchers obsolete they will be deprecated and remov
 Below follows a list of matchers that the gem bundles. To get documentation about each matcher the source code is
 your best friend at this point.
 
-The gem's api should be consider subject to change on any level until version 1.0
-
 ## Setup
 
 add elabs_matchers to your Gemfile:
