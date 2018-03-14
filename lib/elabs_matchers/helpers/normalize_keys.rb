@@ -19,7 +19,7 @@ module ElabsMatchers
 
       def normalize_keys(hash)
         hash.inject(HashWithIndifferentAccess.new) do |new_hash, (key, value)|
-          new_hash[key.parameterize("_")] = value
+          new_hash[key.parameterize(separator: "_")] = value
           new_hash
         end
       end
