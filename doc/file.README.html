@@ -1,23 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.2.1
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+  pathId = "README";
   relpath = '';
-  framesUrl = "frames.html#!" + escape(window.location.href);
 </script>
 
 
@@ -28,154 +27,162 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="_index.html">Index</a> &raquo; 
     <span class="title">File: README</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
+      <div id="content"><div id='filecontents'>
+<h1 id="label-Elabs+matchers">Elabs matchers</h1>
 
-    <div id="content"><div id='filecontents'><h1>Elabs matchers</h1>
+<p><a href="http://travis-ci.org/elabs/elabs_matchers"><img
+src="https://secure.travis-ci.org/elabs/elabs_matchers.png"></a></p>
 
-<p><a href="http://travis-ci.org/elabs/elabs_matchers"><img src="https://secure.travis-ci.org/elabs/elabs_matchers.png" alt="Build Status"></a></p>
+<p>Elabs matchers aims to extend existing rspec matchers from e.g Rspec,
+Rspec-rails and Capybara with a set of less generic once. This could be
+things like asserting a table appearing in a certain way or check that an
+active record instance has been successfully persisted after an update.</p>
 
-<p>Elabs matchers aims to extend existing rspec matchers from e.g Rspec, Rspec-rails and Capybara with a set
-of less generic once. This could be things like asserting a table appearing in a certain way or check that
-an active record instance has been successfully persisted after an update.</p>
+<p>It is important to know that this gem aims to extend rspec / capybara with
+more matchers. If functionality in either of theses makes any of elabs
+matchers&#39; matchers obsolete they will be deprecated and removed from
+elabs matchers.</p>
 
-<p>It is important to know that this gem aims to extend rspec / capybara with more matchers. If functionality in either of theses
-makes any of elabs matchers&#39; matchers obsolete they will be deprecated and removed from elabs matchers.</p>
+<p>Below follows a list of matchers that the gem bundles. To get documentation
+about each matcher the source code is your best friend at this point.</p>
 
-<p>Below follows a list of matchers that the gem bundles. To get documentation about each matcher the source code is
-your bast friend at this point.</p>
+<p>The gem&#39;s api should be consider subject to change on any level until
+version 1.0</p>
 
-<h2>Setup</h2>
+<h2 id="label-Setup">Setup</h2>
 
 <p>add elabs_matchers to your Gemfile:</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>elabs_matchers</span><span class='tstring_end'>&quot;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>elabs_matchers</span><span class='tstring_end'>&quot;</span></span>
 </code></pre>
 
-<h3>Model matchers:</h3>
+<h3 id="label-Model+matchers-3A">Model matchers:</h3>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_allow'>allow</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Blog post</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_as'>as</span><span class='lparen'>(</span><span class='symbol'>:title</span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_be_valid_with'>be_valid_with</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Blog post</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_as'>as</span><span class='lparen'>(</span><span class='symbol'>:title</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_contain_hash'>contain_hash</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>baz</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_array'>array</span><span class='period'>.</span><span class='id identifier rubyid_only_include'>only_include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_record'>record</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_persist'>persist</span><span class='lparen'>(</span><span class='symbol'>:title</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Blog post</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
-<h3>Model helpers:</h3>
+<h3 id="label-Model+helpers-3A">Model helpers:</h3>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_reload'>reload</span><span class='lparen'>(</span><span class='id identifier rubyid_post'>post</span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_reload'>reload</span><span class='lparen'>(</span><span class='id identifier rubyid_post'>post</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_save_and_reload'>save_and_reload</span><span class='lparen'>(</span><span class='id identifier rubyid_post'>post</span><span class='rparen'>)</span>
 </code></pre>
 
-<h3>Acceptance matchers:</h3>
+<h3 id="label-Acceptance+matchers-3A">Acceptance matchers:</h3>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_flash_notice'>have_flash_notice</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Success</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_flash_notice'>have_flash_notice</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Success</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_flash_alert'>have_flash_alert</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_form_errors_on'>have_form_errors_on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can't be blank</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_form_errors_on'>have_form_errors_on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can&#39;t be blank</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_header'>have_header</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Elabs</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_image'>have_image</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Logo</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_fields'>have_fields</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Author</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Adam</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Year</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2011</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_table_row'>have_table_row</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Posts</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Title</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>First</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:year</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2012</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_attribute'>have_attribute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Status</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Pending</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_table_row'>have_table_row</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Posts</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Title</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>First</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:year</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2012</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># Moved to https://github.com/jnicklas/capybara_table
+</span><span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_have_attribute'>have_attribute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Status</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Pending</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
-<h3>Acceptance helpers:</h3>
+<h3 id="label-Acceptance+helpers-3A">Acceptance helpers:</h3>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_select_year_and_month'>select_year_and_month</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2010</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>March</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:from</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Birth date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_select_year_and_month'>select_year_and_month</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2010</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>March</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:from</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Birth date</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
-<h3>Common helpers:</h3>
+<h3 id="label-Common+helpers-3A">Common helpers:</h3>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_normalize_keys'>normalize_keys</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>First name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Adam</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_normalize_keys'>normalize_keys</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>First name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Adam</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_fixture_file'>fixture_file</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>file.txt</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
-<h2>Configuration</h2>
+<h2 id="label-Configuration">Configuration</h2>
 
 <p>Matchers can be configured in e.g your spec_helper.rb-file:</p>
 
-<pre class="code ruby"><code><span class='const'>ElabsMatchers</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="ElabsMatchers.html" title="ElabsMatchers (module)">ElabsMatchers</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="ElabsMatchers.html#configure-class_method" title="ElabsMatchers.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_header_selector'>header_selector</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>//h1</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_header_selector_type'>header_selector_type</span> <span class='op'>=</span> <span class='symbol'>:xpath</span>
-  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_image_selector'>image_selector</span> <span class='op'>=</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_src'>src</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>img[src='</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_src'>src</span><span class='rbrace'>}</span><span class='tstring_content'>']</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_image_selector'>image_selector</span> <span class='op'>=</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_src'>src</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>img[src=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_src'>src</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;]</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
 <span class='kw'>end</span>
 </code></pre>
 
-<p>See <a href="https://github.com/elabs/elabs_matchers/blob/master/lib/elabs_matchers.rb">elabs_matchers.rb</a></p>
+<p>See <a
+href="https://github.com/elabs/elabs_matchers/blob/master/lib/elabs_matchers.rb">elabs_matchers.rb</a></p>
 
-<h2>More</h2>
+<h2 id="label-More">More</h2>
 
-<p>The gem includes YARD documentation which can be read with any browser.
-The gem&#39;s test suite should also serve as detailed documentation for each matcher and helper.</p>
+<p>The gem includes YARD documentation which can be read with any browser. The
+gem&#39;s test suite should also serve as detailed documentation for each
+matcher and helper.</p>
 
-<h2>Development</h2>
+<h2 id="label-Development">Development</h2>
 
-<p>See <a href="https://github.com/elabs/elabs_matchers/blob/master/development.rb">devlopment.txt</a></p>
+<p>See <a
+href="https://github.com/elabs/elabs_matchers/blob/master/development.rb">devlopment.txt</a></p>
 
-<h2>Contributors</h2>
+<h2 id="label-Contributors">Contributors</h2>
 
 <p>So far the code base is a joined effort by everyone at Elabs.</p>
 
-<h2>License:</h2>
+<h2 id="label-License-3A">License:</h2>
 
 <p>(The MIT License)</p>
 
-<p>Copyright (c) 2012 Elabs AB</p>
+<p>Copyright © 2012 Elabs AB</p>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining
- a copy of this software and associated documentation files (the
- &quot;Software&quot;), to deal in the Software without restriction, including
- without limitation the rights to use, copy, modify, merge, publish,
- distribute, sublicense, and/or sell copies of the Software, and to
- permit persons to whom the Software is furnished to do so, subject to
- the following conditions:</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining  a
+copy of this software and associated documentation files (the  “Software”),
+to deal in the Software without restriction, including  without limitation
+the rights to use, copy, modify, merge, publish,  distribute, sublicense,
+and/or sell copies of the Software, and to  permit persons to whom the
+Software is furnished to do so, subject to  the following conditions:</p>
 
-<p>The above copyright notice and this permission notice shall be
- included in all copies or substantial portions of the Software.</p>
+<p>The above copyright notice and this permission notice shall be  included in
+all copies or substantial portions of the Software.</p>
 
-<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,  EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF  MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY  CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE  SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
-    <div id="footer">
-  Generated on Wed Sep 19 15:04:26 2012 by
+      <div id="footer">
+  Generated on Wed Mar 14 09:50:40 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.2.1 (ruby-1.9.3).
+  0.9.12 (ruby-2.4.1).
 </div>
 
+    </div>
   </body>
 </html>
