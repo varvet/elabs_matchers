@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] = "test"
 require "rubygems"
 require "bundler/setup"
 require "capybara"
+require "capybara/dsl"
 require "active_model"
 require "elabs_matchers"
 
