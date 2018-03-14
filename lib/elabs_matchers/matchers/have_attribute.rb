@@ -3,6 +3,7 @@ module ElabsMatchers
     module HaveAttribute
       rspec :type => :request
       rspec :type => :feature
+      rspec :type => :system
 
       class HaveAttributeMatcher < Struct.new(:label, :value)
         attr_reader :page

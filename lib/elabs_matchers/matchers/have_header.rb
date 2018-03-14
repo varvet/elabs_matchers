@@ -3,6 +3,7 @@ module ElabsMatchers
     module HaveHeader
       rspec :type => :request
       rspec :type => :feature
+      rspec :type => :system
 
       class HaveHeaderMatcher < Struct.new(:text)
         attr_reader :page
