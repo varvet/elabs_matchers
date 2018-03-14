@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Everyone at Elabs"]
   s.email       = ["dev@elabs.se"]
   s.homepage    = "http://github.com/elabs/elabs_matchers"
-  s.summary     = %q{Provides a set of usefull rspec matchers}
-  s.description = %q{Provides a set of usefull rspec matchers to be used with RSpec and/or Capybara}
+  s.summary     = %q{Provides a set of useful rspec matchers}
+  s.description = %q{Provides a set of useful rspec matchers to be used with RSpec and/or Capybara}
 
   s.rubyforge_project = "elabs_matchers"
 
