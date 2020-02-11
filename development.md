@@ -1,5 +1,5 @@
 ## Setting up:
-#
+
 1. Fork the gem
 2. Clone you fork to your local machine
 3. Run:
@@ -8,7 +8,7 @@
    rspec
 
 ## Pull requests:
-#
+
 Pull requests are appreciated. Before submitting please consider the following:
 
 * Public methods are documented.
