@@ -79,7 +79,7 @@ The gem's test suite should also serve as detailed documentation for each matche
 
 ## Development
 
-See [devlopment.txt](https://github.com/elabs/elabs_matchers/blob/master/development.rb)
+See [development.md](https://github.com/elabs/elabs_matchers/blob/master/development.md)
 
 ## Contributors
 
