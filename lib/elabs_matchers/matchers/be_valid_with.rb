@@ -83,7 +83,7 @@ module ElabsMatchers
             record.valid?
 
             attributes.map do |attribute|
-              record.errors.keys.include?(attribute)
+              record.errors.attribute_names.include?(attribute)
             end
           end
 
