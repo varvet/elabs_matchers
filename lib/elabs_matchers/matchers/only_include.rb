@@ -7,6 +7,8 @@ module ElabsMatchers
         attr_reader :actual
 
         def matches?(actual)
+          deprecated
+
           @actual = actual
           elements.uniq.length == elements.length and
           actual.length == elements.length and
@@ -22,6 +24,14 @@ module ElabsMatchers
           "Expected #{actual.inspect} to not only include #{elements.inspect}, but it did."
         end
         alias_method :failure_message_for_should_not, :failure_message_when_negated
+
+        private
+
+        def deprecated
+          warn %Q{
+            [DEPRECATION] `only_include` is deprecated.  Please use rspec's `contain_exactly` instead. Called from #{Kernel.caller.first}
+          }
+        end
       end
 
       ##
