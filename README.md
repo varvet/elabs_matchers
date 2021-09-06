@@ -24,7 +24,6 @@ gem "elabs_matchers"
 ```ruby
 record.should be_valid_with("Blog post").as(:title)
 hash.contain_hash({ "baz" => "bar" })
-array.only_include("bar", "foo")
 record.should persist(:title, "Blog post")
 ```
 
