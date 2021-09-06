@@ -1,3 +1,9 @@
+# Version 2.0.1
+
+- Use `attribute_names` in favor of `keys` due to Rails 6.1 deprecation (#8)
+- Deprecate `only_include` in favor of Rspec's own (#10)
+- Documentation and file-name fixes (#7)
+
 # Version 2.0.0
 
 ### Changed
